@@ -1,9 +1,10 @@
 express = require 'express'
 http = require 'http'
 config = require './config'
+env = require 'node-env-file'
+env('./clever-creds.env')
 
 module.exports = () ->
-
   app = express()
 
   app.set 'view engine', 'jade'
