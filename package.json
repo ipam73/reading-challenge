@@ -1,0 +1,9 @@
+{
+  "name": "reading-challenge",
+  "dependencies": {
+    "async": "~0.9.0",
+    "express": "^4.13.4",
+    "jade": "^1.11.0",
+    "underscore": "^1.8.3"
+  }
+}
