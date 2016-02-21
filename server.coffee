@@ -1,17 +1,47 @@
 express = require 'express'
+session = require 'express-session'
 http = require 'http'
 config = require './config'
 env = require 'node-env-file'
 env('./clever-creds.env')
 
+ensure_logged_in = (req, res, next) ->
+  # doesn't work right now
+  return res.redirect '/login' unless req.session?.user
+  next()
+
 module.exports = () ->
   app = express()
+
+  session_opts =
+    secret: config.SESSION_SECRET
+    fingerprint: -> ""
+    proxy: true
+    cookie: httpOnly: true
+    key: "reading-challenge-development.sid"
+    saveUninitialized: true
+    resave: false
+  app.use session(session_opts)
+
+  # if is_production
+  #   redirect_uri = "https://#{config.HOST}/oauth"
+  # else
+  redirect_uri = "http://#{config.HOST}:#{config.PORT}/oauth"
+
+  auth_routes = require("#{__dirname}/pages/auth/routes") config.CLIENT_ID, config.CLIENT_SECRET, redirect_uri, config.SESSION_SECRET, config.AUTH_URL, config.API_URL
+  main_routes = require("#{__dirname}/pages/main/routes")()
+
+  app.use express.static(__dirname + '/public')
 
   app.set 'view engine', 'jade'
   app.set 'views', './views'
   app.set 'view engine', 'jade'
 
-  main_routes = require('./main/routes')()
+  app.get '/oauth', auth_routes.oauth
+  app.get '/login', auth_routes.login
+
+  # All routes before this can be accessed without being logged in
+  app.use ensure_logged_in
   app.get '/', main_routes.homepage
 
   http.createServer(app).listen config.PORT, ->

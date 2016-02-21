@@ -6,6 +6,6 @@ module.exports = (appasaurus_client, metrics) ->
   homepage: (req, res, next) ->
     name = "user"
     locals =
-      name: name
+      name: req.session.user.name
 
     res.render "homepage", locals

@@ -1,3 +1,6 @@
 node_modules
-.env
-config.cofffee
+*.env
+config.coffee
+public/build/*
+*.DS_Store
+
