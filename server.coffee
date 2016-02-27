@@ -6,8 +6,7 @@ env = require 'node-env-file'
 env('./clever-creds.env')
 
 ensure_logged_in = (req, res, next) ->
-  # doesn't work right now
-  return res.redirect '/login' unless req.session?.user
+  # return res.redirect '/login' unless req.session?.user
   next()
 
 module.exports = () ->
@@ -29,7 +28,8 @@ module.exports = () ->
   redirect_uri = "http://#{config.HOST}:#{config.PORT}/oauth"
 
   auth_routes = require("#{__dirname}/pages/auth/routes") config.CLIENT_ID, config.CLIENT_SECRET, redirect_uri, config.SESSION_SECRET, config.AUTH_URL, config.API_URL
-  main_routes = require("#{__dirname}/pages/main/routes")()
+  main_metrics_routes = require("#{__dirname}/pages/main-metrics/routes")()
+  main_parent_routes = require("#{__dirname}/pages/main-parent/routes")()
 
   app.use express.static(__dirname + '/public')
 
@@ -39,10 +39,15 @@ module.exports = () ->
 
   app.get '/oauth', auth_routes.oauth
   app.get '/login', auth_routes.login
+  app.get '/logout', auth_routes.logout
+
+  # parent route, should only see if a parent
+  app.get '/parent', main_parent_routes.homepage
+  app.get '/addstudent', auth_routes.addstudent
 
   # All routes before this can be accessed without being logged in
   app.use ensure_logged_in
-  app.get '/', main_routes.homepage
+  app.get '/', main_metrics_routes.homepage
 
   http.createServer(app).listen config.PORT, ->
     console.log "reading-challenge listening on port #{config.PORT}"

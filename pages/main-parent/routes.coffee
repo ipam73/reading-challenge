@@ -4,8 +4,11 @@ async = require 'async'
 module.exports = (appasaurus_client, metrics) ->
 
   homepage: (req, res, next) ->
-    name = "user"
     locals =
-      name: req.session.user.name
+      bootstrap:
+        parent:
+          name:
+            first: "Pam"
+            last:"Martinez"
 
-    res.render "homepage", locals
+    res.render "parent-homepage", locals

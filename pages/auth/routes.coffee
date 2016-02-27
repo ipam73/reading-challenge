@@ -40,8 +40,7 @@ oauth = (client_id, client_secret, redirect_uri, session_secret, auth_url, api_u
   (req, res, next) ->
     expected_state = crypto.createHmac('sha256', session_secret).update(req.sessionID).digest('hex')
     # If at first you don't succeed, try, try again
-    # return res.redirect "/login" if expected_state isnt req.query.state
-    console.log "something is weird???" if expected_state isnt req.query.state
+    return res.redirect "/login" if expected_state isnt req.query.state
 
     async.auto
       token: (cb_a) ->
@@ -63,14 +62,34 @@ oauth = (client_id, client_secret, redirect_uri, session_secret, auth_url, api_u
       user: ['user_info', 'token'].concat (cb_a, {user_info, token}) ->
         get_clever_resource(api_url) "/v1.1/#{user_info.type}s/#{user_info.id}", token, (err, user_data) ->
           return cb_a err if err
-          cb_a null,
-            id: user_data.id
-            type: user_info.type
-            name: user_data.name
-            district: user_data.district
+          cb_a null, user_data
     , (err, results) ->
       return next err if err?
-      user = results.user
+
+      console.log "results user", results.user
+
+      # if user is a student
+      # if user is an admin
+      if results.user_info.type is "student"
+        console.log "in student"
+        user =
+          id: results.user.id
+          name: results.user.name
+          district: results.user.district
+          grade: results.user.grade
+          school: results.user.school
+
+        console.log "the user is a student, save student info"
+        req.session.new_student = user
+        return res.redirect "/parent"
+
+      console.log "didn't do that"
+      user =
+        id: results.user.id
+        type: results.user_info.type
+        name: results.user.name
+        district: results.user.district
+      # user not a student
       # set user in the session
       req.session.user = user
       res.redirect "/"
@@ -79,9 +98,20 @@ logout = (req, res) ->
   req.session.destroy ->
     res.redirect '/'
 
+addstudent = (client_id, redirect_uri, session_secret, auth_url) ->
+  (req, res, next) ->
+    console.log "in add student"
+    if req.session.user?
+      req.session.destroy ->
+        console.log "session should have been destroyed"
+        return res.redirect '/login'
+    else
+      return res.redirect '/login'
+
 module.exports = (client_id, client_secret, redirect_uri, session_secret, auth_url, api_url) ->
   {
     login: login client_id, redirect_uri, session_secret, auth_url
     oauth: oauth client_id, client_secret, redirect_uri, session_secret, auth_url, api_url
     logout: logout
+    addstudent: addstudent client_id, redirect_uri, session_secret, auth_url
   }

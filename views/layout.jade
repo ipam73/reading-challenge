@@ -16,4 +16,6 @@ html
           block content
 
     block footer
+    script(type='text/javascript').
+      Bootstrap = JSON.parse(decodeURIComponent("!{encodeURIComponent(JSON.stringify(bootstrap || {}))}"));
     block scripts

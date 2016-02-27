@@ -8,9 +8,14 @@
     },
     render: function() {
       return <div>
-        {this.props.books.map(function(b){
-          return <Book title={b} />;
-        })}
+        <div>
+          <h2>{this.props.name.first} {this.props.name.last}</h2>
+        </div>
+        <div>
+          {this.props.books.map(function(b){
+            return <Book title={b} />;
+          })}
+        </div>
       </div>;
     }
   });
@@ -25,7 +30,7 @@
   })
 
   var init = function() {
-    ReactDom.render(<Quiz books={["Harry Potter", "The Iliad"]}/>,
+    ReactDom.render(<Quiz books={["Harry Potter", "The Iliad"]} name={window.Bootstrap.parent}/>,
       document.getElementById('jsx-app'));
   };
 
