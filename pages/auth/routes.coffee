@@ -101,12 +101,24 @@ logout = (req, res) ->
 addstudent = (client_id, redirect_uri, session_secret, auth_url) ->
   (req, res, next) ->
     console.log "in add student"
-    if req.session.user?
-      req.session.destroy ->
-        console.log "session should have been destroyed"
-        return res.redirect '/login'
-    else
-      return res.redirect '/login'
+    # if req.session.user?
+    #   req.session.destroy ->
+    #     console.log "session should have been destroyed"
+    #     return res.redirect '/login'
+    # else
+    #   return res.redirect '/login'
+
+    student =
+      id: "123"
+      name:
+        first: "Pam"
+      district: "district id"
+      grade: "1"
+      school: "school id"
+    req.session.new_student = student
+    console.log "before redirecting to new student"
+    console.log "res.locals", res.locals
+    return res.redirect '/newstudent'
 
 module.exports = (client_id, client_secret, redirect_uri, session_secret, auth_url, api_url) ->
   {

@@ -5,8 +5,8 @@ module.exports = {
   entry: {
     "javascripts/main.js":  './pages/main-metrics/assets/scripts/main.jsx',
     "stylesheets/main.css":  './pages/main-metrics/assets/styles/main.less',
-    "javascripts/main-parent.js":  './pages/main-parent/assets/scripts/main.jsx'
-
+    "javascripts/main-parent.js":  './pages/main-parent/main.jsx',
+    "javascripts/new-student.js":  './pages/main-parent/new-student.jsx'
   },
   output: {
     path: 'public/build',
@@ -14,9 +14,13 @@ module.exports = {
   },
   module: {
     loaders: [
-      {test: /\.jsx$/, loader: 'jsx-loader'},
+      { test: /\.coffee$/, loader: "coffee-loader" },
+      { test: /\.jsx$/, loader: 'jsx-loader'},
       { test: /\.less$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader") }
     ]
+  },
+  resolve: {
+    extensions: ["", ".js", ".jsx", ".coffee", ".less"],
   },
   plugins: [
     new ExtractTextPlugin("[name]"),

@@ -3,7 +3,6 @@ session = require 'express-session'
 http = require 'http'
 config = require './config'
 env = require 'node-env-file'
-env('./clever-creds.env')
 
 ensure_logged_in = (req, res, next) ->
   # return res.redirect '/login' unless req.session?.user
@@ -37,17 +36,18 @@ module.exports = () ->
   app.set 'views', './views'
   app.set 'view engine', 'jade'
 
-  app.get '/oauth', auth_routes.oauth
-  app.get '/login', auth_routes.login
-  app.get '/logout', auth_routes.logout
+  # app.get '/oauth', auth_routes.oauth
+  # app.get '/login', auth_routes.login
+  # app.get '/logout', auth_routes.logout
 
   # parent route, should only see if a parent
   app.get '/parent', main_parent_routes.homepage
-  app.get '/addstudent', auth_routes.addstudent
+  # app.get '/addstudent', auth_routes.addstudent
+  # app.get '/newstudent', main_parent_routes.newstudent
 
   # All routes before this can be accessed without being logged in
-  app.use ensure_logged_in
-  app.get '/', main_metrics_routes.homepage
+  # app.use ensure_logged_in
+  # app.get '/', main_parent_routes.goHome
 
   http.createServer(app).listen config.PORT, ->
     console.log "reading-challenge listening on port #{config.PORT}"

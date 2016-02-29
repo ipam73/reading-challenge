@@ -1,11 +1,7 @@
-async = require 'async'
-fs    = require 'fs'
+#This file is mocking a web API by hitting hard coded data.
+students = require('./student_data').students
+_ = require "underscore"
 
-module.exports = (pg_client) ->
-  pg_client.connect (err) ->
-    if err?
-      console.error "get_maus error:", err
-      return err
-    console.log "connected!"
-
-  # get_maus_for_app gets the below metrics for the app_id passed
+module.exports =
+  get_all_students: () ->
+    return _.clone(students)
