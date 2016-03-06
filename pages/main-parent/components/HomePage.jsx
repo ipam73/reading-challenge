@@ -1,6 +1,9 @@
 var React = require('react');
 var ReactDom = require('react-dom');
+var Router = require('react-router');
+var Link = Router.Link;
 
+// student components
 var StudentList = require('./StudentList')
 var StudentAPI = require('../../../lib/students')
 
@@ -28,7 +31,7 @@ var Homepage = React.createClass({
 var NewStudent = React.createClass({
   render: function() {
     return <div>
-      <a href="/addstudent">Add a student</a>
+      <Link to="/addstudent" className="btn btn-default">Add a student</Link>
     </div>
   }
 })

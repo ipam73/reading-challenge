@@ -41,7 +41,7 @@ module.exports = () ->
   # app.get '/logout', auth_routes.logout
 
   # parent route, should only see if a parent
-  app.get '/parent', main_parent_routes.homepage
+  app.get '/', main_parent_routes.homepage
   # app.get '/addstudent', auth_routes.addstudent
   # app.get '/newstudent', main_parent_routes.newstudent
 

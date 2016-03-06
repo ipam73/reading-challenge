@@ -8,12 +8,18 @@ var Route = Router.Route;
 
 // components
 var App = require('./components/App')
-var AboutPage = require('./components/about/AboutPage')
 var HomePage = require('./components/Homepage')
 
+var AboutPage = require('./components/about/AboutPage')
+
+var StudentPage = require('./components/student/StudentPage')
+var AddStudentPage = require('./components/student/AddStudentPage')
+
 var routes = (
-  <Route path="/parent" component={App}>
+  <Route path="/" component={App}>
     <IndexRoute component={HomePage} />
+    <Route path="/student/:id" component={StudentPage}/>
+    <Route path="/addstudent" component={AddStudentPage}/>
     <Route path="/about" component={AboutPage}/>
   </Route>
 );
