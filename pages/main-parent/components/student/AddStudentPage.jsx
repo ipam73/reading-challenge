@@ -50,7 +50,7 @@ var AddStudentPage = React.createClass({
     }
 
     StudentAPI.save_student(this.state.student);
-    toastr.success('Author saved.');
+    toastr.success('Student saved.');
     console.log("should say success");
     ReactRouter.browserHistory.push('/');
   },

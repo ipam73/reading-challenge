@@ -22,6 +22,15 @@ var Header = React.createClass({
                       <li>
                         <Link to="/about">About</Link>
                       </li>
+                      <li>
+                        <Link to="/about">Support</Link>
+                      </li>
+                      <li>
+                        <Link to="/about">Switch Language</Link>
+                      </li>
+                      <li>
+                        <Link to="/about">Logout</Link>
+                      </li>
                     </ul>
                   </li>
                   <li> Reading Challenge</li>

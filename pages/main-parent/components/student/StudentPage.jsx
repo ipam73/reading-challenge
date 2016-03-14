@@ -3,6 +3,11 @@ var Router = require('react-router');
 
 var StudentAPI = require('../../../../lib/students');
 
+// components
+var AddTimeButton = require("../time/AddTimeButton");
+var StudentProgress = require("./StudentProgress");
+var StudentSummary = require("./StudentSummary");
+
 var StudentPage = React.createClass({
 
   getInitialState: function() {
@@ -26,9 +31,16 @@ var StudentPage = React.createClass({
     return (
       <div>
         <h2>{this.state.student.name}</h2>
-        <h3>Grade: {this.state.student.grade}</h3>
-        <h3>Total Mins: {this.state.student.total_mins}</h3>
-        <h3>Weekly Goal: {this.state.student.goal}</h3>
+        <StudentSummary
+          weeksLeft={12}
+          totalRead={this.state.student.total_mins}
+        />
+        <StudentProgress
+          progress={this.state.student.progress}
+        />
+        <AddTimeButton
+          studentID={this.state.student.id}
+        />
       </div>
     );
   }

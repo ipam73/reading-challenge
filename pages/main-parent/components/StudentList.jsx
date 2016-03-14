@@ -7,15 +7,14 @@ var StudentList = React.createClass({
     students: React.PropTypes.array.isRequired
   },
 
-
-          // <td><a href={"/student/" + student.id}>{student.name}</a></td>
-
   render: function() {
     var createStudentRow = function(student) {
       return (
         <tr key={student.id}>
           <td><Link to={`/student/${student.id}`}>{student.name}</Link></td>
+          <td>{student.school}</td>
           <td>{student.total_mins}</td>
+          <td>12</td>
         </tr>
       )
     };
@@ -26,7 +25,9 @@ var StudentList = React.createClass({
         <thead>
           <tr>
             <th>Name</th>
-            <th>Total Minutes Read</th>
+            <th>School</th>
+            <th>Minutes Read</th>
+            <th>Weeks Left</th>
           </tr>
         </thead>
         <tbody>

@@ -14,3 +14,8 @@ module.exports =
     console.log "student: ", student
     console.log "saving right now!"
     return student
+
+  add_time: (some_value) ->
+    console.log "adding time: ", some_value
+    console.log "saving right now!"
+    return some_value

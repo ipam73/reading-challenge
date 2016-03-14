@@ -3,9 +3,10 @@ module.exports =
     {
       id: '1233',
       name: 'Pam',
-      total_mins: 445
+      school: 'Elementary School',
+      total_mins: 445,
       goal: 60,
-      reading_summary: [
+      progress: [
         {date: 1, mins: 45},
         {date: 2, mins: 10},
         {date: 3, mins: 65}
@@ -15,9 +16,10 @@ module.exports =
     {
       id: '1234',
       name: 'Mohit',
+      school: 'Middle School',
       total_mins: 430,
       goal: 40,
-      reading_summary: [
+      progress: [
         {date: 1, mins: 65},
         {date: 2, mins: 60},
         {date: 3, mins: 65}
@@ -26,9 +28,10 @@ module.exports =
     {
       id: '1235',
       name: 'Dan',
+      school: 'High School',
       total_mins: 200,
       goal: 50,
-      reading_summary: [
+      progess: [
         {date: 1, mins: 45},
         {date: 2, mins: 40},
         {date: 3, mins: 65}
