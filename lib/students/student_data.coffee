@@ -31,7 +31,7 @@ module.exports =
       school: 'High School',
       total_mins: 200,
       goal: 50,
-      progess: [
+      progress: [
         {date: 1, mins: 45},
         {date: 2, mins: 40},
         {date: 3, mins: 65}
