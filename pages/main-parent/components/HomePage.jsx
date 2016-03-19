@@ -28,6 +28,9 @@ var Homepage = React.createClass({
   }
 });
 
+
+// new student button
+// trigger clever login
 var NewStudent = React.createClass({
   render: function() {
     return <div>
