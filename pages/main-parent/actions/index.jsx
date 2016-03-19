@@ -11,12 +11,18 @@ var _ = require("underscore");
 function getStudentList() {
   return {
     type: Constants.GET_STUDENT_LIST,
-    studentList: {}
+    studentList: {} //load this in the list in
   };
 }
 
 // setStudentTime dummy func
-function setStudentTime() {
+// can assume newTime = {dateRead: <date>, minuteRead: <minutes>}
+function setStudentTime(newTime) {
+  console.log("in setStudentTime ACTION ");
+  console.log("setting time: ");
+  console.log(newTime);
+
+  // makes some call to the db to save the new time stats
   return {
     type: Constants.SET_STUDENT_TIME,
     time: {}

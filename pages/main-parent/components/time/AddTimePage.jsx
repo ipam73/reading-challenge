@@ -1,14 +1,21 @@
 "use strict";
 
-var moment = require('moment');
-
-var React = require('react');
+var React = require("react");
+var _ = require("underscore");
+var ReactDOM = require("react-dom");
 var ReactRouter = require('react-router');
+var Link = ReactRouter.Link;
 
+// redux stuff
+var {connect} = require('react-redux');
+var actions = require("../../actions");
+
+// components
 var AddTimeForm = require('./AddTimeForm');
 var StudentAPI = require('../../../../lib/students');
 
 var toastr = require('toastr');
+var moment = require('moment');
 
 var AddTimePage = React.createClass({
 
@@ -64,7 +71,9 @@ var AddTimePage = React.createClass({
       return;
     }
 
-    StudentAPI.add_time(this.state.readTime);
+    //trigger add time action
+    this.props.setStudentTime(this.state.readTime);
+    // StudentAPI.add_time(this.state.readTime);
     toastr.success('Time saved.');
     console.log("should say success");
     ReactRouter.browserHistory.push('/');
@@ -96,4 +105,18 @@ var AddTimePage = React.createClass({
   }
 });
 
-module.exports = AddTimePage;
+// -------------------------------------------------------------------------
+// -------------------------------------------------------------------------
+// wraps summary page with state and actions
+
+function mapStateToProps(state) {
+  return {};
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    setStudentTime: function(){ dispatch(actions.setStudentTime()); }
+  }
+};
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(AddTimePage);

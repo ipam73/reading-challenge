@@ -14,6 +14,7 @@ function rootReducer(state, action) {
 
   switch (action.type) {
     case Constants.GET_STUDENT_LIST:
+      newstate.studentList = action.studentList; //whatever is returned from the list
       return newstate;
 
     case Constants.SET_STUDENT_TIME:

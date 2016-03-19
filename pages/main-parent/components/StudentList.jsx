@@ -39,4 +39,3 @@ var StudentList = React.createClass({
 });
 
 module.exports = StudentList;
-
