@@ -50,16 +50,6 @@ var AddTimePage = React.createClass({
     var formIsValid = true;
     this.state.errors = {}; //clear any previous errors
 
-    // if (this.state.readTime.firstName.length < 3) {
-    //   this.state.errors.firstName = "First name must be at least 3 characters.";
-    //   formIsValid = false;
-    // }
-
-    // if (this.state.readTime.grade.length < 1) {
-    //   this.state.errors.grade = "Grade is a required field";
-    //   formIsValid = false;
-    // }
-
     this.setState({errors: this.state.errors});
     return formIsValid;
   },
@@ -72,7 +62,13 @@ var AddTimePage = React.createClass({
     }
 
     //trigger add time action
-    this.props.setStudentTime(this.state.readTime);
+    // newTime = {readDate: <date>, readMinutes: <minutes>}
+    var newTime = {
+      readDate: this.state.readDate.toDate(),
+      readMinutes: this.state.readMinutes
+    };
+    console.log("new time is", newTime);
+    this.props.setStudentTime( newTime );
     // StudentAPI.add_time(this.state.readTime);
     toastr.success('Time saved.');
     console.log("should say success");
@@ -115,7 +111,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    setStudentTime: function(){ dispatch(actions.setStudentTime()); }
+    setStudentTime: function(newTime){ dispatch(actions.setStudentTime(newTime)); }
   }
 };
 

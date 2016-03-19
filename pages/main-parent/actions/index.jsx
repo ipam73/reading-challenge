@@ -15,8 +15,7 @@ function getStudentList() {
   };
 }
 
-// setStudentTime dummy func
-// can assume newTime = {dateRead: <date>, minuteRead: <minutes>}
+// newTime = {readDate: <date>, readMinutes: <minutes>}
 function setStudentTime(newTime) {
   console.log("in setStudentTime ACTION ");
   console.log("setting time: ");

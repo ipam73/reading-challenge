@@ -9,11 +9,6 @@ var StudentProgress = React.createClass({
     progress: React.PropTypes.array.isRequired
   },
 
-  componentWillMount() {
-    console.log("in student progress");
-    console.log(this.props.progress)
-  },
-
   render: function() {
     var createProgressRow = function(progress) {
       return (

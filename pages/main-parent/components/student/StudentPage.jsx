@@ -20,7 +20,6 @@ var StudentPage = React.createClass({
   componentWillMount() {
     var studentID = this.props.params.id; //from path '/student/:id'
     if (studentID) {
-      console.log("student is", StudentAPI.get_student(studentID));
       this.setState({
         student: StudentAPI.get_student(studentID)
       });
