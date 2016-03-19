@@ -1,8 +1,10 @@
 var Constants = require('../constants');
 var _ = require("underscore");
 
+var StudentAPI = require('../../../lib/students')
+
 var initialState = {
-  studentList: {},
+  studentList: StudentAPI.get_all_students(),
 }
 
 function rootReducer(state, action) {

@@ -27,7 +27,12 @@ var store = (window.devToolsExtension ? window.devToolsExtension()(Redux.createS
 
 
 ReactDOM.render((
-  <Router history={browserHistory}>
-    {routes}
-  </Router>
+  <Provider store={store}>
+    <div>
+      <Router history={browserHistory}>
+        {routes}
+      </Router>
+    </div>
+  </Provider>
+
 ), document.getElementById('parent-home'));

@@ -1,11 +1,15 @@
-var React = require('react');
-var ReactDom = require('react-dom');
-var Router = require('react-router');
-var Link = Router.Link;
+var React = require("react");
+var _ = require("underscore");
+var ReactDOM = require("react-dom");
+var ReactRouter = require('react-router');
+var Link = ReactRouter.Link;
+
+// redux stuff
+var {connect} = require('react-redux');
+var actions = require("../actions");
 
 // student components
 var StudentList = require('./StudentList')
-var StudentAPI = require('../../../lib/students')
 
 var Homepage = React.createClass({
   getInitialState() {
@@ -14,15 +18,9 @@ var Homepage = React.createClass({
     };
   },
 
-  componentDidMount() {
-    if (this.isMounted()) {
-      this.setState({ students: StudentAPI.get_all_students() });
-    }
-  },
-
   render: function() {
     return <div>
-      <StudentList students={this.state.students} />
+      <StudentList students={this.props.students} />
       <NewStudent/>
     </div>;
   }
@@ -39,4 +37,22 @@ var NewStudent = React.createClass({
   }
 })
 
-module.exports = Homepage;
+// -------------------------------------------------------------------------
+// -------------------------------------------------------------------------
+// wraps summary page with state and actions
+
+// sets current state to summary page as this.prop
+function mapStateToProps(state) {
+  return {
+    students: state.reducers.studentList
+  };
+}
+
+// currently not used for anything, no actions triggered on this page
+function mapDispatchToProps (dispatch) {
+  return {
+    getPilotsForDistrict: function(){ dispatch(actions.getPilotsForDistrict()); }
+  }
+};
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Homepage);
