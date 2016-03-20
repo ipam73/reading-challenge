@@ -27,6 +27,7 @@ var AddTimePage = React.createClass({
 
     return {
       readDate: moment(),
+      maxDate: moment(),
       readMinutes: '',
       student: {id: '', name: ''},
       errors: {}
@@ -49,6 +50,12 @@ var AddTimePage = React.createClass({
   timeFormIsValid: function() {
     var formIsValid = true;
     this.state.errors = {}; //clear any previous errors
+    var inputTimeIsNumber = !isNaN(this.state.readMinutes);
+
+    if (inputTimeIsNumber == false) {
+      this.state.errors.minutes = "Please input a valid number.";
+      formIsValid = false;
+    }
 
     this.setState({errors: this.state.errors});
     return formIsValid;
@@ -90,6 +97,7 @@ var AddTimePage = React.createClass({
         <h2>{this.state.student.name}</h2>
         <AddTimeForm
           readDate={this.state.readDate}
+          maxDate={this.state.maxDate}
           onDateChange={this.setTimeState}
           readMinutes={this.state.readMinutes}
           onMinsChange={this.setMinsReadState}

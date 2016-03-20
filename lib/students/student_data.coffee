@@ -11,7 +11,6 @@ module.exports =
         {date: 2, mins: 10},
         {date: 3, mins: 65}
       ]
-
     },
     {
       id: '1234',

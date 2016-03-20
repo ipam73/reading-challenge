@@ -22,6 +22,7 @@ var AddTimeForm = React.createClass({
         <DatePicker
           selected={this.props.readDate}
           onChange={this.props.onDateChange}
+          maxDate={this.props.maxDate}
         />
 
         <Input
