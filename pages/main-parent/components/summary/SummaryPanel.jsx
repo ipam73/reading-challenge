@@ -16,16 +16,27 @@ var {connect} = require('react-redux');
 var SummaryPanel = React.createClass({
   render: function() {
     return (
-      <div className="application-panel">
-        <div className="panel panel-default">
-          <div className="panel-heading">
-            <img src={this.props.icon} alt="Icon"></img>
-            <h1 className="panel-title">{this.props.student.name}</h1>
+      <div className="panel application-panel">
+        <div className="SUMMARYPANEL--panel-default">
+          <div className="SUMMARYPANEL--panel-heading">
+            <img src="/images/BuddyPlaceholder.png" alt="Icon"></img>
+            <div className="SUMMARYPANEL--heading-text">
+              <h1 className="SUMMARYPANEL--panel-title">{this.props.student.name}</h1>
+              <p> {this.props.student.school} </p>
+              <p> {"Grade " + this.props.student.grade} </p>
+            </div>
           </div>
-          <div className="panel-body">
-            <p> {this.props.student.school} </p>
-            <p> {this.props.student.total_mins + " total minutes read."} </p>
-            <p> {"Grade " + this.props.student.grade} </p>
+          <div className="SUMMARYPANEL--panel-body">
+            <div className="content-left">
+              <p className="content-large"> {this.props.student.total_mins} </p>
+              <p> Minutes Read </p>
+            </div>
+            <div className="content-right">
+              <p className="content-large"> 12 </p>
+              <p> Weeks Left </p>
+            </div>
+          </div>
+          <div className="SUMMARYPANEL--panel-footer">
             <AddTimeButton
               studentID={this.props.student.id}
             />

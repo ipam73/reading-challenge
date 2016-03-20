@@ -22,7 +22,6 @@ var StudentList = React.createClass({
     };
 
     return <div>
-      <h2>Students</h2>
       <div>
         {this.props.students.map(
           function(student, i){

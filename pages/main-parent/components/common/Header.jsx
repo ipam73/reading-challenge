@@ -1,19 +1,20 @@
 var React = require('react');
 var Router = require('react-router');
 var Link = Router.Link;
+require("!style!css!less!./Header.less");
 
 var Header = React.createClass({
   // glyphicon from: http://glyphicons.com/
 	render: function() {
 		return (
         <div>
-          <nav className="navbar navbar-default">
+          <nav className="HEADER--container navbar navbar-default">
             <div className="container-fluid">
               <div className="collapse navbar-collapse">
                 <ul className="nav navbar-nav">
                   <li className="dropdown">
-                    <button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                      <span className="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+                    <button className="HEADER--button btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                      <span className="glyphicon glyphicon-menu-hamburger" aria-hidden="true" style={{color: "white"}}></span>
                     </button>
                     <ul className="dropdown-menu">
                       <li>
@@ -33,7 +34,7 @@ var Header = React.createClass({
                       </li>
                     </ul>
                   </li>
-                  <li> Reading Challenge</li>
+                  <li> <h3 className="HEADER--title">Reading Challenge</h3></li>
                 </ul>
               </div>
             </div>
