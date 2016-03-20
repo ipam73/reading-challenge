@@ -2,6 +2,8 @@ var React = require('react');
 var Router = require('react-router');
 var Link = Router.Link;
 
+var SummaryPanel = require("./SummaryPanel");
+
 var StudentList = React.createClass({
   propTypes: {
     students: React.PropTypes.array.isRequired
@@ -21,19 +23,17 @@ var StudentList = React.createClass({
 
     return <div>
       <h2>Students</h2>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>School</th>
-            <th>Minutes Read</th>
-            <th>Weeks Left</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.props.students.map(createStudentRow, this)}
-        </tbody>
-      </table>
+      <div>
+        {this.props.students.map(
+          function(student, i){
+            return (
+              <SummaryPanel
+                key={i}
+                student={student}
+              />);
+          }, this
+        )}
+      </div>
     </div>;
   }
 });

@@ -9,7 +9,7 @@ var {connect} = require('react-redux');
 var actions = require("../actions");
 
 // student components
-var StudentList = require('./StudentList')
+var StudentList = require('./summary/StudentList')
 
 var Homepage = React.createClass({
   getInitialState() {
