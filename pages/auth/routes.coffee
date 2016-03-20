@@ -98,6 +98,7 @@ logout = (req, res) ->
   req.session.destroy ->
     res.redirect '/'
 
+# TODO:  MOHIT -- somehow talk to the firebase db somewhere here
 addstudent = (client_id, redirect_uri, session_secret, auth_url) ->
   (req, res, next) ->
     console.log "in add student"
