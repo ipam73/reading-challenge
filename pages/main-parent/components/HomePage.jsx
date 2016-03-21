@@ -9,7 +9,8 @@ var {connect} = require('react-redux');
 var actions = require("../actions");
 
 // student components
-var StudentList = require('./summary/StudentList')
+var StudentList = require('./summary/StudentList');
+var AddStudent = require('./add-student/AddStudent');
 
 var Homepage = React.createClass({
   getInitialState() {
@@ -21,21 +22,10 @@ var Homepage = React.createClass({
   render: function() {
     return <div>
       <StudentList students={this.props.students} />
-      <NewStudent/>
+      <AddStudent/>
     </div>;
   }
 });
-
-
-// new student button
-// trigger clever login
-var NewStudent = React.createClass({
-  render: function() {
-    return <div>
-      <Link to="/addstudent" className="btn btn-default">Add a student</Link>
-    </div>
-  }
-})
 
 // -------------------------------------------------------------------------
 // -------------------------------------------------------------------------

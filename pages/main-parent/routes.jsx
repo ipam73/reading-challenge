@@ -13,7 +13,7 @@ var HomePage = require('./components/Homepage')
 var AboutPage = require('./components/about/AboutPage')
 
 var StudentPage = require('./components/student/StudentPage')
-var AddStudentPage = require('./components/student/AddStudentPage')
+var AddStudentPage = require('./components/add-student/AddStudentPage')
 
 var AddTimePage = require('./components/time/AddTimePage')
 

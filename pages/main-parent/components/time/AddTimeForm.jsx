@@ -19,7 +19,7 @@ var AddTimeForm = React.createClass({
   render: function() {
     return (
       <form>
-        <div className="panel application-panel container-fluid">
+        <div className="panel application-panel container-fluid container">
           <div className="TIMEFORM--panel-default">
             <div className="TIMEFORM--panel-body">
               <img src="/images/BuddyPlaceholder.png" alt="Icon"></img>
