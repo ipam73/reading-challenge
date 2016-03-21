@@ -4,7 +4,7 @@ var React = require("react");
 var ReactDOM = require('react-dom');
 
 // router components
-var { Router, Route, IndexRoute, browserHistory } = require('react-router');
+var { Router, Route, IndexRoute, hashHistory, browserHistory } = require('react-router');
 var routes = require("./routes");
 
 // redux and store
@@ -29,7 +29,7 @@ var store = (window.devToolsExtension ? window.devToolsExtension()(Redux.createS
 ReactDOM.render((
   <Provider store={store}>
     <div>
-      <Router history={browserHistory}>
+      <Router history={hashHistory}>
         {routes}
       </Router>
     </div>

@@ -50,6 +50,7 @@ var AddTimeForm = React.createClass({
                 onClick={this.props.onSave}
               />
               <input
+                type="submit"
                 value="Cancel"
                 className="btn btn-default"
                 onClick={this.props.onCancel}
