@@ -16,7 +16,7 @@ var {connect} = require('react-redux');
 var SummaryPanel = React.createClass({
   render: function() {
     return (
-      <div className="panel application-panel">
+      <div className="panel application-panel container-fluid">
         <div className="SUMMARYPANEL--panel-default">
           <div className="SUMMARYPANEL--panel-heading">
             <img src="/images/BuddyPlaceholder.png" alt="Icon"></img>

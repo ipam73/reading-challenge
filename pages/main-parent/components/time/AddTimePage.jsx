@@ -50,6 +50,12 @@ var AddTimePage = React.createClass({
   timeFormIsValid: function() {
     var formIsValid = true;
     this.state.errors = {}; //clear any previous errors
+
+    if (this.state.readMinutes.length < 1) {
+      this.state.errors.minutes = "Value cannot be blank.";
+      formIsValid = false;
+    }
+
     var inputTimeIsNumber = !isNaN(this.state.readMinutes);
 
     if (inputTimeIsNumber == false) {
@@ -82,6 +88,10 @@ var AddTimePage = React.createClass({
     ReactRouter.browserHistory.push('/');
   },
 
+  cancelTime: function() {
+    ReactRouter.browserHistory.push('/');
+  },
+
   componentWillMount() {
     var studentID = this.props.params.id; //from path '/student/:id'
     if (studentID) {
@@ -94,7 +104,7 @@ var AddTimePage = React.createClass({
   render: function() {
     return (
       <div>
-        <h2>{this.state.student.name}</h2>
+        <h3>{"Log Time: " + this.state.student.name }</h3>
         <AddTimeForm
           readDate={this.state.readDate}
           maxDate={this.state.maxDate}
@@ -102,6 +112,7 @@ var AddTimePage = React.createClass({
           readMinutes={this.state.readMinutes}
           onMinsChange={this.setMinsReadState}
           onSave={this.saveTime}
+          onCancel={this.cancelTime}
           errors={this.state.errors}
         />
       </div>

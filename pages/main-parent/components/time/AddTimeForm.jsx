@@ -4,6 +4,8 @@ var React = require('react');
 var Input = require('../common/TextInput')
 var DatePicker = require('react-datepicker');
 
+require("!style!css!less!./AddTimeForm.less");
+
 var AddTimeForm = React.createClass({
   propTypes: {
     readDate: React.PropTypes.object.isRequired,
@@ -17,29 +19,44 @@ var AddTimeForm = React.createClass({
   render: function() {
     return (
       <form>
-        <h2>Log Time</h2>
-
-        <DatePicker
-          selected={this.props.readDate}
-          onChange={this.props.onDateChange}
-          maxDate={this.props.maxDate}
-        />
-
-        <Input
-          name="minutes"
-          label="Minutes Read"
-          placeholder="Minutes read"
-          value={this.props.readMinutes}
-          onChange={this.props.onMinsChange}
-          error={this.props.errors.minutes}
-        />
-
-        <input
-          type="submit"
-          value="Save"
-          className="btn btn-default"
-          onClick={this.props.onSave}
-        />
+        <div className="panel application-panel container-fluid">
+          <div className="TIMEFORM--panel-default">
+            <div className="TIMEFORM--panel-body">
+              <img src="/images/BuddyPlaceholder.png" alt="Icon"></img>
+              <div className="content">
+                <p>Date</p>
+                <DatePicker
+                  selected={this.props.readDate}
+                  onChange={this.props.onDateChange}
+                  maxDate={this.props.maxDate}
+                  popoverAttachment='bottom center'
+                  popoverTargetAttachment='top center'
+                />
+                <Input
+                  name="minutes"
+                  label="Minutes Read"
+                  placeholder="Minutes read"
+                  value={this.props.readMinutes}
+                  onChange={this.props.onMinsChange}
+                  error={this.props.errors.minutes}
+                />
+              </div>
+            </div>
+            <div className="TIMEFORM--panel-footer">
+              <input
+                type="submit"
+                value="Save"
+                className="btn btn-default"
+                onClick={this.props.onSave}
+              />
+              <input
+                value="Cancel"
+                className="btn btn-default"
+                onClick={this.props.onCancel}
+              />
+            </div>
+          </div>
+        </div>
       </form>
     );
   }
