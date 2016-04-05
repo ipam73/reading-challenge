@@ -21,6 +21,11 @@ module.exports = () ->
     resave: false
   app.use session(session_opts)
 
+
+  # libraries
+  students_lib = require "./lib/students"
+  helpers_lib = require "./lib/helpers"
+
   # if is_production
   #   redirect_uri = "https://#{config.HOST}/oauth"
   # else
@@ -28,7 +33,7 @@ module.exports = () ->
 
   auth_routes = require("#{__dirname}/pages/auth/routes") config.CLIENT_ID, config.CLIENT_SECRET, redirect_uri, config.SESSION_SECRET, config.AUTH_URL, config.API_URL
   main_metrics_routes = require("#{__dirname}/pages/main-metrics/routes")()
-  main_parent_routes = require("#{__dirname}/pages/main-parent/routes")()
+  main_parent_routes = require("#{__dirname}/pages/main-parent/routes") students_lib, helpers_lib, config.CLIENT_ID, config.CLIENT_SECRET, redirect_uri, config.SESSION_SECRET, config.AUTH_URL, config.API_URL
 
   app.use express.static(__dirname + '/public')
 
@@ -36,13 +41,17 @@ module.exports = () ->
   app.set 'views', './views'
   app.set 'view engine', 'jade'
 
-  # app.get '/oauth', auth_routes.oauth
+  app.get '/oauth', auth_routes.oauth
   # app.get '/login', auth_routes.login
-  # app.get '/logout', auth_routes.logout
+  app.get '/logout', auth_routes.logout
 
   # parent route, should only see if a parent
   app.get '/', main_parent_routes.homepage
-  # app.get '/addstudent', auth_routes.addstudent
+  app.get '/addstudent', main_parent_routes.add_student
+
+  # app.post '/addstudent', main_parent_routes.add_student
+  app.get '/authorize_student', main_parent_routes.authorize_student
+
   # app.get '/newstudent', main_parent_routes.newstudent
 
   # All routes before this can be accessed without being logged in

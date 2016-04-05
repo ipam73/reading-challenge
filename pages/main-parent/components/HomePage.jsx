@@ -41,7 +41,7 @@ function mapStateToProps(state) {
 // currently not used for anything, no actions triggered on this page
 function mapDispatchToProps (dispatch) {
   return {
-    getPilotsForDistrict: function(){ dispatch(actions.getPilotsForDistrict()); }
+    getStudentList: function(){ dispatch(actions.getStudentList()); }
   }
 };
 

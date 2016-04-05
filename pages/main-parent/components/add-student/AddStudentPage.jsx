@@ -8,6 +8,10 @@ var StudentAPI = require('../../../../lib/students');
 
 var toastr = require('toastr');
 
+// redux stuff
+var {connect} = require('react-redux');
+var actions = require("../../actions");
+
 var AddStudentPage = React.createClass({
 
   getInitialState: function() {
@@ -50,6 +54,10 @@ var AddStudentPage = React.createClass({
     }
 
     StudentAPI.save_student(this.state.student);
+
+    // triggers add student action
+    this.props.addStudent();
+
     toastr.success('Student saved.');
     ReactRouter.browserHistory.push('/');
   },
@@ -68,5 +76,22 @@ var AddStudentPage = React.createClass({
   }
 });
 
-module.exports = AddStudentPage;
+
+// -------------------------------------------------------------------------
+// -------------------------------------------------------------------------
+// wraps summary page with state and actions
+
+// sets current state to summary page as this.prop
+function mapStateToProps(state) {
+  return {};
+}
+
+// currently not used for anything, no actions triggered on this page
+function mapDispatchToProps (dispatch) {
+  return {
+    addStudent: function(){ dispatch(actions.addStudent()); }
+  }
+};
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(AddStudentPage);
 

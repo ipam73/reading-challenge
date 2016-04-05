@@ -6,5 +6,7 @@ var keyMirror = require('keymirror');
 module.exports = keyMirror({
   GET_STUDENT_LIST: null,
   SET_STUDENT_TIME: null,
-  ADD_STUDENT: null
+  ADD_STUDENT: null,
+  ADD_STUDENT_SUCCESS: null,
+  ADD_STUDENT_FAILURE: null
 });

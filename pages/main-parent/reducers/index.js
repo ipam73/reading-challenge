@@ -1,10 +1,8 @@
 var Constants = require('../constants');
 var _ = require("underscore");
 
-var StudentAPI = require('../../../lib/students')
-
 var initialState = {
-  studentList: StudentAPI.get_all_students(),
+  studentList: window.Bootstrap.student_list,
 }
 
 function rootReducer(state, action) {
@@ -21,6 +19,12 @@ function rootReducer(state, action) {
       return newstate;
 
     case Constants.ADD_STUDENT:
+      return newstate;
+
+    case Constants.ADD_STUDENT_SUCCESS:
+      return newstate;
+
+    case Constants.ADD_STUDENT_FAILURE:
       return newstate;
 
     default:
