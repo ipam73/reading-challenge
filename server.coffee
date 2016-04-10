@@ -26,9 +26,6 @@ module.exports = () ->
   students_lib = require "./lib/students"
   helpers_lib = require "./lib/helpers"
 
-  # if is_production
-  #   redirect_uri = "https://#{config.HOST}/oauth"
-  # else
   redirect_uri = "http://#{config.HOST}:#{config.PORT}/oauth"
 
   auth_routes = require("#{__dirname}/pages/auth/routes") config.CLIENT_ID, config.CLIENT_SECRET, redirect_uri, config.SESSION_SECRET, config.AUTH_URL, config.API_URL
