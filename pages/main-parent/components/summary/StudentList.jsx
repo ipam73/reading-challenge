@@ -14,7 +14,7 @@ var StudentList = React.createClass({
       return (
         <tr key={student.id}>
           <td><Link to={`/student/${student.id}`}>{student.name}</Link></td>
-          <td>{student.school}</td>
+          <td>{student.school_name}</td>
           <td>{student.total_mins}</td>
           <td>12</td>
         </tr>

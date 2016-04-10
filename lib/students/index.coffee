@@ -2,7 +2,6 @@
 students_original = require('./student_data').students
 _ = require "underscore"
 
-
 students = _.clone(students_original)
 
 get_all_students = () ->
@@ -26,14 +25,16 @@ get_student = (student_id) ->
     ]
   }
 ###
-save_student = (student_id, first_name, school_id, district_id, grade) ->
+save_student = (student_id, first_name, school_id, school_name, district_id, grade) ->
   console.log "saving right now!"
   student_to_save =
     id: student_id
     name: first_name
-    school: school_id
+    school_id: school_id
+    school_name: school_name
     district_id: district_id
     grade: grade
+    total_mins: 0
 
   existing_student = _.find students, (student) -> return student.id is student_id
   students.push student_to_save unless existing_student

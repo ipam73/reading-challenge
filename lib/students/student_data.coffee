@@ -3,7 +3,9 @@ module.exports =
     {
       id: '1233',
       name: 'Pam',
-      school: 'Elementary School',
+      school_id: '56ae929ca5aae58667000102',
+      district_id: '56ae8e9c5994560100000ae4',
+      school_name: "Raptorspectrum",
       total_mins: 445,
       goal: 60,
       grade: '4'
@@ -16,7 +18,9 @@ module.exports =
     {
       id: '1234',
       name: 'Mohit',
-      school: 'Middle School',
+      school_id: '56ae929ca5aae58667000102',
+      district_id: '56ae8e9c5994560100000ae4',
+      school_name: "Raptorspectrum",
       total_mins: 430,
       goal: 40,
       grade: '6',
@@ -29,8 +33,10 @@ module.exports =
     {
       id: '1235',
       name: 'Dan',
-      grade: '3',
-      school: 'High School',
+      grade: 'Kindergarden',
+      school_id: '56ae929ca5aae58667000102',
+      district_id: '56ae8e9c5994560100000ae4',
+      school_name: "Scourgefern",
       total_mins: 200,
       goal: 50,
       progress: [

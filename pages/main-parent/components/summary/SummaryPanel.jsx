@@ -22,7 +22,7 @@ var SummaryPanel = React.createClass({
             <img src="/images/BuddyPlaceholder.png" alt="Icon"></img>
             <div className="SUMMARYPANEL--heading-text">
               <h1 className="SUMMARYPANEL--panel-title">{this.props.student.name}</h1>
-              <p> {this.props.student.school} </p>
+              <p> {this.props.student.school_name} </p>
               <p> {"Grade " + this.props.student.grade} </p>
             </div>
           </div>

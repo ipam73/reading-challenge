@@ -22,3 +22,6 @@ module.exports =
 ```
 make run
 ```
+
+To test:
+use this district id: `56ae8e9c5994560100000ae4`

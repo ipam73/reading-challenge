@@ -16,6 +16,7 @@ module.exports = (
 
   homepage: (req, res, next) ->
     student_list = students_lib.get_all_students()
+
     locals =
       bootstrap:
         parent:
@@ -28,29 +29,36 @@ module.exports = (
 
   add_student: (req, res, next) ->
     console.log "in add_student"
-    # if req.session.student_logged_in is true
-    #   console.log "student info should not be there"
-    #   console.log req.session.access_token
-    #   auth_options =
-    #     uri: "#{auth_url}/logout"
-    #     method: 'POST'
-    #     json:
-    #       redirect_uri: "http://localhost:5001/add_student"
-    #       access_token: req.session.access_token
-    #   helpers_lib.quest_retry auth_options, (err, resp, body) ->
-    #     console.log "in help lib after post to logout"
-    #     console.log "there is an error", err if err?
-    #     console.log "response body is", resp
+    # console.log "is there a student logged in? ", req.session.student_logged_in
 
-    #     req.session.student_logged_in = false
-    #     console.log "done here!"
-    #     return
+    if req.session.student_logged_in is true
+      # this is a really hacky way, could not get auth_url/logout to properly
+      # redirect back to app -- currently this forces user to manually go back to app
+
+      # console.log "trying to log someone out"
+      req.session.student_logged_in = false
+      return res.redirect "#{auth_url}/logout"
+      # auth_options =
+      #   uri: "#{auth_url}/logout"
+      #   method: 'POST'
+      #   json:
+      #     redirect_uri: "http://localhost:5001/authorize_student"
+      #     access_token: req.session.access_token
+      # helpers_lib.quest_retry auth_options, (err, resp, body) ->
+      #   console.log "in help lib after post to logout"
+      #   console.log "there is an error", err
+      #   console.log "body is", body
+      #   console.log "response body is", resp.statusCode
+      #   req.session.student_logged_in = false
+      #   console.log "done here!"
+      #   return
 
     # else
     params =
       response_type: 'code'
       redirect_uri: "http://localhost:5001/authorize_student"
       client_id: client_id
+      district_id: "56ae8e9c5994560100000ae4"
       channel: 'reading_challenge_app'
       skip: 1
       state: crypto.createHmac('sha256', session_secret).update(req.sessionID).digest('hex')
@@ -70,7 +78,7 @@ module.exports = (
           auth:"#{client_id}:#{client_secret}"
           json:
             code: req.query?.code
-            redirect_uri: redirect_uri
+            redirect_uri: "http://localhost:5001/authorize_student"
             grant_type: 'authorization_code'
         helpers_lib.quest_retry auth_options, (err, resp, body) ->
           return cb_a err if err
@@ -83,12 +91,15 @@ module.exports = (
         helpers_lib.get_clever_resource(api_url) "/v1.1/#{user_info.type}s/#{user_info.id}", token, (err, user_data) ->
           return cb_a err if err
           cb_a null, user_data
+      school_info: ['user', 'token'].concat (cb_a, {user, token}) ->
+        helpers_lib.get_clever_resource(api_url) "/v1.1/schools/#{user.school}", token, (err, user_data) ->
+          return cb_e err if err
+          cb_a null, user_data
     , (err, results) ->
       return next err if err?
 
       user_type = results.user_info.type
-      console.log results.user
-      console.log "********"
+
       # error if user is not student
       if user_type isnt "student"
         console.log "houston we have a problem!"
@@ -97,14 +108,15 @@ module.exports = (
       student =
         id: results.user.id
         first_name: results.user.name.first
-        district: results.user.district
+        district_id: results.user.district
         grade: results.user.grade
-        school: results.user.school
+        school_id: results.user.school
+        school_name: results.school_info.name
 
       req.session.student_logged_in = true
       req.session.access_token = results.token
 
-      err = students_lib.save_student student.id, student.first_name, student.school, student.district, student.grade
+      err = students_lib.save_student student.id, student.first_name, student.school_id, student.school_name, student.district_id, student.grade
       # do something if error
 
       res.redirect "/"
