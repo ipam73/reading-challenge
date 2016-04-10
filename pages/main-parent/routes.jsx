@@ -8,7 +8,7 @@ var Route = Router.Route;
 
 // components
 var App = require('./components/App')
-var HomePage = require('./components/Homepage')
+var HomePage = require('./components/HomePage')
 
 var AboutPage = require('./components/about/AboutPage')
 
