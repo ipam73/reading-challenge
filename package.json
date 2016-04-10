@@ -25,9 +25,7 @@
     "redux-devtools-log-monitor": "^1.0.5",
     "redux-thunk": "^2.0.1",
     "toastr": "^2.1.2",
-    "underscore": "^1.8.3"
-  },
-  "devDependencies": {
+    "underscore": "^1.8.3",
     "babel-core": "^6.5.2",
     "babel-loader": "^6.2.4",
     "clean-webpack-plugin": "^0.1.8",
