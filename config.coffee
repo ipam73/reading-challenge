@@ -6,6 +6,7 @@ env_var_defaults =
   CLIENT_ID: ""
   CLIENT_SECRET: ""
   SESSION_SECRET: ""
+  ENV: "dev"
 
 for key, default_val of env_var_defaults
   module.exports[key] = process.env[key]
