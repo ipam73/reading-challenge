@@ -1,6 +1,6 @@
 env_var_defaults =
   HOST: 'localhost'
-  PORT: 5001
+  PORT: 5000
   AUTH_URL: "https://clever.com/oauth"
   API_URL: "https://api.clever.com"
   CLIENT_ID: ""

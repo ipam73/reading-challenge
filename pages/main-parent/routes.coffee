@@ -8,7 +8,7 @@ module.exports = (
   helpers_lib,
   client_id,
   client_secret,
-  redirect_uri,
+  redirect_base_uri,
   session_secret,
   auth_url,
   api_url
@@ -42,7 +42,7 @@ module.exports = (
       #   uri: "#{auth_url}/logout"
       #   method: 'POST'
       #   json:
-      #     redirect_uri: "http://localhost:5001/authorize_student"
+      #     redirect_uri: "#{redirect_base_uri}/authorize_student"
       #     access_token: req.session.access_token
       # helpers_lib.quest_retry auth_options, (err, resp, body) ->
       #   console.log "in help lib after post to logout"
@@ -56,7 +56,7 @@ module.exports = (
     # else
     params =
       response_type: 'code'
-      redirect_uri: "http://localhost:5001/authorize_student"
+      redirect_uri: "#{redirect_base_uri}/authorize_student"
       client_id: client_id
       district_id: "56ae8e9c5994560100000ae4"
       channel: 'reading_challenge_app'
@@ -78,7 +78,7 @@ module.exports = (
           auth:"#{client_id}:#{client_secret}"
           json:
             code: req.query?.code
-            redirect_uri: "http://localhost:5001/authorize_student"
+            redirect_uri: "#{redirect_base_uri}/authorize_student"
             grant_type: 'authorization_code'
         helpers_lib.quest_retry auth_options, (err, resp, body) ->
           return cb_a err if err

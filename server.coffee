@@ -25,11 +25,11 @@ module.exports = () ->
   students_lib = require "./lib/students"
   helpers_lib = require "./lib/helpers"
 
-  redirect_uri = "http://#{config.HOST}:#{config.PORT}/oauth"
+  redirect_base_uri = "http://#{config.HOST}:#{config.PORT}"
 
-  auth_routes = require("#{__dirname}/pages/auth/routes") config.CLIENT_ID, config.CLIENT_SECRET, redirect_uri, config.SESSION_SECRET, config.AUTH_URL, config.API_URL
+  auth_routes = require("#{__dirname}/pages/auth/routes") config.CLIENT_ID, config.CLIENT_SECRET, redirect_base_uri, config.SESSION_SECRET, config.AUTH_URL, config.API_URL
   main_metrics_routes = require("#{__dirname}/pages/main-metrics/routes")()
-  main_parent_routes = require("#{__dirname}/pages/main-parent/routes") students_lib, helpers_lib, config.CLIENT_ID, config.CLIENT_SECRET, redirect_uri, config.SESSION_SECRET, config.AUTH_URL, config.API_URL
+  main_parent_routes = require("#{__dirname}/pages/main-parent/routes") students_lib, helpers_lib, config.CLIENT_ID, config.CLIENT_SECRET, redirect_base_uri, config.SESSION_SECRET, config.AUTH_URL, config.API_URL
 
   app.use express.static(__dirname + '/public')
 
