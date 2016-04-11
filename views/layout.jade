@@ -6,7 +6,7 @@ html
 
       title
         block title
-          | Reading Challenge |
+          | Reading Challenge
 
       block styles
         link(rel='stylesheet', href='build/stylesheets/main.css')
@@ -15,10 +15,8 @@ html
 
   body
     block body
-      .layout-wrapper
-        .layout-inner-wrap
-          block header
-          block content
+      block header
+      block content
 
     block footer
     script(type='text/javascript').
