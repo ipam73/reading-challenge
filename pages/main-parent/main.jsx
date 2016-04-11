@@ -4,7 +4,7 @@ var React = require("react");
 var ReactDOM = require('react-dom');
 
 // router components
-var { Router, Route, IndexRoute, hashHistory, browserHistory } = require('react-router');
+var { Router, Route, IndexRoute, hashHistory } = require('react-router');
 var routes = require("./routes");
 
 // redux and store

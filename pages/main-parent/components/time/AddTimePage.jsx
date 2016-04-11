@@ -3,8 +3,7 @@
 var React = require("react");
 var _ = require("underscore");
 var ReactDOM = require("react-dom");
-var ReactRouter = require('react-router');
-var Link = ReactRouter.Link;
+var {hashHistory} = require("react-router");
 
 // redux stuff
 var {connect} = require('react-redux');
@@ -85,11 +84,11 @@ var AddTimePage = React.createClass({
     // StudentAPI.add_time(this.state.readTime);
     toastr.success('Time saved.');
     console.log("should say success");
-    ReactRouter.browserHistory.push('/');
+    hashHistory.push('/');
   },
 
   cancelTime: function() {
-    ReactRouter.browserHistory.push('/');
+    hashHistory.push('/');
   },
 
   componentWillMount() {

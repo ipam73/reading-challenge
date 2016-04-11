@@ -1,20 +1,14 @@
 "use strict";
 
 var React = require('react');
-
-var Router = require('react-router');
-var IndexRoute = Router.IndexRoute;
-var Route = Router.Route;
+var {Route, IndexRoute, hashHistory} = require('react-router');
 
 // components
 var App = require('./components/App')
 var HomePage = require('./components/HomePage')
-
 var AboutPage = require('./components/about/AboutPage')
-
 var StudentPage = require('./components/student/StudentPage')
 var AddStudentPage = require('./components/add-student/AddStudentPage')
-
 var AddTimePage = require('./components/time/AddTimePage')
 
 var routes = (

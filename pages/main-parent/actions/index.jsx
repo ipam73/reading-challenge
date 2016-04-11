@@ -1,6 +1,4 @@
 // library that deals with talking to backend
-"use strict";
-
 var Constants = require('../constants');
 var $ = require("jquery");
 var _ = require("underscore");

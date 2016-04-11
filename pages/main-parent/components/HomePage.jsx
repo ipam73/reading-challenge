@@ -1,8 +1,4 @@
 var React = require("react");
-var _ = require("underscore");
-var ReactDOM = require("react-dom");
-var ReactRouter = require('react-router');
-var Link = ReactRouter.Link;
 
 // redux stuff
 var {connect} = require('react-redux');

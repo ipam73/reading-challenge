@@ -1,9 +1,5 @@
-"use strict";
-
 var React = require('react');
-var ReactRouter = require('react-router');
-var Router = require('react-router');
-var Link = Router.Link;
+var {Link} = require('react-router');
 
 // redux stuff
 var {connect} = require('react-redux');

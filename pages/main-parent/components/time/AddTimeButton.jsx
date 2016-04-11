@@ -1,8 +1,7 @@
 "use strict";
 
 var React = require('react');
-var Router = require('react-router');
-var Link = Router.Link;
+var {Link} = require('react-router');
 
 var AddTimeButton = React.createClass({
   render: function() {

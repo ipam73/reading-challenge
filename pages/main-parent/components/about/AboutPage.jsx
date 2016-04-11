@@ -1,5 +1,3 @@
-"use strict";
-
 var React = require('react');
 
 var About = React.createClass({
@@ -16,7 +14,7 @@ var About = React.createClass({
 					<li>Etc.</li>
 				</ul>
 			</div>
-		); 
+		);
 	}
 });
 
