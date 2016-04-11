@@ -16,7 +16,6 @@ module.exports = () ->
     fingerprint: -> ""
     proxy: true
     cookie: httpOnly: true
-    key: "reading-challenge-development.sid"
     saveUninitialized: true
     resave: false
   app.use session(session_opts)
