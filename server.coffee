@@ -26,7 +26,7 @@ module.exports = () ->
   helpers_lib = require "./lib/helpers"
 
   redirect_base_uri = "http://#{config.HOST}:#{config.PORT}"
-  redirect_base_uri = "https://#{config.HOST}:#{config.PORT}" if config.ENV is "production"
+  redirect_base_uri = "https://#{config.HOST}" if config.ENV is "production"
 
   auth_routes = require("#{__dirname}/pages/auth/routes") config.CLIENT_ID, config.CLIENT_SECRET, redirect_base_uri, config.SESSION_SECRET, config.AUTH_URL, config.API_URL
   main_metrics_routes = require("#{__dirname}/pages/main-metrics/routes")()
