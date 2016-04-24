@@ -6,8 +6,8 @@ module.exports =
       school_id: '56ae929ca5aae58667000102',
       district_id: '56ae8e9c5994560100000ae4',
       school_name: "Raptorspectrum",
-      total_mins: 445,
-      goal: 60,
+      total_mins: 120,
+      goal: 20,
       grade: '4'
       progress: [
         {date: 1, mins: 45},
@@ -21,7 +21,7 @@ module.exports =
       school_id: '56ae929ca5aae58667000102',
       district_id: '56ae8e9c5994560100000ae4',
       school_name: "Raptorspectrum",
-      total_mins: 430,
+      total_mins: 190,
       goal: 40,
       grade: '6',
       progress: [
@@ -37,7 +37,7 @@ module.exports =
       school_id: '56ae929ca5aae58667000102',
       district_id: '56ae8e9c5994560100000ae4',
       school_name: "Scourgefern",
-      total_mins: 200,
+      total_mins: 150,
       goal: 50,
       progress: [
         {date: 1, mins: 45},

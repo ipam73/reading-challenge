@@ -14,8 +14,16 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.coffee$/, loader: "coffee-loader" },
-      { test: /\.jsx$/, loader: 'jsx-loader'},
-      { test: /\.less$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader") }
+      { test: /\.jsx$/,
+        exclude: [],
+        loader: 'babel',
+        query: {presets: ['react', 'es2015']}
+      },
+      { // Support require('./abc.less')
+        test: /\.less$/,
+        exclude: /assets/,
+        loader: "style-loader!css-loader!less-loader"
+      },
     ]
   },
   resolve: {

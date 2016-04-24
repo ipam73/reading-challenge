@@ -1,23 +1,22 @@
-"use strict";
 
-var React = require('react');
-var {Route, IndexRoute, hashHistory} = require('react-router');
+import React from "react";
+import {Route, IndexRoute} from "react-router";
 
 // components
-var App = require('./components/App')
-var HomePage = require('./components/HomePage')
-var AboutPage = require('./components/about/AboutPage')
-var StudentPage = require('./components/student/StudentPage')
-var AddStudentPage = require('./components/add-student/AddStudentPage')
-var AddTimePage = require('./components/time/AddTimePage')
+import App from "./components/App";
+import HomePage from "./components/HomePage";
+import AboutPage from "./components/about/AboutPage";
+import StudentPage from "./components/student/StudentPage";
+import AddStudentPage from "./components/add-student/AddStudentPage";
+import AddTimePage from "./components/time/AddTimePage";
 
 var routes = (
   <Route path="/" component={App}>
     <IndexRoute component={HomePage} />
-    <Route path="/student/:id" component={StudentPage}/>
-    <Route path="/addstudent" component={AddStudentPage}/>
-    <Route path="/addtime/:id" component={AddTimePage}/>
-    <Route path="/about" component={AboutPage}/>
+    <Route path="/student/:id" component={StudentPage} />
+    <Route path="/addstudent" component={AddStudentPage} />
+    <Route path="/addtime/:id" component={AddTimePage} />
+    <Route path="/about" component={AboutPage} />
   </Route>
 );
 

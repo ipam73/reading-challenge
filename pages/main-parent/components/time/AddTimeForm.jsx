@@ -2,6 +2,7 @@
 
 var React = require('react');
 var Input = require('../common/TextInput')
+var NumberInput = require('../common/NumberInput')
 var DatePicker = require('react-datepicker');
 
 require("!style!css!less!./AddTimeForm.less");
@@ -32,7 +33,7 @@ var AddTimeForm = React.createClass({
                   popoverAttachment='bottom center'
                   popoverTargetAttachment='top center'
                 />
-                <Input
+                <NumberInput
                   name="minutes"
                   label="Minutes Read"
                   placeholder="Minutes read"

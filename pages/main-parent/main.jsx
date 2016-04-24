@@ -1,30 +1,24 @@
-"use strict";
-
-var React = require("react");
-var ReactDOM = require('react-dom');
+import React from "react";
+import ReactDOM from "react-dom";
 
 // router components
-var { Router, Route, IndexRoute, hashHistory } = require('react-router');
-var routes = require("./routes");
+import {Router, hashHistory} from "react-router";
+import routes from "./routes";
 
 // redux and store
-var { createDevTools } = require('redux-devtools');
-var LogMonitor = require('redux-devtools-log-monitor');
-var DockMonitor = require('redux-devtools-dock-monitor');
-var { createStore, combineReducers, applyMiddleware } = require('redux');
-var { Provider } = require('react-redux');
-var { syncHistoryWithStore, routerReducer } = require('react-router-redux');
+import {createStore, combineReducers, applyMiddleware} from "redux";
+import {Provider} from "react-redux";
+import {routerReducer} from "react-router-redux";
 
 // redux thunk
-var thunk = require('redux-thunk').default;
+var thunk = require("redux-thunk").default;
 
 // reducers
-var reducers = require("./reducers");
+import reducers from "./reducers";
 var reducer = combineReducers({reducers, routerReducer});
 
 // store, takes reducer, thunk middleware
-var store = (window.devToolsExtension ? window.devToolsExtension()(Redux.createStore) : createStore)( reducer, applyMiddleware(thunk) );
-
+var store = (window.devToolsExtension ? window.devToolsExtension()(createStore) : createStore)(reducer, applyMiddleware(thunk));
 
 ReactDOM.render((
   <Provider store={store}>
@@ -35,4 +29,4 @@ ReactDOM.render((
     </div>
   </Provider>
 
-), document.getElementById('parent-home'));
+), document.getElementById("parent-home"));
