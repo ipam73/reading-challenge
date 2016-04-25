@@ -7,8 +7,6 @@ import StudentList from "./summary/StudentList";
 import AddStudent from "./add-student/AddStudent";
 import actions from "../actions";
 
-var ptypes = React.PropTypes;
-
 var Homepage = React.createClass({
   propTypes: {
     getStudentList: React.PropTypes.func.isRequired,
