@@ -2,7 +2,7 @@ var Constants = require("../constants");
 var _ = require("underscore");
 
 var initialState = {
-  studentList: window.Bootstrap.student_list,
+  studentList: {},
 }
 
 function rootReducer(state, action) {
