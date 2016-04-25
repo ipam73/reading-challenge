@@ -1,8 +1,4 @@
-"use strict";
-
-var React = require('react');
-var Router = require('react-router');
-
+import React from "react";
 
 var StudentSummary = React.createClass({
   propTypes: {

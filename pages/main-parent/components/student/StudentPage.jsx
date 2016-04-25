@@ -1,13 +1,11 @@
-var React = require('react');
-var Router = require('react-router');
-var Firebase = require('firebase')
-
-var StudentAPI = require('../../../../lib/students');
+var Firebase = require('firebase');
+import React from "react";
+import StudentAPI from "../../../../lib/students";
 
 // components
-var AddTimeButton = require("../time/AddTimeButton");
-var StudentProgress = require("./StudentProgress");
-var StudentSummary = require("./StudentSummary");
+import AddTimeButton from "../time/AddTimeButton";
+import StudentProgress from "./StudentProgress";
+import StudentSummary from "./StudentSummary";
 
 var StudentPage = React.createClass({
   getInitialState: function() {

@@ -1,17 +1,19 @@
-var React = require('react');
-var Header = require('./common/Header');
+import React from "react";
+import Header from "./common/Header";
 
-var App = React.createClass({
-  render: function() {
-    return (
-      <div>
-        <Header/>
-        <div className="container-fluid">
-          {this.props.children}
-        </div>
+function AppContainer(props) {
+  return (
+    <div>
+      <Header />
+      <div className="container-fluid">
+        {props.children}
       </div>
-    );
-  }
-});
+    </div>
+  );
+}
 
-module.exports = App;
+AppContainer.propTypes = {
+  children: React.PropTypes.node,
+};
+
+export const App = AppContainer;

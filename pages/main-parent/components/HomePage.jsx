@@ -1,29 +1,27 @@
-var React = require("react");
+import React from "react";
 
 // redux stuff
-var {connect} = require('react-redux');
-var actions = require("../actions");
+import {connect} from "react-redux";
 
-// student components
-var StudentList = require('./summary/StudentList');
-var AddStudent = require('./add-student/AddStudent');
-
+import StudentList from "./summary/StudentList";
+import AddStudent from "./add-student/AddStudent";
+import actions from "../actions";
 
 var ptypes = React.PropTypes;
 
 var Homepage = React.createClass({
   propTypes: {
-    getStudentList: React.PropTypes.func.isRequired
+    getStudentList: React.PropTypes.func.isRequired,
   },
 
   getInitialState() {
     return {
-      students: {}
+      students: {},
     };
   },
 
   componentWillMount() {
-    console.log("setting initial student list")
+    console.log("setting initial student list");
     this.props.getStudentList();
   },
 
@@ -32,7 +30,7 @@ var Homepage = React.createClass({
       <StudentList students={this.props.students} />
       <AddStudent/>
     </div>;
-  }
+  },
 });
 
 // -------------------------------------------------------------------------
@@ -42,7 +40,7 @@ var Homepage = React.createClass({
 // sets current state to summary page as this.prop
 function mapStateToProps(state) {
   return {
-    students: state.reducers.studentList
+    students: state.reducers.studentList,
   };
 }
 
@@ -54,3 +52,4 @@ function mapDispatchToProps (dispatch) {
 };
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(Homepage);
+

@@ -1,20 +1,16 @@
-"use strict";
-
-var React = require("react");
-var _ = require("underscore");
-var ReactDOM = require("react-dom");
-var {hashHistory} = require("react-router");
+import React from "react";
+import {hashHistory} from "react-router";
 
 // redux stuff
-var {connect} = require('react-redux');
-var actions = require("../../actions");
+import {connect} from "react-redux";
+import actions from "../../actions";
 
 // components
-var AddTimeForm = require('./AddTimeForm');
-var StudentAPI = require('../../../../lib/students');
+import AddTimeForm from "./AddTimeForm";
+import StudentAPI from "../../../../lib/students";
 
-var toastr = require('toastr');
-var moment = require('moment');
+import toastr from "toastr";
+import moment from "moment";
 
 var AddTimePage = React.createClass({
 

@@ -1,9 +1,6 @@
-"use strict";
-
-var React = require('react');
-var Input = require('../common/TextInput')
-var NumberInput = require('../common/NumberInput')
-var DatePicker = require('react-datepicker');
+import React from "react";
+import NumberInput from "../common/NumberInput";
+import DatePicker from "react-datepicker";
 
 require("!style!css!less!./AddTimeForm.less");
 

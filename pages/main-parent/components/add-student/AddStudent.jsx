@@ -1,9 +1,8 @@
-var React = require('react');
-var {Link} = require('react-router');
+import React from "react";
 
 // redux stuff
-var {connect} = require('react-redux');
-var actions = require("../../actions");
+import {connect} from "react-redux";
+import actions from "../../actions";
 
 require("!style!css!less!./AddStudent.less");
 
@@ -38,31 +37,15 @@ var AddStudent = React.createClass({
           </div>
         </div>
       </div>
-
-
-
     </div>
   }
 });
 
-// module.exports = AddStudent;
-
-// -------------------------------------------------------------------------
-// -------------------------------------------------------------------------
-// wraps summary page with state and actions
-
-// sets current state to summary page as this.prop
-function mapStateToProps(state) {
-  return {};
-}
-
 // currently not used for anything, no actions triggered on this page
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
-    addStudent: function(){ dispatch(actions.addStudent()); }
+    addStudent: function(){dispatch(actions.addStudent());},
   }
 };
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(AddStudent);
-
-
+module.exports = connect(null, mapDispatchToProps)(AddStudent);
