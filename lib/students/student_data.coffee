@@ -1,6 +1,6 @@
 module.exports =
-  students: [
-    {
+  students: {
+    '1233': {
       id: '1233',
       name: 'Pam',
       school_id: '56ae929ca5aae58667000102',
@@ -15,7 +15,7 @@ module.exports =
         {date: 3, mins: 65}
       ]
     },
-    {
+    '1234': {
       id: '1234',
       name: 'Mohit',
       school_id: '56ae929ca5aae58667000102',
@@ -30,7 +30,7 @@ module.exports =
         {date: 3, mins: 65}
       ]
     },
-    {
+    '1235': {
       id: '1235',
       name: 'Dan',
       grade: 'Kindergarden',
@@ -45,4 +45,4 @@ module.exports =
         {date: 3, mins: 65}
       ]
     }
-  ]
+  }

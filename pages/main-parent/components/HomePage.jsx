@@ -13,18 +13,18 @@ var ptypes = React.PropTypes;
 
 var Homepage = React.createClass({
   propTypes: {
-    getStudentList: ptypes.func.isRequired
+    getStudentList: React.PropTypes.func.isRequired
   },
 
   getInitialState() {
     return {
-      students: []
+      students: {}
     };
   },
 
   componentWillMount() {
     console.log("setting initial student list")
-    this.props.getStudents();
+    this.props.getStudentList();
   },
 
   render: function() {
@@ -50,7 +50,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps (dispatch) {
   return {
     getStudentList: function(){ dispatch(actions.getStudentList()); },
-    getPilotsForDistrict: function(){ dispatch(actions.getPilotsForDistrict()); },
   }
 };
 

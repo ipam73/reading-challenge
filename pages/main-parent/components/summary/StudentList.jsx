@@ -5,7 +5,7 @@ var SummaryPanel = require("./SummaryPanel");
 
 var StudentList = React.createClass({
   propTypes: {
-    students: React.PropTypes.array.isRequired
+    students: React.PropTypes.object.isRequired
   },
 
   render: function() {
@@ -19,15 +19,15 @@ var StudentList = React.createClass({
         </tr>
       )
     };
-
     return <div>
       <div>
-        {this.props.students.map(
-          function(student, i){
+        {Object.keys(this.props.students).map(
+          function(student_id, i){
+            console.log(student_id, i)
             return (
               <SummaryPanel
-                key={i}
-                student={student}
+                key={student_id}
+                student={this.props.students[student_id]}
               />);
           }, this
         )}

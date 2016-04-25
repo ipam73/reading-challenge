@@ -15,7 +15,7 @@ var actions = require("../../actions");
 var AddStudentPage = React.createClass({
 
   propTypes: {
-    addStudent: ptypes.func.isRequired
+    addStudent: React.PropTypes.func.isRequired
   },
 
   getInitialState: function() {

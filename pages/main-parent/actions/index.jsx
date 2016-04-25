@@ -87,7 +87,8 @@ function setStudentList(students) {
 function getStudentList() {
   console.log("in action getStudentList");
   return (dispatch, getState) => {
-    var ref = new Firebase(firebaseURI + "1");
+    // TODO: use parentID instead of 1
+    var ref = new Firebase(firebaseURI + "parents/1");
     ref.child('students').on('value', (snapshot) => {
         dispatch(setStudentList(snapshot.val()));
     });

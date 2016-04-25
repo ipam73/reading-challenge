@@ -1,6 +1,5 @@
 var React = require('react');
 var Router = require('react-router');
-var ReactFire = require('reactfire')
 var Firebase = require('firebase')
 
 var StudentAPI = require('../../../../lib/students');
