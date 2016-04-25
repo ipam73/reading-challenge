@@ -14,6 +14,10 @@ var actions = require("../../actions");
 
 var AddStudentPage = React.createClass({
 
+  propTypes: {
+    addStudent: ptypes.func.isRequired
+  },
+
   getInitialState: function() {
       return {
         student: {id: '', firstName: '', grade: ''},
@@ -46,14 +50,13 @@ var AddStudentPage = React.createClass({
     return formIsValid;
   },
 
-  saveStudent: function(event) {
+  processStudent: function(event) {
     event.preventDefault();
 
     if (!this.studentFormIsValid()) {
       return;
     }
 
-    StudentAPI.save_student(this.state.student);
 
     // triggers add student action
     this.props.addStudent();
@@ -68,14 +71,13 @@ var AddStudentPage = React.createClass({
         <StudentForm
           student={this.state.student}
           onChange={this.setStudentState}
-          onSave={this.saveStudent}
+          onSave={this.processStudent}
           errors={this.state.errors}
         />
       </div>
     );
   }
 });
-
 
 // -------------------------------------------------------------------------
 // -------------------------------------------------------------------------
@@ -94,4 +96,3 @@ function mapDispatchToProps (dispatch) {
 };
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(AddStudentPage);
-

@@ -8,11 +8,23 @@ var actions = require("../actions");
 var StudentList = require('./summary/StudentList');
 var AddStudent = require('./add-student/AddStudent');
 
+
+var ptypes = React.PropTypes;
+
 var Homepage = React.createClass({
+  propTypes: {
+    getStudentList: ptypes.func.isRequired
+  },
+
   getInitialState() {
     return {
       students: []
     };
+  },
+
+  componentWillMount() {
+    console.log("setting initial student list")
+    this.props.getStudents();
   },
 
   render: function() {
@@ -37,7 +49,8 @@ function mapStateToProps(state) {
 // currently not used for anything, no actions triggered on this page
 function mapDispatchToProps (dispatch) {
   return {
-    getStudentList: function(){ dispatch(actions.getStudentList()); }
+    getStudentList: function(){ dispatch(actions.getStudentList()); },
+    getPilotsForDistrict: function(){ dispatch(actions.getPilotsForDistrict()); },
   }
 };
 

@@ -2,8 +2,8 @@
 var Constants = require('../constants');
 var $ = require("jquery");
 var _ = require("underscore");
-
-var StudentAPI = require('../../../lib/students');
+var Firebase = require('firebase')
+var firebaseURI = "https://reading-challenge.firebaseio.com/"
 
 // helper function for ajax calls
 function getCookie(name) {
@@ -67,14 +67,30 @@ function addStudentFailure() {
   };
 }
 
+function setFirebaseRef(ref) {
+  return {
+    type: 'FIREBASE_REF_SET',
+    value: ref
+  };
+}
+
+function setStudentList(students) {
+  console.log("Students", students);
+  return {
+    type: Constants.GET_STUDENT_LIST,
+    studentList: students //load this in the list in
+  };
+}
+
 // getStudentList dummy func
 // GET ALL THE DATA FOR STUDENTS
 function getStudentList() {
   console.log("in action getStudentList");
-  var studentList = StudentAPI.get_all_students();
-  return {
-    type: Constants.GET_STUDENT_LIST,
-    studentList: studentList //load this in the list in
+  return (dispatch, getState) => {
+    var ref = new Firebase(firebaseURI + "1");
+    ref.child('students').on('value', (snapshot) => {
+        dispatch(setStudentList(snapshot.val()));
+    });
   };
 }
 
