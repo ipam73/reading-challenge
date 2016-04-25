@@ -7,4 +7,6 @@ module.exports = keyMirror({
   ADD_STUDENT: null,
   ADD_STUDENT_SUCCESS: null,
   ADD_STUDENT_FAILURE: null,
+  SET_STUDENT_TIME_STATE: null,
+  TIME_FORM_IS_VALID: null,
 });

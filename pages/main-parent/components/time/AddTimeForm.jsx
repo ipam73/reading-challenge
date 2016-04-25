@@ -7,7 +7,7 @@ require("!style!css!less!./AddTimeForm.less");
 var AddTimeForm = React.createClass({
   propTypes: {
     readDate: React.PropTypes.object.isRequired,
-    readMinutes: React.PropTypes.string.isRequired,
+    readMinutes: React.PropTypes.number.isRequired,
     onSave: React.PropTypes.func.isRequired,
     onMinsChange: React.PropTypes.func.isRequired,
     onDateChange: React.PropTypes.func.isRequired,
