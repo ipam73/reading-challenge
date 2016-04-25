@@ -1,6 +1,5 @@
 import React from "react";
 import AddTimeButton from "../time/AddTimeButton";
-
 require("!style!css!less!./SummaryPanel.less");
 
 // redux stuff
@@ -15,7 +14,7 @@ function SummaryPanel(props) {
           <div className="SUMMARYPANEL--heading-text">
             <h1 className="SUMMARYPANEL--panel-title">{props.student.name}</h1>
             <p> {props.student.school_name} </p>
-            <p> {"Grade " + props.student.grade} </p>
+            <p> {`Grade ${props.student.grade}`} </p>
           </div>
         </div>
         <div className="SUMMARYPANEL--panel-body">
@@ -36,6 +35,16 @@ function SummaryPanel(props) {
       </div>
     </div>
   );
+}
+
+SummaryPanel.propTypes = {
+  student: React.PropTypes.shape({
+    id: React.PropTypes.string.isRequired,
+    name: React.PropTypes.string.isRequired,
+    school_name: React.PropTypes.string.isRequired,
+    grade: React.PropTypes.string.isRequired,
+    total_mins: React.PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 module.exports = connect(null, null)(SummaryPanel);

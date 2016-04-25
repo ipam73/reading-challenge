@@ -1,5 +1,4 @@
 import React from "react";
-import {Link} from "react-router";
 import SummaryPanel from "./SummaryPanel";
 
 function StudentList(props) {
@@ -7,14 +6,14 @@ function StudentList(props) {
     <div>
       <div>
         {Object.keys(props.students).map(
-          function(student_id, i){
+          (student_id, i) => {
             console.log(student_id, i);
             return (
               <SummaryPanel
                 key={student_id}
                 student={props.students[student_id]}
               />);
-          }, this
+          }
         )}
       </div>
     </div>

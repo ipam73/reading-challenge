@@ -9,4 +9,8 @@ function AddTimeButton(props) {
   );
 }
 
+AddTimeButton.propTypes = {
+  studentID: React.PropTypes.string.isRequired,
+};
+
 module.exports = AddTimeButton;
