@@ -1,56 +1,44 @@
-var React = require("react");
+import React from "react";
+import {connect} from "react-redux";
+import StudentList from "./summary/StudentList";
+import AddStudent from "./add-student/AddStudent";
+import actions from "../actions";
 
-// redux stuff
-var {connect} = require('react-redux');
-var actions = require("../actions");
-
-// student components
-var StudentList = require('./summary/StudentList');
-var AddStudent = require('./add-student/AddStudent');
-
-
-var ptypes = React.PropTypes;
-
-var Homepage = React.createClass({
-  propTypes: {
-    getStudentList: React.PropTypes.func.isRequired
-  },
-
-  getInitialState() {
-    return {
-      students: {}
-    };
-  },
-
-  componentWillMount() {
-    console.log("setting initial student list")
-    this.props.getStudentList();
-  },
-
-  render: function() {
-    return <div>
-      <StudentList students={this.props.students} />
-      <AddStudent/>
-    </div>;
+class Homepage extends React.Component {
+  constructor(props) {
+    super(props);
+    props.getStudentList();
   }
-});
 
-// -------------------------------------------------------------------------
-// -------------------------------------------------------------------------
-// wraps summary page with state and actions
+  render() {
+    return (
+      <div>
+        <StudentList students={this.props.students} />
+        <AddStudent />
+      </div>
+    );
+  }
+}
+
+Homepage.propTypes = {
+  getStudentList: React.PropTypes.func.isRequired,
+  students: React.PropTypes.object.isRequired,
+};
 
 // sets current state to summary page as this.prop
 function mapStateToProps(state) {
   return {
-    students: state.reducers.studentList
+    students: state.reducers.studentList,
   };
 }
 
 // currently not used for anything, no actions triggered on this page
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
-    getStudentList: function(){ dispatch(actions.getStudentList()); },
-  }
-};
+    getStudentList: () => {
+      dispatch(actions.getStudentList());
+    },
+  };
+}
 
 module.exports = connect(mapStateToProps, mapDispatchToProps)(Homepage);

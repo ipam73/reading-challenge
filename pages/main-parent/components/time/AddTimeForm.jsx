@@ -1,16 +1,13 @@
-"use strict";
-
-var React = require('react');
-var Input = require('../common/TextInput')
-var NumberInput = require('../common/NumberInput')
-var DatePicker = require('react-datepicker');
+import React from "react";
+import NumberInput from "../common/NumberInput";
+import DatePicker from "react-datepicker";
 
 require("!style!css!less!./AddTimeForm.less");
 
 var AddTimeForm = React.createClass({
   propTypes: {
     readDate: React.PropTypes.object.isRequired,
-    readMinutes: React.PropTypes.string.isRequired,
+    readMinutes: React.PropTypes.number.isRequired,
     onSave: React.PropTypes.func.isRequired,
     onMinsChange: React.PropTypes.func.isRequired,
     onDateChange: React.PropTypes.func.isRequired,

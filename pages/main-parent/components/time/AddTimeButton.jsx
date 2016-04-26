@@ -1,14 +1,16 @@
-"use strict";
+import React from "react";
+import {Link} from "react-router";
 
-var React = require('react');
-var {Link} = require('react-router');
-
-var AddTimeButton = React.createClass({
-  render: function() {
-    return <div>
-      <Link to={`/addtime/${this.props.studentID}`} className="btn btn-default">Add Time</Link>
+function AddTimeButton(props) {
+  return (
+    <div>
+      <Link to={`/addtime/${props.studentID}`} className="btn btn-default">Add Time</Link>
     </div>
-  }
-});
+  );
+}
+
+AddTimeButton.propTypes = {
+  studentID: React.PropTypes.string.isRequired,
+};
 
 module.exports = AddTimeButton;

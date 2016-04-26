@@ -1,31 +1,35 @@
-var React = require('react');
+import React from "react";
 
-var NumberInput = React.createClass({
-  propTypes: {},
-
-  render: function() {
-    var wrapperClass = 'form-group';
-    if (this.props.error && this.props.error.length > 0){
-      wrapperClass += " " + 'has-error';
-    }
-
-    return(
-        <div className={wrapperClass}>
-          <label htmlFor={this.props.name}>{this.props.label}</label>
-          <div className="field">
-            <input type="number"
-              name={this.props.name}
-              className="form-control"
-              placeholder={this.props.placeholder}
-              ref={this.props.name}
-              value={this.props.value}
-              onChange={this.props.onChange}
-            />
-            <div className="input">{this.props.error}</div>
-          </div>
-        </div>
-     );
+function NumberInput(props) {
+  var wrapperClass = "form-group";
+  if (props.error && props.error.length > 0) {
+    wrapperClass += " has-error";
   }
-});
+  return (
+    <div className={wrapperClass}>
+      <label htmlFor={props.name}>{props.label}</label>
+      <div className="field">
+        <input
+          type="number"
+          name={props.name}
+          className="form-control"
+          placeholder={props.placeholder}
+          value={props.value}
+          onChange={props.onChange}
+        />
+        <div className="input">{props.error}</div>
+      </div>
+    </div>
+   );
+}
+
+NumberInput.propTypes = {
+  error: React.PropTypes.string,
+  name: React.PropTypes.string,
+  label: React.PropTypes.string,
+  placeholder: React.PropTypes.string,
+  value: React.PropTypes.node,
+  onChange: React.PropTypes.func,
+};
 
 module.exports = NumberInput;
