@@ -22,19 +22,19 @@ module.exports = () ->
 
 
   # libraries
-  students_lib = require "./lib/students"
-  helpers_lib = require "./lib/helpers"
+  students_lib = require "../lib/students"
+  helpers_lib = require "../lib/helpers"
 
   redirect_base_uri = "http://#{config.HOST}:#{config.PORT}"
   redirect_base_uri = "https://#{config.HOST}" if config.ENV is "production"
 
-  auth_routes = require("#{__dirname}/auth/routes") config.CLIENT_ID, config.CLIENT_SECRET, redirect_base_uri, config.SESSION_SECRET, config.AUTH_URL, config.API_URL
-  main_parent_routes = require("#{__dirname}/app/web/routes") students_lib, helpers_lib, config.CLIENT_ID, config.CLIENT_SECRET, redirect_base_uri, config.SESSION_SECRET, config.AUTH_URL, config.API_URL
+  auth_routes = require("../auth/routes") config.CLIENT_ID, config.CLIENT_SECRET, redirect_base_uri, config.SESSION_SECRET, config.AUTH_URL, config.API_URL
+  main_parent_routes = require("../app/web/routes") students_lib, helpers_lib, config.CLIENT_ID, config.CLIENT_SECRET, redirect_base_uri, config.SESSION_SECRET, config.AUTH_URL, config.API_URL
 
   app.use express.static(__dirname + '/public')
 
   app.set 'view engine', 'jade'
-  app.set 'views', './views'
+  app.set 'views', "#{__dirname}/views"
   app.set 'view engine', 'jade'
 
   app.get '/oauth', auth_routes.oauth
