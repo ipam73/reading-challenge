@@ -10,7 +10,7 @@ To run:
 ```coffee
 module.exports =
   HOST: 'localhost'
-  PORT: 5001
+  PORT: 5000
   CLIENT_ID: ""
   CLIENT_SECRET: ""
   AUTH_URL: "https://clever.com/oauth"
@@ -18,9 +18,9 @@ module.exports =
   SESSION_SECRET: ""
 ```
 
-- 2:
+- 2:  To run the web app
 ```
-make run
+make run-web
 ```
 
 To test:

@@ -14,7 +14,7 @@ import {routerReducer} from "react-router-redux";
 var thunk = require("redux-thunk").default;
 
 // reducers
-import reducers from "./reducers";
+import reducers from "../reducers";
 var reducer = combineReducers({reducers, routerReducer});
 
 // store, takes reducer, thunk middleware

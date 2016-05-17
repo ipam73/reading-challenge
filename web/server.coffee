@@ -22,20 +22,19 @@ module.exports = () ->
 
 
   # libraries
-  students_lib = require "./lib/students"
-  helpers_lib = require "./lib/helpers"
+  students_lib = require "../lib/students"
+  helpers_lib = require "../lib/helpers"
 
   redirect_base_uri = "http://#{config.HOST}:#{config.PORT}"
   redirect_base_uri = "https://#{config.HOST}" if config.ENV is "production"
 
-  auth_routes = require("#{__dirname}/pages/auth/routes") config.CLIENT_ID, config.CLIENT_SECRET, redirect_base_uri, config.SESSION_SECRET, config.AUTH_URL, config.API_URL
-  main_metrics_routes = require("#{__dirname}/pages/main-metrics/routes")()
-  main_parent_routes = require("#{__dirname}/pages/main-parent/routes") students_lib, helpers_lib, config.CLIENT_ID, config.CLIENT_SECRET, redirect_base_uri, config.SESSION_SECRET, config.AUTH_URL, config.API_URL
+  auth_routes = require("../auth/routes") config.CLIENT_ID, config.CLIENT_SECRET, redirect_base_uri, config.SESSION_SECRET, config.AUTH_URL, config.API_URL
+  main_parent_routes = require("../app/web/routes") students_lib, helpers_lib, config.CLIENT_ID, config.CLIENT_SECRET, redirect_base_uri, config.SESSION_SECRET, config.AUTH_URL, config.API_URL
 
   app.use express.static(__dirname + '/public')
 
   app.set 'view engine', 'jade'
-  app.set 'views', './views'
+  app.set 'views', "#{__dirname}/views"
   app.set 'view engine', 'jade'
 
   app.get '/oauth', auth_routes.oauth
@@ -48,8 +47,6 @@ module.exports = () ->
 
   # app.post '/addstudent', main_parent_routes.add_student
   app.get '/authorize_student', main_parent_routes.authorize_student
-
-  # app.get '/newstudent', main_parent_routes.newstudent
 
   # All routes before this can be accessed without being logged in
   # app.use ensure_logged_in

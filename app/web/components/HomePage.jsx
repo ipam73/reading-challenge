@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import StudentList from "./summary/StudentList";
 import AddStudent from "./add-student/AddStudent";
-import actions from "../actions";
+import actions from "../../actions";
 
 class Homepage extends React.Component {
   constructor(props) {

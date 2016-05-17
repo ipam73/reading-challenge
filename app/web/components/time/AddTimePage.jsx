@@ -1,7 +1,7 @@
 import React from "react";
 import {hashHistory} from "react-router";
 import {connect} from "react-redux";
-import actions from "../../actions";
+import actions from "../../../actions";
 
 import AddTimeForm from "./AddTimeForm";
 import toastr from "toastr";
