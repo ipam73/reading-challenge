@@ -23,5 +23,11 @@ module.exports =
 make run-web
 ```
 
+- 3: To run android app
+```
+    open genymotion -> start virtual device
+    react-native run-android
+```
+
 To test:
 use this district id: `56ae8e9c5994560100000ae4`
