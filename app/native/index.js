@@ -1,57 +1,44 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
-
-import React, { Component } from 'react';
+import React, {Component} from "react";
 import {
-  AppRegistry,
+  View,
   StyleSheet,
-  Text,
-  View
-} from 'react-native';
+} from "react-native";
+
+import {Provider} from "react-redux";
+import Header from "./components/common/Header";
+import StudentList from "./components/summary/StudentList";
+
+var styles = StyleSheet.create({
+  main: {
+    flex: 1,
+    backgroundColor: "#E0E0E0",
+  },
+})
 
 class ReactNative extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native in here!!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
+      <View style={styles.main}>
+        <Header />
+        <StudentList />
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
-
 export default class Root extends Component {
   render() {
     return (
-      <ReactNative />
+      <Provider store={this.props.store}>
+        <ReactNative />
+      </Provider>
     );
+
+    // return (
+    //   <Provider>
+    //     {() => <ReactNative />}
+    //   </Provider>
+    // );
   }
 }
+

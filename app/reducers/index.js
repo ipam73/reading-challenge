@@ -2,7 +2,7 @@ var Constants = require("../constants");
 var _ = require("underscore");
 
 var initialState = {
-  studentList: {},
+  studentList: [{name:"temp"}],
   timeForm: {},
 };
 
