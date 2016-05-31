@@ -1,19 +1,9 @@
-#This file is mocking a web API by hitting hard coded data.
-students_original = require('./student_data').students
 _ = require "underscore"
 
 Firebase = require('firebase')
 firebaseURI = "https://reading-challenge.firebaseio.com/"
 # TODO: don't hardcode parentId
 parentsRef = new Firebase(firebaseURI + "parents/" + "1")
-
-students = _.clone(students_original)
-
-get_all_students = () ->
-  return _.clone(students)
-
-get_student = (student_id) ->
-  return _.find students, (student) -> return student.id is student_id
 
 ### student schema
   {
@@ -57,7 +47,5 @@ add_time = (some_value) ->
 
 
 module.exports =
-  get_all_students: get_all_students
-  get_student: get_student
   save_student: save_student
   add_time: add_time

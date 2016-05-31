@@ -6,8 +6,6 @@ import {
   Text,
   TouchableHighlight,
 } from "react-native";
-import {connect} from "react-redux";
-import actions from "../../../actions";
 
 var styles = StyleSheet.create({
   row: {
@@ -60,20 +58,4 @@ StudentList.propTypes = {
   students: React.PropTypes.object.isRequired,
 };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    getStudentList: () => {
-      dispatch(actions.getStudentList());
-    },
-  };
-}
-
-function mapStateToProps(state) {
-  console.log("students list students are: ");
-  console.log(state.studentList);
-  return {
-    students: state.studentList,
-  };
-}
-
-module.exports = connect(mapStateToProps, mapDispatchToProps)(StudentList);
+module.exports = StudentList;

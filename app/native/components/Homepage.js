@@ -6,7 +6,6 @@ import Header from "./common/Header";
 import {
   StyleSheet,
   View,
-  Text,
 } from "react-native";
 
 var styles = StyleSheet.create({
@@ -16,41 +15,27 @@ var styles = StyleSheet.create({
   },
 });
 
-var Homepage = React.createClass({
-  componentDidMount: function() {
-    this.props.getStudentList();
-  },
-  render: function() {
+class Homepage extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log("getting student list");
+    props.getStudentList();
+  }
+
+  render() {
     return (
       <View style={styles.main}>
         <Header />
-        <StudentList students={this.props.students}/>
+        <StudentList students={this.props.students} />
       </View>
-    )
+    );
   }
-});
+}
 
-// class Homepage extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     console.log("getting student list");
-//     props.getStudentList();
-//   }
-
-//   render() {
-//     return (
-//       <View style={styles.main}>
-//         <Header />
-//         <StudentList students={this.props.students} />
-//       </View>
-//     );
-//   }
-// }
-
-// Homepage.propTypes = {
-//   getStudentList: React.PropTypes.func.isRequired,
-//   students: React.PropTypes.object.isRequired,
-// };
+Homepage.propTypes = {
+  getStudentList: React.PropTypes.func.isRequired,
+  students: React.PropTypes.object.isRequired,
+};
 
 function mapStateToProps(state) {
   console.log("HOMEPAGE students are: ");

@@ -15,15 +15,12 @@ module.exports = (
   ) ->
 
   homepage: (req, res, next) ->
-    student_list = students_lib.get_all_students()
-
     locals =
       bootstrap:
         parent:
           name:
             first: "Pam"
             last:"Martinez"
-        student_list: student_list
 
     res.render "parent-homepage", locals
 
