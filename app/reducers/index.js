@@ -2,7 +2,7 @@ var Constants = require("../constants");
 var _ = require("underscore");
 
 var initialState = {
-  studentList: [{name:"temp"}],
+  studentList: {},
   timeForm: {},
 };
 
@@ -13,7 +13,8 @@ function rootReducer(state, action) {
   switch (action.type) {
     case Constants.GET_STUDENT_LIST:
       newstate.studentList = action.studentList; // whatever is returned from the list
-
+      console.log("REDUCER: in get student list");
+      console.log(newstate.studentList);
       // not sure if we want to do this here or not
       var studentIDs = Object.keys(newstate.studentList);
       for (var student_id of studentIDs) {

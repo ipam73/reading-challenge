@@ -6,7 +6,7 @@ import {
   Text,
   TouchableHighlight,
 } from "react-native";
-import {connect} from "react-redux";
+// import {connect} from "react-redux";
 
 var people = [
   {
@@ -18,38 +18,6 @@ var people = [
     favouriteChannels: [],
   },
 ];
-
-var StudentList = React.createClass({
-  getInitialState: function() {
-    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    return {
-      dataSource: ds.cloneWithRows(people),
-    };
-  },
-  renderRow: function(person) {
-    return (
-      <TouchableHighlight style={styles.row}>
-        <View>
-          <Text style={styles.account}>{person.title}</Text>
-          <Text style={styles.account}>{"something else"}</Text>
-        </View>
-      </TouchableHighlight>
-    );
-  },
-  render: function() {
-    return (
-      <View>
-        <Text>
-          {"pam and" + this.props.students[0].name}
-        </Text>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this.renderRow}
-        />
-      </View>
-    );
-  }
-});
 
 var styles = StyleSheet.create({
   row: {
@@ -65,28 +33,49 @@ var styles = StyleSheet.create({
     color: "#000000",
     height: 60,
   },
-})
+});
 
-// // currently not used for anything, no actions triggered on this page
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     getStudentList: () => {
-//       dispatch(actions.getStudentList());
-//     },
-//   };
-// }
-// sets current state to summary page as this.prop
-function mapStateToProps(state) {
-  return {
-    students: state.studentList,
-  };
+function renderRow(student) {
+  console.log("in render for student list");
+  console.log(student);
+
+  return (
+    <TouchableHighlight style={styles.row}>
+      <View>
+        <Text style={styles.account}>{"student"}</Text>
+        <Text style={styles.account}>{"something else"}</Text>
+      </View>
+    </TouchableHighlight>
+  );
 }
 
-// const select = state => state;
+function StudentList(props) {
+  console.log("in render for student list");
+  console.log(props.students);
+  var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
-// Wrap the component to inject dispatch and state into it
-// export default connect(select)(StudentList);
+  return (
+    <View>
+      <ListView
+        dataSource={ds.cloneWithRows(people)}
+        renderRow={renderRow}
+      />
+    </View>
+  );
+}
 
-module.exports = connect(mapStateToProps, {})(StudentList);
+StudentList.propTypes = {
+  students: React.PropTypes.object.isRequired,
+};
 
-// module.exports = StudentList;
+module.exports = StudentList;
+
+// function mapStateToProps(state) {
+//   console.log("students list students are: ");
+//   console.log(state.studentList);
+//   return {
+//     students: state.studentList,
+//   };
+// }
+
+// module.exports = connect(mapStateToProps, {})(StudentList);

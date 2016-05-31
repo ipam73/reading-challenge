@@ -2,8 +2,8 @@
 var Constants = require('../constants');
 var $ = require("jquery");
 var _ = require("underscore");
-var Firebase = require('firebase')
-var firebaseURI = "https://reading-challenge.firebaseio.com/"
+var Firebase = require('firebase');
+var firebaseURI = "https://reading-challenge.firebaseio.com/";
 
 // helper function for ajax calls
 function getCookie(name) {
@@ -74,6 +74,7 @@ function setFirebaseRef(ref) {
 }
 
 function setStudentList(students) {
+  console.log("ACTIONS setStudentList");
   return {
     type: Constants.GET_STUDENT_LIST,
     studentList: students //load this in the list in
@@ -83,11 +84,19 @@ function setStudentList(students) {
 // getStudentList dummy func
 // GET ALL THE DATA FOR STUDENTS
 function getStudentList() {
-  return (dispatch, getState) => {
+  console.log("ACTIONS: getStudentList");
+  return dispatch => {
+  // return function (dispatch) {
+
     // TODO: use parentID instead of 1
-    var ref = new Firebase(firebaseURI + "parents/1");
-    ref.child('students').on('value', (snapshot) => {
-        dispatch(setStudentList(snapshot.val()));
+    const parentID = "1";
+    var ref = new Firebase(`${firebaseURI}parents/${parentID}`);
+
+    console.log("ACTIONS: in return dispatch stuff");
+
+    return ref.child("students").once("value", (snapshot) => {
+      console.log("ACTIONS: dispatch to go setStudentList");
+      dispatch(setStudentList(snapshot.val()));
     });
   };
 }
