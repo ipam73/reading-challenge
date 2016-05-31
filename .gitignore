@@ -39,6 +39,9 @@ local.properties
 node_modules/
 npm-debug.log
 
+# web
+web/public/build/
+
 # BUCK
 buck-out/
 \.buckd/

@@ -5,21 +5,49 @@ import {
   View,
   Text,
   TouchableHighlight,
+  Image,
 } from "react-native";
+import Button from "apsl-react-native-button";
+
+const icon = require("../../../images/BuddyPlaceholder.png");
 
 var styles = StyleSheet.create({
   row: {
     backgroundColor: "#FBFBFB",
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: 10,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 15,
+    paddingBottom: 15,
     marginLeft: 10,
     marginRight: 10,
     marginTop: 20,
   },
-  account: {
-    color: "#000000",
-    height: 60,
+  headingContainer: {
+    paddingBottom: 30,
+    flexDirection: "row",
+  },
+  headingIcon: {
+    width: 70,
+    height: 70,
+  },
+  headingText: {
+    paddingLeft: 20,
+    fontWeight: "bold",
+    flex: 1,
+  },
+  headingTitle: {
+    fontWeight: "bold",
+  },
+  button: {
+    backgroundColor: "#E0E0E0",
+    // alignItems: "center",
+    // justifyContent: 'center',
+    width: 70,
+    height: 30,
+    flex: 1,
+  },
+  buttonText: {
+    fontSize: 10,
   },
 });
 
@@ -30,10 +58,22 @@ function renderRow(student) {
   return (
     <TouchableHighlight style={styles.row}>
       <View>
-        <Text style={styles.account}>{student.name}</Text>
-        <Text style={styles.account}>{student.school_name}</Text>
-        <Text style={styles.account}>{`Grade ${student.grade}`}</Text>
-        <Text style={styles.account}>{`${student.total_mins} Minutes Read`}</Text>
+        <View style={styles.headingContainer}>
+          <Image style={styles.headingIcon} source={icon} />
+          <View style={styles.headingText}>
+            <Text style={styles.headingTitle}>{student.name}</Text>
+            <Text>
+              {student.school_name}
+              {"\n"}
+              {`Grade ${student.grade}`}
+              {"\n"}
+              {`${student.total_mins} Minutes Read`}
+            </Text>
+          </View>
+        </View>
+        <Button style={styles.button} textStyle={styles.buttonText}>
+          Add Time
+        </Button>
       </View>
     </TouchableHighlight>
   );
