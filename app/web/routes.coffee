@@ -3,6 +3,7 @@ crypto = require 'crypto'
 qs = require 'querystring'
 _ = require "underscore"
 
+# helpers_lib, config.CLIENT_ID, config.CLIENT_SECRET,
 module.exports = (
   students_lib,
   helpers_lib,
@@ -13,7 +14,6 @@ module.exports = (
   auth_url,
   api_url
   ) ->
-
   homepage: (req, res, next) ->
     locals =
       bootstrap:
@@ -26,15 +26,18 @@ module.exports = (
 
   add_student: (req, res, next) ->
     console.log "in add_student"
-    # console.log "is there a student logged in? ", req.session.student_logged_in
 
-    if req.session.student_logged_in is true
+    ###
+    #  this is where logout logic lives
+    ####
+    # console.log "is there a student logged in? ", req.session.student_logged_in
+    # if req.session.student_logged_in is true
       # this is a really hacky way, could not get auth_url/logout to properly
       # redirect back to app -- currently this forces user to manually go back to app
 
       # console.log "trying to log someone out"
-      req.session.student_logged_in = false
-      return res.redirect "#{auth_url}/logout"
+      # req.session.student_logged_in = false
+      # return res.redirect "#{auth_url}/logout"
       # auth_options =
       #   uri: "#{auth_url}/logout"
       #   method: 'POST'
@@ -50,22 +53,24 @@ module.exports = (
       #   console.log "done here!"
       #   return
 
-    # else
+    redirect_uri = "#{redirect_base_uri}/authorize_student"
     params =
       response_type: 'code'
-      redirect_uri: "#{redirect_base_uri}/authorize_student"
+      redirect_uri: redirect_uri
       client_id: client_id
       district_id: "56ae8e9c5994560100000ae4"
       channel: 'reading_challenge_app'
       skip: 1
       state: crypto.createHmac('sha256', session_secret).update(req.sessionID).digest('hex')
-
     res.redirect "#{auth_url}/authorize?#{qs.stringify params}"
 
   authorize_student: (req, res, next) ->
     console.log "in authorize_student"
+
     expected_state = crypto.createHmac('sha256', session_secret).update(req.sessionID).digest('hex')
     return res.redirect "/addstudent" if expected_state isnt req.query.state
+
+    console.log "in authorize_student next"
 
     async.auto
       token: (cb_a) ->
@@ -82,19 +87,32 @@ module.exports = (
           unless body.access_token?
             return cb_a new Error "No access token returned from Auth Service (status #{resp.statusCode})"
           cb_a null, body.access_token
+
       user_info: ['token'].concat (cb_a, {token}) ->
+        console.log "user_info"
         helpers_lib.get_clever_resource(api_url) "/me", token, cb_a
+
       user: ['user_info', 'token'].concat (cb_a, {user_info, token}) ->
+        console.log "user"
         helpers_lib.get_clever_resource(api_url) "/v1.1/#{user_info.type}s/#{user_info.id}", token, (err, user_data) ->
           return cb_a err if err
           cb_a null, user_data
-      school_info: ['user', 'token'].concat (cb_a, {user, token}) ->
-        helpers_lib.get_clever_resource(api_url) "/v1.1/schools/#{user.school}", token, (err, user_data) ->
-          return cb_e err if err
-          cb_a null, user_data
-    , (err, results) ->
-      return next err if err?
 
+      # this is broken!!!! for some reason hitting this endpoint returns a 404, do I have the wrong scopes?
+      # should I hit a different endpoint?
+      school_info: ['user_info', 'token'].concat (cb_a, {user_info, token}) ->
+        console.log "school_info"
+        helpers_lib.get_clever_resource(api_url) "/v1.1/#{user_info.type}s/#{user_info.id}/school", token, (err, user_data) ->
+          console.log "user data is", user_data
+          # return cb_a err if err
+          # cb_a null, user_data
+          cb_a null, {name: "school name goes here"}
+
+    , (err, results) ->
+      console.log "got here at the end"
+      console.log "results are, ", results
+
+      return next err if err?
       user_type = results.user_info.type
 
       # error if user is not student

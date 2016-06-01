@@ -36,7 +36,7 @@ save_student = (student_id, first_name, school_id, school_name, district_id, gra
   # TODO: check for errors here. 
   studentsRef.set({ "#{student_id}": student_to_save })
   # TODO: check for duplicate student in firebase? or should we just overwrite transparently
-  existing_student = _.find students, (student) -> return student.id is student_id
+  # existing_student = _.find students, (student) -> return student.id is student_id
 
   return null
 
