@@ -27,6 +27,7 @@ make run-web
 ```
     open genymotion -> start virtual device
     react-native run-android
+    adb logcat *:S ReactNative:V ReactNativeJS:V // SHOWS ANDROID LOGS
 ```
 
 To test:

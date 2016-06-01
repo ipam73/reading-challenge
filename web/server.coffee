@@ -28,7 +28,6 @@ module.exports = () ->
   redirect_base_uri = "http://#{config.HOST}:#{config.PORT}"
   redirect_base_uri = "https://#{config.HOST}" if config.ENV is "production"
 
-  auth_routes = require("../auth/routes") config.CLIENT_ID, config.CLIENT_SECRET, redirect_base_uri, config.SESSION_SECRET, config.AUTH_URL, config.API_URL
   main_parent_routes = require("../app/web/routes") students_lib, helpers_lib, config.CLIENT_ID, config.CLIENT_SECRET, redirect_base_uri, config.SESSION_SECRET, config.AUTH_URL, config.API_URL
 
   app.use express.static(__dirname + '/public')
@@ -37,9 +36,9 @@ module.exports = () ->
   app.set 'views', "#{__dirname}/views"
   app.set 'view engine', 'jade'
 
-  app.get '/oauth', auth_routes.oauth
+  # app.get '/oauth', auth_routes.oauth
   # app.get '/login', auth_routes.login
-  app.get '/logout', auth_routes.logout
+  # app.get '/logout', auth_routes.logout
 
   # parent route, should only see if a parent
   app.get '/', main_parent_routes.homepage

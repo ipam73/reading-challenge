@@ -1,9 +1,8 @@
-var webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   entry: {
-    "javascripts/main-parent.js": "../app/web/main.jsx",
+    "javascripts/main-parent.js": "/Users/pam/Documents/reading-challenge/app/web/main.jsx",
   },
   output: {
     path: "web/public/build",
