@@ -1,4 +1,5 @@
 import React from "react";
+import {connect} from "react-redux";
 import {
   StyleSheet,
   ListView,
@@ -51,6 +52,10 @@ var styles = StyleSheet.create({
   },
 });
 
+function onAddTimePress() {
+  console.log("on press");
+}
+
 function renderRow(student) {
   console.log("in render for student list");
   console.log(student);
@@ -71,7 +76,7 @@ function renderRow(student) {
             </Text>
           </View>
         </View>
-        <Button style={styles.button} textStyle={styles.buttonText}>
+        <Button style={styles.button} textStyle={styles.buttonText} onPress={onAddTimePress}>
           Add Time
         </Button>
       </View>
@@ -98,4 +103,15 @@ StudentList.propTypes = {
   students: React.PropTypes.object.isRequired,
 };
 
-module.exports = StudentList;
+// module.exports = StudentList;
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addTime: () => {
+      console.log("in here!");
+      // dispatch(actions.addTime());
+    },
+  };
+}
+
+module.exports = connect(null, mapDispatchToProps)(StudentList);
