@@ -5,7 +5,7 @@ You can see this on localhost:5001
 
 To run:
 
-- 1:  Make a config file in the root dir called `config.coffee` with the following:
+- 1:  Make a config file in the `web` dir called `config.coffee` with the following:
 
 ```coffee
 module.exports =
