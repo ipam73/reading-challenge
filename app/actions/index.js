@@ -2,10 +2,16 @@
 var Constants = require('../constants');
 var $ = require("jquery");
 var _ = require("underscore");
-// var Firebase = require('firebase');
-// var firebaseURI = "https://reading-challenge.firebaseio.com/";
-var Firebase = require('firebase')
-var firebaseURI = "https://reading-challenge.firebaseio.com/"
+
+var firebase = require('firebase')
+var config = {
+    apiKey: "AIzaSyCAAUrjrCNH_xCigW0T9qZxqeuaUpfcKmw",
+    authDomain: "reading-challenge.firebaseapp.com",
+    databaseURL: "https://reading-challenge.firebaseio.com",
+    storageBucket: "firebase-reading-challenge.appspot.com",
+};
+firebase.initializeApp(config);
+db = firebase.database();
 
 // helper function for ajax calls
 function getCookie(name) {
@@ -68,13 +74,6 @@ function addStudentFailure() {
   };
 }
 
-function setFirebaseRef(ref) {
-  return {
-    type: 'FIREBASE_REF_SET',
-    value: ref
-  };
-}
-
 function setStudentList(students) {
   console.log("ACTIONS setStudentList");
   return {
@@ -88,13 +87,8 @@ function setStudentList(students) {
 function getStudentList() {
   console.log("ACTIONS: getStudentList AGAIN ASKFJ PAM");
   return (dispatch, getState) => {
-  // return dispatch => {
-  // return function (dispatch) {
-
     // TODO: use parentID instead of 1
-    // const parentID = "1";
-    // var ref = new Firebase(`${firebaseURI}parents/${parentID}`);
-    var ref = new Firebase(firebaseURI + "parents/1");
+    var ref = db.ref("/parents/1");
     return ref.child("students").once("value", (snapshot) => {
       dispatch(setStudentList(snapshot.val()));
     });

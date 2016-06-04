@@ -1,9 +1,9 @@
 _ = require "underscore"
+config = require "#{__dirname}/../../web/config"
 
-Firebase = require('firebase')
-firebaseURI = "https://reading-challenge.firebaseio.com/"
-# TODO: don't hardcode parentId
-parentsRef = new Firebase(firebaseURI + "parents/" + "1")
+firebase = require('firebase')
+firebase.initializeApp { serviceAccount: config.FIREBASE_ACCOUNT, databaseURL: "https://reading-challenge.firebaseio.com" }
+db = firebase.database()
 
 ### student schema
   {
@@ -31,6 +31,7 @@ save_student = (student_id, first_name, school_id, school_name, district_id, gra
     grade: grade
     total_mins: 0
 
+  parentsRef = db.ref("/parents/1")
   studentsRef = parentsRef.child("students")
 
   # TODO: check for errors here. 
