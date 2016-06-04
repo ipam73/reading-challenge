@@ -23,8 +23,8 @@ var styles = StyleSheet.create({
     marginRight: 10,
     marginTop: 20,
   },
-  headingContainer: {
-    paddingBottom: 30,
+  subRowContainer: {
+    paddingBottom: 10,
     flexDirection: "row",
   },
   headingIcon: {
@@ -38,6 +38,12 @@ var styles = StyleSheet.create({
   },
   headingTitle: {
     fontWeight: "bold",
+  },
+  leftCol: {
+    flex: 1,
+  },
+  rightCol: {
+    alignItems: "flex-end",
   },
   button: {
     backgroundColor: "#E0E0E0",
@@ -63,7 +69,7 @@ function renderRow(student) {
   return (
     <TouchableHighlight style={styles.row}>
       <View>
-        <View style={styles.headingContainer}>
+        <View style={styles.subRowContainer}>
           <Image style={styles.headingIcon} source={icon} />
           <View style={styles.headingText}>
             <Text style={styles.headingTitle}>{student.name}</Text>
@@ -72,10 +78,21 @@ function renderRow(student) {
               {"\n"}
               {`Grade ${student.grade}`}
               {"\n"}
-              {`${student.total_mins} Minutes Read`}
             </Text>
           </View>
         </View>
+
+        <View style={styles.subRowContainer}>
+          <View style={styles.leftCol}>
+            <Text>{student.total_mins}</Text>
+            <Text>Minutes Read</Text>
+          </View>
+          <View style={styles.rightCol}>
+            <Text>12</Text>
+            <Text>Weeks left</Text>
+          </View>
+        </View>
+
         <Button style={styles.button} textStyle={styles.buttonText} onPress={onAddTimePress}>
           Add Time
         </Button>

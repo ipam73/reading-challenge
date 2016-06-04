@@ -1,18 +1,15 @@
 import React from "react";
-import {connect} from "react-redux";
 import {
   StyleSheet,
   View,
-  Image,
   TouchableHighlight,
   Text,
 } from "react-native";
-// import Button from "apsl-react-native-button";
+import {connect} from "react-redux";
 import IconButton from "react-native-icon-button";
-
 import actions from "../../../actions";
-// const cleverButton = require("https://s3.amazonaws.com/assets.clever.com/sign-in-with-clever/sign-in-with-clever-medium.png");
-const icon = require("../../../images/BuddyPlaceholder.png");
+
+const icon = require("../../../images/log-in-with-clever-large.png");
 
 var styles = StyleSheet.create({
   row: {
@@ -38,10 +35,9 @@ var styles = StyleSheet.create({
   },
   button: {
     marginTop: 10,
-    backgroundColor: "#E0E0E0",
-    // alignItems: "center",
-    // justifyContent: 'center',
-    width: 70,
+    marginBottom: 10,
+    backgroundColor: "#2f67ab",
+    width: 200,
     height: 30,
     flex: 1,
   },
@@ -50,9 +46,8 @@ var styles = StyleSheet.create({
   },
 });
 
-function AddStudent(student) {
+function AddStudent(props) {
   console.log("in render for student list");
-  console.log(student);
 
   return (
     <TouchableHighlight style={styles.row}>
@@ -62,7 +57,8 @@ function AddStudent(student) {
           <IconButton
             style={styles.button}
             icon={icon}
-            text={"Add Student"}
+            iconSize={20}
+            onPress={props.addStudent}
           />
           <Text>
             Click the button to add a student using their Clever login credentials.
@@ -74,13 +70,11 @@ function AddStudent(student) {
   );
 }
 
-// module.exports = AddStudent;
-
 function mapDispatchToProps(dispatch) {
   return {
     addStudent: () => {
-      console.log("in here!");
-      dispatch(actions.addStudent());
+      console.log("adding student!");
+      // dispatch(actions.addStudent());
     },
   };
 }
