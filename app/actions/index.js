@@ -126,7 +126,6 @@ function timeFormIsValid(newTime) {
 
 // newTime = {readDate: <date>, readMinutes: <minutes>}
 function setStudentTime(readDate, readTime, studentID) {
-
   // makes some call to the db to save the new time stats
   return {
     type: Constants.SET_STUDENT_TIME,

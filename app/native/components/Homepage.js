@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import actions from "../../actions";
 import StudentList from "./summary/StudentList";
+import AddStudent from "./add-student/AddStudent";
 import Header from "./common/Header";
 import {
   StyleSheet,
@@ -27,6 +28,7 @@ class Homepage extends React.Component {
       <View style={styles.main}>
         <Header />
         <StudentList students={this.props.students} />
+        <AddStudent />
       </View>
     );
   }
