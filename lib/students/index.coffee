@@ -32,10 +32,10 @@ save_student = (student_id, first_name, school_id, school_name, district_id, gra
     total_mins: 0
 
   parentsRef = db.ref("/parents/1")
-  studentsRef = parentsRef.child("students")
+  studentsRef = parentsRef.child("students/#{student_id}")
 
   # TODO: check for errors here. 
-  studentsRef.set({ "#{student_id}": student_to_save })
+  studentsRef.set(student_to_save)
   # TODO: check for duplicate student in firebase? or should we just overwrite transparently
   # existing_student = _.find students, (student) -> return student.id is student_id
 
