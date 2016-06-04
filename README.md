@@ -16,6 +16,7 @@ module.exports =
   AUTH_URL: "https://clever.com/oauth"
   API_URL: "https://api.clever.com"
   SESSION_SECRET: ""
+  FIREBASE_ACCOUNT: # json object by creating new key for node-backend at https://console.firebase.google.com/iam-admin/serviceaccounts/project?project=firebase-reading-challenge&consoleReturnUrl=https:%2F%2Fconsole.firebase.google.com%2Fproject%2Ffirebase-reading-challenge%2Foverview
 ```
 
 - 2:  To run the web app
