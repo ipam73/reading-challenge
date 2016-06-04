@@ -3,6 +3,7 @@ node_modules
 public/build/*
 *.DS_Store
 config.coffee
+web/config.coffee
 
 # OSX
 #
