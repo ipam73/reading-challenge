@@ -26,7 +26,7 @@ function Header() {
                 <Link to="/support">Support</Link>
               </li>
               <li>
-                <Link to="/about">Logout</Link>
+                <Link to="/logout">Logout</Link>
               </li>
             </ul>
           </li>

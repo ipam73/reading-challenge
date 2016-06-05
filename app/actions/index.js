@@ -32,8 +32,7 @@ function setFirebaseRef(ref) {
   };
 }
 /////////////////////////////////////////////////////////////
-
-
+auth = firebase.auth();
 
 // helper function for ajax calls
 function getCookie(name) {
@@ -43,6 +42,54 @@ function getCookie(name) {
     return decodeURIComponent(v);
   }
 }
+
+// action to login to Google via a popup. Dispatch error or user
+function loginWithGoogle() {
+
+  return function(dispatch) {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    auth = firebase.auth()
+    auth.signInWithPopup(provider).then(function(result) {
+      var token = result.credential.accessToken; // empty in current scope
+      var user = result.user;
+      dispatch(loginSuccess(token, user));
+    }).catch(function(err) {
+      console.log("error logging in with google", err);
+      dispatch(authFailure(err));
+    });
+  };
+}
+
+function logout() {
+
+  return function(dispatch) {
+    firebase.auth().signOut().then(() => {
+      dispatch(logoutSuccess());
+    }, (err) => {
+      dispatch(authFailure(err));
+    });
+  };
+}
+
+function loginSuccess(token, user) {
+  // TODO: ensure that firebase ref for this user exists
+  return {
+    type: Constants.LOGIN_SUCCESS,
+    user: user,
+  };
+}
+
+function logoutSuccess() {
+  // TODO: ensure that firebase ref for this user exists
+  return {
+    type: Constants.LOGOUT_SUCCESS,
+  };
+}
+
+// check if user is logged in. return user
+function isLoggedIn() {
+  return auth.currentUser;
+};
 
 // helper function for ajax calls
 function getCsrfHeader() {
@@ -214,4 +261,7 @@ module.exports = {
   addStudentSuccess,
   setMinsReadState,
   timeFormIsValid,
+  loginWithGoogle,
+  isLoggedIn,
+  logout,
 };

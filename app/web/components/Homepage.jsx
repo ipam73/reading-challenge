@@ -2,11 +2,14 @@ import React from "react";
 import {connect} from "react-redux";
 import StudentList from "./summary/StudentList";
 import AddStudent from "./add-student/AddStudent";
+import Login from "./login/Login";
 import actions from "../../actions";
 
 class Homepage extends React.Component {
   constructor(props) {
     super(props);
+    if (!actions.isLoggedIn()) {
+    }
     props.getStudentList();
   }
 
@@ -15,6 +18,7 @@ class Homepage extends React.Component {
       <div>
         <StudentList students={this.props.students} />
         <AddStudent />
+        <Login />
       </div>
     );
   }
@@ -22,13 +26,17 @@ class Homepage extends React.Component {
 
 Homepage.propTypes = {
   getStudentList: React.PropTypes.func.isRequired,
+  isLoggedIn: React.PropTypes.func.isRequired,
   students: React.PropTypes.object.isRequired,
+  user: React.PropTypes.object.isRequired,
 };
 
 // sets current state to summary page as this.prop
 function mapStateToProps(state) {
   return {
     students: state.reducers.studentList,
+    user: state.reducers.user,
+    isLoggedIn: actions.isLoggedIn,
   };
 }
 
