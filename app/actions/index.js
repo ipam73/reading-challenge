@@ -3,15 +3,36 @@ var Constants = require('../constants');
 var $ = require("jquery");
 var _ = require("underscore");
 
-var firebase = require('firebase')
-var config = {
-    apiKey: "AIzaSyCAAUrjrCNH_xCigW0T9qZxqeuaUpfcKmw",
-    authDomain: "reading-challenge.firebaseapp.com",
-    databaseURL: "https://reading-challenge.firebaseio.com",
-    storageBucket: "firebase-reading-challenge.appspot.com",
-};
-firebase.initializeApp(config);
-db = firebase.database();
+
+/////////////////////////////////////////////////////////
+// Downgrading to firebase 2.4, since newsest version does not work w/react
+// see:  https://medium.com/@Pier/firebase-is-broken-for-react-native-7f78b7a066da#.gotw818vu
+// and PR: https://github.com/ipam73/reading-challenge/commit/35247388d6ccc29a8dfd2bb1768da3e13a2c07df
+// var firebase = require('firebase')
+// var config = {
+//     apiKey: "AIzaSyCAAUrjrCNH_xCigW0T9qZxqeuaUpfcKmw",
+//     authDomain: "reading-challenge.firebaseapp.com",
+//     databaseURL: "https://reading-challenge.firebaseio.com",
+//     storageBucket: "firebase-reading-challenge.appspot.com",
+// };
+// firebase.initializeApp(config);
+// db = firebase.database();
+/////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////
+// Temporary workaround until Firebase fixes bug
+var Firebase = require('firebase');
+var firebaseURI = "https://reading-challenge.firebaseio.com/";
+
+function setFirebaseRef(ref) {
+  return {
+    type: 'FIREBASE_REF_SET',
+    value: ref,
+  };
+}
+/////////////////////////////////////////////////////////////
+
+
 
 // helper function for ajax calls
 function getCookie(name) {
@@ -88,7 +109,12 @@ function getStudentList() {
   console.log("ACTIONS: getStudentList AGAIN ASKFJ PAM");
   return (dispatch, getState) => {
     // TODO: use parentID instead of 1
-    var ref = db.ref("/parents/1");
+    var ref = new Firebase(firebaseURI + "parents/1");
+
+    ///////////////////////////////////////////////////////////////////////
+    // temporarily commenting out until firebase fixes bug, see top of file
+    // var ref = db.ref("/parents/1");
+
     return ref.child("students").once("value", (snapshot) => {
       dispatch(setStudentList(snapshot.val()));
     });
