@@ -1,5 +1,5 @@
 import React from "react";
-import {connect} from "react-redux";
+// import {connect} from "react-redux";
 import {
   StyleSheet,
   ListView,
@@ -8,7 +8,7 @@ import {
   TouchableHighlight,
   Image,
 } from "react-native";
-import Button from "apsl-react-native-button";
+import AddTimeButton from "../time/AddTime";
 
 const icon = require("../../../images/BuddyPlaceholder.png");
 
@@ -45,22 +45,7 @@ var styles = StyleSheet.create({
   rightCol: {
     alignItems: "flex-end",
   },
-  button: {
-    backgroundColor: "#E0E0E0",
-    // alignItems: "center",
-    // justifyContent: 'center',
-    width: 70,
-    height: 30,
-    flex: 1,
-  },
-  buttonText: {
-    fontSize: 10,
-  },
 });
-
-function onAddTimePress() {
-  console.log("on press");
-}
 
 function renderRow(student) {
   console.log("in render for student list");
@@ -93,9 +78,8 @@ function renderRow(student) {
           </View>
         </View>
 
-        <Button style={styles.button} textStyle={styles.buttonText} onPress={onAddTimePress}>
-          Add Time
-        </Button>
+        <AddTimeButton />
+
       </View>
     </TouchableHighlight>
   );
@@ -120,15 +104,15 @@ StudentList.propTypes = {
   students: React.PropTypes.object.isRequired,
 };
 
-// module.exports = StudentList;
+module.exports = StudentList;
 
-function mapDispatchToProps(dispatch) {
-  return {
-    addTime: () => {
-      console.log("in here!");
-      // dispatch(actions.addTime());
-    },
-  };
-}
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     addTime: () => {
+//       console.log("in here!");
+//       // dispatch(actions.addTime());
+//     },
+//   };
+// }
 
-module.exports = connect(null, mapDispatchToProps)(StudentList);
+// module.exports = connect(null, mapDispatchToProps)(StudentList);
