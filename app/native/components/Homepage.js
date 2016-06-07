@@ -41,10 +41,10 @@ Homepage.propTypes = {
 
 function mapStateToProps(state) {
   console.log("HOMEPAGE students are: ");
-  console.log(state.studentList);
+  console.log(state.reducers.studentList);
   console.log(state);
   return {
-    students: state.studentList,
+    students: state.reducers.studentList,
   };
 }
 

@@ -6,13 +6,11 @@ import First from "./components/Homepage";
 import Second from "./components/Homepage";
 import Third from "./components/Homepage";
 import Modal from "./components/Homepage";
-import {navigatePush, navigatePop} from "../actions";
+// import {navigatePush, navigatePop} from "../actions";
 
 const {
-  AnimatedView: NavigationAnimatedView,
-  Card: NavigationCard,
-  Header: NavigationHeader,
-  RootContainer: NavigationRootContainer,
+ CardStack: NavigationCardStack,
+ StateUtils: NavigationStateUtils,
 } = NavigationExperimental;
 
 const styles = StyleSheet.create({
