@@ -13,6 +13,7 @@ class Homepage extends React.Component {
   render() {
     return (
       <div>
+        <span>{this.props.user.displayName}</span>
         <StudentList students={this.props.students} />
         <AddStudent />
       </div>
@@ -22,7 +23,6 @@ class Homepage extends React.Component {
 
 Homepage.propTypes = {
   getStudentList: React.PropTypes.func.isRequired,
-  isLoggedIn: React.PropTypes.func.isRequired,
   students: React.PropTypes.object.isRequired,
   user: React.PropTypes.object.isRequired,
 };
@@ -32,7 +32,6 @@ function mapStateToProps(state) {
   return {
     students: state.reducers.studentList,
     user: state.reducers.user,
-    isLoggedIn: actions.isLoggedIn,
   };
 }
 

@@ -3,6 +3,7 @@ var Constants = require('../constants');
 var $ = require("jquery");
 var _ = require("underscore");
 var moment = require("moment");
+var { push } = require("react-router-redux")
 
 
 /////////////////////////////////////////////////////////
@@ -53,6 +54,8 @@ function loginWithGoogle() {
       var token = result.credential.accessToken; // empty in current scope
       var user = result.user;
       dispatch(loginSuccess(token, user));
+      console.log("dispatching to push /about")
+      dispatch(push("/"));
     }).catch(function(err) {
       console.log("error logging in with google", err);
       dispatch(authFailure(err));
@@ -65,6 +68,7 @@ function logout() {
   return function(dispatch) {
     firebase.auth().signOut().then(() => {
       dispatch(logoutSuccess());
+      dispatch(push("/login"));
     }, (err) => {
       dispatch(authFailure(err));
     });
@@ -73,6 +77,7 @@ function logout() {
 
 function loginSuccess(token, user) {
   // TODO: ensure that firebase ref for this user exists
+  console.log("go to / on loginSuccess");
   return {
     type: Constants.LOGIN_SUCCESS,
     user: user,

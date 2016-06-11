@@ -8,7 +8,6 @@ class Logout extends React.Component {
   constructor(props) {
     super(props);
     props.logout();
-    this.props.history.push('/');
   }
 
   render() {

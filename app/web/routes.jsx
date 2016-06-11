@@ -15,7 +15,7 @@ import AddTimePage from "./components/time/AddTimePage";
 var routes = (
   <Route path="/" component={App}>
     <IndexRoute component={Homepage} onEnter={requireAuth}/>
-    <Route path="/login" component={Login} />
+    <Route path="/login" component={Login}/>
     <Route path="/logout" component={Logout} />
     <Route path="/addtime/:id" component={AddTimePage} />
     <Route path="/about" component={About} />

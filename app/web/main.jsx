@@ -8,7 +8,7 @@ import routes from "./routes";
 // redux and store
 import {createStore, combineReducers, applyMiddleware} from "redux";
 import {Provider} from "react-redux";
-import {routerReducer} from "react-router-redux";
+import {routerMiddleware, routerReducer} from "react-router-redux";
 
 // redux thunk
 var thunk = require("redux-thunk").default;
@@ -18,7 +18,7 @@ import reducers from "../reducers";
 var reducer = combineReducers({reducers, routerReducer});
 
 // store, takes reducer, thunk middleware
-var store = (window.devToolsExtension ? window.devToolsExtension()(createStore) : createStore)(reducer, applyMiddleware(thunk));
+var store = (window.devToolsExtension ? window.devToolsExtension()(createStore) : createStore)(reducer, applyMiddleware(thunk, routerMiddleware(hashHistory)));
 
 ReactDOM.render((
   <Provider store={store}>

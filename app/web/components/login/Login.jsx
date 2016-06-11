@@ -11,18 +11,12 @@ class Login extends React.Component {
     this.onClickFn = this.onClickFn.bind(this);
   }
 
-  componentWillMount() {
-    console.log("user", actions.isLoggedIn())
-    if (actions.isLoggedIn()) {
-       console.log("location", this.props.location);
-    }
-  }
-
   onClickFn() {
     this.props.loginWithGoogle();
   }
 
   render() {
+    console.log("render login");
     return (
       <div>
         <div className="panel application-panel container-fluid">
@@ -53,6 +47,14 @@ Login.propTypes = {
   user: React.PropTypes.object,
 }
 
+// ....
+function mapStateToProps(state) {
+  console.log("mapStateToProps login");
+  return {
+    user: state.reducers.user,
+  };
+}
+
 // currently not used for anything, no actions triggered on this page
 function mapDispatchToProps(dispatch) {
   return {
@@ -62,4 +64,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-module.exports = connect(null, mapDispatchToProps)(Login);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Login);
