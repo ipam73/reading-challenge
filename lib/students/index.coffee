@@ -1,9 +1,17 @@
 _ = require "underscore"
 config = require "#{__dirname}/../../web/config"
 
-firebase = require('firebase')
-firebase.initializeApp { serviceAccount: config.FIREBASE_ACCOUNT, databaseURL: "https://reading-challenge.firebaseio.com" }
-db = firebase.database()
+###############################################################################
+## Downgrading to firebase 2.4, since newsest version does not work w/react
+## see:  https://medium.com/@Pier/firebase-is-broken-for-react-native-7f78b7a066da#.gotw818vu
+## and PR: https://github.com/ipam73/reading-challenge/commit/35247388d6ccc29a8dfd2bb1768da3e13a2c07df
+# firebase = require('firebase')
+# firebase.initializeApp { serviceAccount: config.FIREBASE_ACCOUNT, databaseURL: "https://reading-challenge.firebaseio.com" }
+# db = firebase.database()
+###############################################################################
+
+Firebase = require('firebase')
+firebaseURI = "https://reading-challenge.firebaseio.com/"
 
 ### student schema
   {
@@ -31,7 +39,11 @@ save_student = (student_id, first_name, school_id, school_name, district_id, gra
     grade: grade
     total_mins: 0
 
-  parentsRef = db.ref("/parents/1")
+  ## Downgrading to firebase 2.4, since newsest version does not work w/react
+  # parentsRef = db.ref("/parents/1")
+  parentsRef = new Firebase(firebaseURI + "parents/" + "1")
+
+
   studentsRef = parentsRef.child("students/#{student_id}")
 
   # TODO: check for errors here. 
