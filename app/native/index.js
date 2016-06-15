@@ -26,7 +26,7 @@ export default class Root extends Component {
   render() {
     return (
       <Provider store={this.props.store}>
-        <Homepage />
+        <AppContainer />
       </Provider>
     );
   }

@@ -1,140 +1,96 @@
 // import React, {PropTypes} from 'react-native';
 import React, {
-  Animated,
-  View,
-  Text,
-  NavigationExperimental,
-  ScrollView,
+  AppRegistry,
   StyleSheet,
-  BackAndroid,
-  Component,
-  PropTypes,
+  Text,
+  View,
+  Navigator,
+  TouchableHighlight
 } from 'react-native';
 
-
-// import {NavigationExperimental, Text, View, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 
 import Homepage from './components/Homepage';
 import AddTimeScreen from './components/time/AddTimeScreen';
 
 // import {navigatePush, navigatePop} from '../actions';
-
-// const {
-//   AnimatedView: NavigationAnimatedView,
-//   Card: NavigationCard,
-//   Header: NavigationHeader,
-// } = NavigationExperimental;
-
-// const styles = StyleSheet.create({
-//   outerContainer: {
-//     flex: 1,
-//   },
-//   container: {
-//     flex: 1,
-//   },
-// });
-
-const {
-  AnimatedView: NavigationAnimatedView,
-  Transitioner: NavigationTransitioner,
-  Card: NavigationCard,
-  Header: NavigationHeader,
-  Reducer: NavigationReducer,
-  RootContainer: NavigationRootContainer,
-} = NavigationExperimental;
-
-const styles = StyleSheet.create({
-  animatedView: {
+var styles = StyleSheet.create({
+  container: {
     flex: 1,
+    marginTop: 80
   },
-  scrollView: {
-    marginTop: NavigationHeader.HEIGHT,
+   heading: {
+    fontSize:22,
+    marginBottom:10
   },
+  button: {
+    height:60,
+    justifyContent: 'center',
+    backgroundColor: '#efefef',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  buttonText: {
+    fontSize:20
+  }
 });
 
 class AppContainer extends React.Component {
 
-  _renderScene({scene}) {
-    console.log('in render scene');
-    const { route } = scene;
-
-    switch(route.key) {
-    case 'First':
-      return <Homepage />;
-    case 'Second':
-      return <Homepage />;
-    case 'Third':
-      return <AddTimeScreen />;
-    }
+  renderScene(route, navigator) {
+    return React.createElement(route.component, { ...this.props, ...route.passProps, route, navigator } )
   }
 
   render() {
     console.log('trying to render app container');
-    let {navigationState, onNavigate} = this.props;
-    console.log('navigation state is: ', navigationState);
-    console.log('onNavigate state is: ', onNavigate);
+    // let {navigationState, onNavigate} = this.props;
+    // console.log('navigation state is: ', navigationState);
+    // console.log('onNavigate state is: ', onNavigate);
     console.log('trying to render app container 2');
 
-    // return (
-    //   <Text 
-    //    onNavigate={onNavigate}
-    //   renderOverlay={props => (
-    //     <NavigationHeader
-    //       {...props}
-    //       renderTitleComponent={props => {
-    //         return <NavigationHeader.Title>'TITLE'</NavigationHeader.Title>;
-    //       }}
-    //       // When dealing with modals you may also want to override renderLeftComponent...
-    //     />
-    //   )}
-    //   renderScene={props => (
-    //     // Again, we pass our navigationState from the Redux store to <NavigationCard />.
-    //     // Finally, we'll render out our scene based on navigationState in _renderScene().
-    //     <NavigationCard
-    //       {...props}
-    //       renderScene={this._renderScene}
-    //       key={props.scene.route.key}
-    //     />
-    //   )}
-    //   >
-    //    Hi
-    //   </Text>
-    // );
     return (
-
-      <NavigationTransitioner
-        navigationState={navigationState}
-        onNavigate={onNavigate}
-        renderOverlay={props => (
-          <NavigationHeader
-            {...props}
-            renderTitleComponent={props => {
-              return <NavigationHeader.Title>'TITLE'</NavigationHeader.Title>;
-            }}
-            // When dealing with modals you may also want to override renderLeftComponent...
-          />
-        )}
-        renderScene={props => (
-          // Again, we pass our navigationState from the Redux store to <NavigationCard />.
-          // Finally, we'll render out our scene based on navigationState in _renderScene().
-          <NavigationCard
-            {...props}
-            renderScene={this._renderScene}
-            key={props.scene.route.key}
-          />
-        )}
-      />
+      <Navigator
+        style={{ flex:1 }}
+        initialRoute={{ component: Main }}
+        renderScene={ this.renderScene } />
     );
   }
-
 }
 
-function AppContainer2(props) {
-  return (
-    <Text>Hi</Text>
-  );
-}
+
+var Home = React.createClass({  
+  render() {
+    return (
+      <View style={ styles.container }>
+        <Text style={ styles.heading }>Hello from { "this.props.name" }</Text>
+        <TouchableHighlight style={ styles.button } onPress={ () => this.props.navigator.pop() }>
+          <Text style={ styles.buttonText }>GO Back</Text>
+        </TouchableHighlight>
+      </View>
+    )
+  }
+})
+
+var Main = React.createClass({
+  _navigate(name) {
+    this.props.navigator.push({
+      component: Homepage,
+      passProps: {
+        name: name,
+      }
+    })
+  },
+  render() {    
+    return (
+      <View style={ styles.container }>
+        <Text style={ styles.heading }>Reading Challenge</Text>
+        <TouchableHighlight style={ styles.button } onPress={ () => this._navigate('YOYOYOYOYO') }>
+          <Text style={ styles.buttonText }>Sign In</Text>
+        </TouchableHighlight>
+      </View>
+    )
+  }
+})
 
 function mapStateToProps(state) {
   console.log('APPCONTAINER mapStateToProps state ');
@@ -168,5 +124,5 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(AppContainer2);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(AppContainer);
 
