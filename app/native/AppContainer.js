@@ -1,26 +1,31 @@
 import React, {
-  StyleSheet,
-  Text,
-  View,
   Navigator,
-  TouchableHighlight,
 } from 'react-native';
 
-import {connect} from 'react-redux';
-
+// pages
 import Homepage from './components/Homepage';
 import Landingpage from './components/Landingpage';
+import AddTimeScreen from './components/time/AddTimeScreen';
 
 // import Header from './components/common/Header';
-// import AddTimeScreen from './components/time/AddTimeScreen';
-
-// import {navigatePush, navigatePop} from '../actions';
 
 class AppContainer extends React.Component {
 
   renderScene(route, navigator) {
+    var component;
+    switch (route.name) {
+      case 'Homepage':
+        component = Homepage;
+        break;
+      case 'AddTimeScreen':
+        component = AddTimeScreen;
+        break;
+      default:
+        component = Landingpage;
+        break;
+    }
     return React.createElement(
-      route.component, {...this.props, ...route.passProps, route, navigator}
+      component, {...this.props, ...route.passProps, route, navigator}
     );
   }
 
@@ -29,7 +34,7 @@ class AppContainer extends React.Component {
       <Navigator
         style={{flex:1}}
         initialRoute={{component: Landingpage}}
-        renderScene={this.renderScene.bind(this)}
+        renderScene={this.renderScene}
       />
     );
   }

@@ -11,7 +11,7 @@ import Homepage from './Homepage';
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 80,
+    backgroundColor: '#946199',
   },
   heading: {
     fontSize: 22,
@@ -32,7 +32,7 @@ var styles = StyleSheet.create({
 class Landingpage extends React.Component {
   _navigate(name) {
     this.props.navigator.push({
-      component: Homepage,
+      name: 'Homepage',
       passProps: {
         name,
       },

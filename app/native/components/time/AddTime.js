@@ -42,7 +42,7 @@ class AddTime extends React.Component {
   onAddTimePress() {
     console.log('in add time press');
     this.props.navigator.push({
-      component: AddTimeScreen,
+      name: 'AddTimeScreen',
       passProps: {
         name: 'name',
       },
