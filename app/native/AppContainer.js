@@ -11,6 +11,8 @@ import React, {
 // pages
 import Homepage from './components/Homepage';
 import Landingpage from './components/Landingpage';
+import About from './components/About';
+import Support from './components/Support';
 import AddTimeScreen from './components/time/AddTimeScreen';
 
 //menu
@@ -61,27 +63,6 @@ class Button extends Component {
 
 class AppContainer extends React.Component {
 
-  renderScene(route, navigator) {
-    var component;
-    switch (route.name) {
-      case 'Landingpage':
-        component = Landingpage;
-        break;
-      case 'Homepage':
-        component = Homepage;
-        break;
-      case 'AddTimeScreen':
-        component = AddTimeScreen;
-        break;
-      default:
-        component = Landingpage;
-        break;
-    }
-    return React.createElement(
-      component, {...this.props, ...route.passProps, route, navigator}
-    );
-  }
-
   state = {
     isOpen: false,
     selectedItem: 'About',
@@ -97,17 +78,29 @@ class AppContainer extends React.Component {
     this.setState({ isOpen });
   }
 
-  onMenuItemSelected = (item) => {
-    this.setState({
-      isOpen: false,
-      selectedItem: item,
-    });
+  onMenuItemSelected = (item, title, navigator) => {
+    if (this.state.selectedItem === item) {
+      this.setState({
+        isOpen: false,
+        selectedItem: item,
+      });
+    }
+    else {
+      this.setState({
+        isOpen: false,
+        selectedItem: item,
+      });
+      navigator.push({
+        name: item,
+        title,
+      });
+    }
   }
 
   navigationBarRouteMapper(onToggle) {
     return ({
       LeftButton(route, navigator, index, navState) {
-        if (index > 1) {
+        if (route.name === 'AddTimeScreen') {
           return (
             <TouchableHighlight
               underlayColor='transparent'
@@ -144,27 +137,60 @@ class AppContainer extends React.Component {
     });
   }
 
-  render() {
-    const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
+  renderScene(route, navigator) {
+    var component;
+    switch (route.name) {
+      case 'Landingpage':
+        component = Landingpage;
+        break;
+      case 'Homepage':
+        component = Homepage;
+        break;
+      case 'AddTimeScreen':
+        component = AddTimeScreen;
+        break;
+      case 'About':
+        component = About;
+        break;
+      case 'Support':
+        component = Support;
+        break;
+      default:
+        component = Landingpage;
+        break;
+    }
+    const newElement = React.createElement(
+      component, {...this.props, ...route.passProps, route, navigator}
+    );
+    const menu = (<Menu
+      navigator={navigator}
+      onItemSelected={this.onMenuItemSelected}
+    />);
 
     return (
       <SideMenu
         menu={menu}
         isOpen={this.state.isOpen}
-        onChange={(isOpen) => this.updateMenuState(isOpen)}>
-
-        <Navigator
-          style={{flex: 1, paddingTop: 60}}
-          initialRoute={{component: Landingpage}}
-          renderScene={this.renderScene}
-          navigationBar={
-            <Navigator.NavigationBar
-              style={styles.nav}
-              routeMapper={this.navigationBarRouteMapper(this.toggle.bind(this))}
-            />
-          }
-        />
+        onChange={(isOpen) => this.updateMenuState(isOpen)}
+      >
+        {newElement}
       </SideMenu>
+    );
+  }
+
+  render() {
+    return (
+      <Navigator
+        style={{flex: 1, paddingTop: 50}}
+        initialRoute={{component: Landingpage}}
+        renderScene={this.renderScene.bind(this)}
+        navigationBar={
+          <Navigator.NavigationBar
+            style={styles.nav}
+            routeMapper={this.navigationBarRouteMapper(this.toggle.bind(this))}
+          />
+        }
+      />
     );
   }
 }

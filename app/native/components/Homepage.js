@@ -23,7 +23,6 @@ class Homepage extends React.Component {
   }
 
   render() {
-    console.log('passing navigator from homepage', this.props.navigator);
     return (
       <View style={styles.main}>
         <StudentList students={this.props.students} navigator={this.props.navigator} />
@@ -40,7 +39,6 @@ Homepage.propTypes = {
 };
 
 function mapStateToProps(state, props) {
-  // console.log('navigator is: ', props.navigator);
   return {
     students: state.reducers.studentList,
     navigator: props.navigator,

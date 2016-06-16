@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
 module.exports = class Menu extends Component {
   static propTypes = {
     onItemSelected: React.PropTypes.func.isRequired,
+    navigator: React.PropTypes.object.isRequired,
   };
 
   render() {
@@ -40,25 +41,25 @@ module.exports = class Menu extends Component {
       <ScrollView scrollsToTop={false} style={styles.menu}>
         <Text style={styles.name}>Your name</Text>
         <Text
-          onPress={() => this.props.onItemSelected('Home')}
+          onPress={() => this.props.onItemSelected('Homepage', 'Charm City Readers', this.props.navigator)}
           style={styles.item}>
           Home
         </Text>
 
         <Text
-          onPress={() => this.props.onItemSelected('About')}
+          onPress={() => this.props.onItemSelected('About', 'About the Challenge', this.props.navigator)}
           style={styles.item}>
           About
         </Text>
 
         <Text
-          onPress={() => this.props.onItemSelected('Support')}
+          onPress={() => this.props.onItemSelected('Support', 'Support', this.props.navigator)}
           style={styles.item}>
           Support
         </Text>
 
         <Text
-          onPress={() => this.props.onItemSelected('Logout')}
+          onPress={() => this.props.onItemSelected('Landingpage', '', this.props.navigator)}
           style={styles.item}>
           Logout
         </Text>
