@@ -4,9 +4,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {connect} from 'react-redux';
-// import actions from '../../../actions';
 import Button from 'apsl-react-native-button';
-import AddTimeScreen from './AddTimeScreen';
 
 var styles = StyleSheet.create({
   button: {
@@ -22,29 +20,13 @@ var styles = StyleSheet.create({
   },
 });
 
-async function selectDate() {
-  try {
-    const {action, year, month, day} = await DatePickerAndroid.open({
-      // Use `new Date()` for current date.
-      // May 25 2020. Month 0 is January.
-      date: new Date(2020, 4, 25),
-    });
-    if (action !== DatePickerAndroid.dismissedAction) {
-      // Selected year, month (0-11), day
-    }
-  } catch ({code, message}) {
-    console.warn('Cannot open date picker', message);
-  }
-}
-
 class AddTime extends React.Component {
-
   onAddTimePress() {
-    console.log('in add time press');
     this.props.navigator.push({
       name: 'AddTimeScreen',
+      title: `Log time: ${this.props.student.name}`,
       passProps: {
-        name: 'name',
+        studentID: this.props.studentID,
       },
     });
   }
@@ -58,23 +40,19 @@ class AddTime extends React.Component {
   }
 }
 
+AddTime.propsTypes = {
+  studentID: React.PropTypes.string.isRequired,
+  navigator: React.PropTypes.object.isRequired,
+};
 
 function mapStateToProps(state, props) {
-  console.log('ADD TIME students are: ');
-  console.log('props navigator', props.navigator);
+  const studentID = props.studentID;
   return {
-    students: state.reducers.studentList,
     navigator: props.navigator,
+    studentID,
+    student: state.reducers.studentList[studentID],
+
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    AddTime: () => {
-      console.log('adding student!');
-      // dispatch(actions.AddTime());
-    },
-  };
-}
-
-module.exports = connect(mapStateToProps, mapDispatchToProps)(AddTime);
+module.exports = connect(mapStateToProps, null)(AddTime);

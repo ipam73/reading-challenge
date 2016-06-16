@@ -31,17 +31,6 @@ class Homepage extends React.Component {
       </View>
     );
   }
-
-  // render() {
-  //   console.log('passing navigator from homepage', this.props.navigator);
-  //   return (
-  //     <View style={styles.main}>
-  //       <Header />
-  //       <StudentList students={this.props.students} navigator={this.props.navigator} />
-  //       <AddStudent navigator={this.props.navigator} />
-  //     </View>
-  //   );
-  // }
 }
 
 Homepage.propTypes = {

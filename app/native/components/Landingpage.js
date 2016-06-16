@@ -33,6 +33,7 @@ class Landingpage extends React.Component {
   _navigate(name) {
     this.props.navigator.push({
       name: 'Homepage',
+      title: 'Reading Challenge',
       passProps: {
         name,
       },

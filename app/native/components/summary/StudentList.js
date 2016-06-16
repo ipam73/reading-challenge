@@ -48,11 +48,7 @@ var styles = StyleSheet.create({
 });
 
 class StudentList extends React.Component {
-
   renderRow(student) {
-    console.log("in render row");
-    console.log("navigator is?", this.props.navigator);
-
     return (
       <TouchableHighlight style={styles.row}>
         <View>
@@ -80,7 +76,10 @@ class StudentList extends React.Component {
             </View>
           </View>
 
-          <AddTimeButton navigator={this.props.navigator} />
+          <AddTimeButton
+            navigator={this.props.navigator}
+            studentID={student.id}
+          />
 
         </View>
       </TouchableHighlight>
