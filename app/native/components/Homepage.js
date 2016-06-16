@@ -19,32 +19,42 @@ var styles = StyleSheet.create({
 class Homepage extends React.Component {
   constructor(props) {
     super(props);
-    console.log('getting student list');
     props.getStudentList();
   }
 
   render() {
+    console.log('passing navigator from homepage', this.props.navigator);
     return (
       <View style={styles.main}>
-        <Header />
-        <StudentList students={this.props.students} />
-        <AddStudent />
+        <StudentList students={this.props.students} navigator={this.props.navigator} />
+        <AddStudent navigator={this.props.navigator} />
       </View>
     );
   }
+
+  // render() {
+  //   console.log('passing navigator from homepage', this.props.navigator);
+  //   return (
+  //     <View style={styles.main}>
+  //       <Header />
+  //       <StudentList students={this.props.students} navigator={this.props.navigator} />
+  //       <AddStudent navigator={this.props.navigator} />
+  //     </View>
+  //   );
+  // }
 }
 
 Homepage.propTypes = {
   getStudentList: React.PropTypes.func.isRequired,
   students: React.PropTypes.object.isRequired,
+  navigator: React.PropTypes.object.isRequired,
 };
 
-function mapStateToProps(state) {
-  console.log('HOMEPAGE students are: ');
-  console.log(state.reducers.studentList);
-  console.log(state);
+function mapStateToProps(state, props) {
+  // console.log('navigator is: ', props.navigator);
   return {
     students: state.reducers.studentList,
+    navigator: props.navigator,
   };
 }
 

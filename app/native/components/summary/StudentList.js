@@ -1,5 +1,5 @@
-import React from "react";
-// import {connect} from "react-redux";
+import React from 'react';
+// import {connect} from 'react-redux';
 import {
   StyleSheet,
   ListView,
@@ -7,14 +7,14 @@ import {
   Text,
   TouchableHighlight,
   Image,
-} from "react-native";
-import AddTimeButton from "../time/AddTime";
+} from 'react-native';
+import AddTimeButton from '../time/AddTime';
 
-const icon = require("../../../images/BuddyPlaceholder.png");
+const icon = require('../../../images/BuddyPlaceholder.png');
 
 var styles = StyleSheet.create({
   row: {
-    backgroundColor: "#FBFBFB",
+    backgroundColor: '#FBFBFB',
     paddingLeft: 15,
     paddingRight: 15,
     paddingTop: 15,
@@ -25,7 +25,7 @@ var styles = StyleSheet.create({
   },
   subRowContainer: {
     paddingBottom: 10,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   headingIcon: {
     width: 70,
@@ -33,75 +33,76 @@ var styles = StyleSheet.create({
   },
   headingText: {
     paddingLeft: 20,
-    fontWeight: "bold",
+    // fontWeight: 'bold',
     flex: 1,
   },
   headingTitle: {
-    fontWeight: "bold",
+    // fontWeight: 'bold',
   },
   leftCol: {
     flex: 1,
   },
   rightCol: {
-    alignItems: "flex-end",
+    alignItems: 'flex-end',
   },
 });
 
-function renderRow(student) {
-  console.log("in render for student list");
-  console.log(student);
+class StudentList extends React.Component {
 
-  return (
-    <TouchableHighlight style={styles.row}>
+  renderRow(student) {
+    console.log("in render row");
+    console.log("navigator is?", this.props.navigator);
+
+    return (
+      <TouchableHighlight style={styles.row}>
+        <View>
+          <View style={styles.subRowContainer}>
+            <Image style={styles.headingIcon} source={icon} />
+            <View style={styles.headingText}>
+              <Text style={styles.headingTitle}>{student.name}</Text>
+              <Text>
+                {student.school_name}
+                {'\n'}
+                {`Grade ${student.grade}`}
+                {'\n'}
+              </Text>
+            </View>
+          </View>
+
+          <View style={styles.subRowContainer}>
+            <View style={styles.leftCol}>
+              <Text>{student.total_mins}</Text>
+              <Text>Minutes Read</Text>
+            </View>
+            <View style={styles.rightCol}>
+              <Text>12</Text>
+              <Text>Weeks left</Text>
+            </View>
+          </View>
+
+          <AddTimeButton navigator={this.props.navigator} />
+
+        </View>
+      </TouchableHighlight>
+    );
+  }
+
+  render() {
+    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    return (
       <View>
-        <View style={styles.subRowContainer}>
-          <Image style={styles.headingIcon} source={icon} />
-          <View style={styles.headingText}>
-            <Text style={styles.headingTitle}>{student.name}</Text>
-            <Text>
-              {student.school_name}
-              {"\n"}
-              {`Grade ${student.grade}`}
-              {"\n"}
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.subRowContainer}>
-          <View style={styles.leftCol}>
-            <Text>{student.total_mins}</Text>
-            <Text>Minutes Read</Text>
-          </View>
-          <View style={styles.rightCol}>
-            <Text>12</Text>
-            <Text>Weeks left</Text>
-          </View>
-        </View>
-
-        <AddTimeButton />
-
+        <ListView
+          dataSource={ds.cloneWithRows(this.props.students)}
+          renderRow={this.renderRow.bind(this)}
+        />
       </View>
-    </TouchableHighlight>
-  );
-}
-
-function StudentList(props) {
-  console.log("in render for student list");
-  console.log(props.students);
-  var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-
-  return (
-    <View>
-      <ListView
-        dataSource={ds.cloneWithRows(props.students)}
-        renderRow={renderRow}
-      />
-    </View>
-  );
+    );
+  }
 }
 
 StudentList.propTypes = {
   students: React.PropTypes.object.isRequired,
+  navigator: React.PropTypes.object.isRequired,
 };
 
 module.exports = StudentList;
@@ -109,7 +110,7 @@ module.exports = StudentList;
 // function mapDispatchToProps(dispatch) {
 //   return {
 //     addTime: () => {
-//       console.log("in here!");
+//       console.log('in here!');
 //       // dispatch(actions.addTime());
 //     },
 //   };

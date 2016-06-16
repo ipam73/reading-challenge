@@ -1,16 +1,17 @@
-import React from "react";
+import React from 'react';
 import {
   DatePickerAndroid,
   StyleSheet,
-} from "react-native";
-import {connect} from "react-redux";
-// import actions from "../../../actions";
-import Button from "apsl-react-native-button";
+} from 'react-native';
+import {connect} from 'react-redux';
+// import actions from '../../../actions';
+import Button from 'apsl-react-native-button';
+import AddTimeScreen from './AddTimeScreen';
 
 var styles = StyleSheet.create({
   button: {
-    backgroundColor: "#E0E0E0",
-    // alignItems: "center",
+    backgroundColor: '#E0E0E0',
+    // alignItems: 'center',
     // justifyContent: 'center',
     width: 70,
     height: 30,
@@ -32,29 +33,48 @@ async function selectDate() {
       // Selected year, month (0-11), day
     }
   } catch ({code, message}) {
-    console.warn("Cannot open date picker", message);
+    console.warn('Cannot open date picker', message);
   }
 }
 
-function onAddTimePress() {
-  console.log("in add time press");
+class AddTime extends React.Component {
+
+  onAddTimePress() {
+    console.log('in add time press');
+    this.props.navigator.push({
+      component: AddTimeScreen,
+      passProps: {
+        name: 'name',
+      },
+    });
+  }
+
+  render() {
+    return (
+      <Button style={styles.button} textStyle={styles.buttonText} onPress={this.onAddTimePress.bind(this)}>
+        Add Time
+      </Button>
+    );
+  }
 }
 
-function AddTime(props) {
-  return (
-    <Button style={styles.button} textStyle={styles.buttonText} onPress={onAddTimePress}>
-      Add Time
-    </Button>
-  );
+
+function mapStateToProps(state, props) {
+  console.log('ADD TIME students are: ');
+  console.log('props navigator', props.navigator);
+  return {
+    students: state.reducers.studentList,
+    navigator: props.navigator,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     AddTime: () => {
-      console.log("adding student!");
+      console.log('adding student!');
       // dispatch(actions.AddTime());
     },
   };
 }
 
-module.exports = connect(null, mapDispatchToProps)(AddTime);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(AddTime);

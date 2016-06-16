@@ -27,11 +27,11 @@ var styles = StyleSheet.create({
     flexDirection: "row",
   },
   headingText: {
-    fontWeight: "bold",
+    // fontWeight: "bold",
     flex: 1,
   },
   headingTitle: {
-    fontWeight: "bold",
+    // fontWeight: "bold",
   },
   button: {
     marginTop: 10,

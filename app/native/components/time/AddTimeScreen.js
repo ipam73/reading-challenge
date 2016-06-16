@@ -1,14 +1,15 @@
-import React from "react";
+import React from 'react';
 import {
   StyleSheet,
   View,
   Text,
-} from "react-native";
+} from 'react-native';
+import {connect} from 'react-redux';
 
 var styles = StyleSheet.create({
   main: {
     flex: 1,
-    backgroundColor: "#E0E0E0",
+    backgroundColor: '#E0E0E0',
   },
 });
 
@@ -23,12 +24,12 @@ var styles = StyleSheet.create({
 //       // Selected year, month (0-11), day
 //     }
 //   } catch ({code, message}) {
-//     console.warn("Cannot open date picker", message);
+//     console.warn('Cannot open date picker', message);
 //   }
 // }
 
 // function onAddTimePress() {
-//   console.log("in add time press");
+//   console.log('in add time press');
 // }
 
 function AddTimeScreen(props) {
@@ -41,4 +42,13 @@ function AddTimeScreen(props) {
   );
 }
 
-module.exports = AddTimeScreen;
+function mapStateToProps(state, props) {
+  console.log('ADD TIME SCREEN students are: ');
+  console.log('props navigator', props.navigator);
+  return {
+    navigator: props.navigator,
+  };
+}
+
+module.exports = connect(mapStateToProps, null)(AddTimeScreen);
+
