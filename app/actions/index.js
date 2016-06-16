@@ -164,11 +164,6 @@ function setMinsReadState(event, studentID) {
   };
 }
 
-
-//////////////////////
-// react native actions
-
-
 module.exports = {
   getStudentList,
   setStudentTime,
