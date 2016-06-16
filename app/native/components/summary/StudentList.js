@@ -1,5 +1,5 @@
-import React from "react";
-import {connect} from "react-redux";
+import React from 'react';
+// import {connect} from 'react-redux';
 import {
   StyleSheet,
   ListView,
@@ -7,14 +7,14 @@ import {
   Text,
   TouchableHighlight,
   Image,
-} from "react-native";
-import Button from "apsl-react-native-button";
+} from 'react-native';
+import AddTimeButton from '../time/AddTime';
 
-const icon = require("../../../images/BuddyPlaceholder.png");
+const icon = require('../../../images/BuddyPlaceholder.png');
 
 var styles = StyleSheet.create({
   row: {
-    backgroundColor: "#FBFBFB",
+    backgroundColor: '#FBFBFB',
     paddingLeft: 15,
     paddingRight: 15,
     paddingTop: 15,
@@ -25,7 +25,7 @@ var styles = StyleSheet.create({
   },
   subRowContainer: {
     paddingBottom: 10,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   headingIcon: {
     width: 70,
@@ -33,102 +33,86 @@ var styles = StyleSheet.create({
   },
   headingText: {
     paddingLeft: 20,
-    fontWeight: "bold",
+    // fontWeight: 'bold',
     flex: 1,
   },
   headingTitle: {
-    fontWeight: "bold",
+    // fontWeight: 'bold',
   },
   leftCol: {
     flex: 1,
   },
   rightCol: {
-    alignItems: "flex-end",
-  },
-  button: {
-    backgroundColor: "#E0E0E0",
-    // alignItems: "center",
-    // justifyContent: 'center',
-    width: 70,
-    height: 30,
-    flex: 1,
-  },
-  buttonText: {
-    fontSize: 10,
+    alignItems: 'flex-end',
   },
 });
 
-function onAddTimePress() {
-  console.log("on press");
-}
+class StudentList extends React.Component {
+  renderRow(student) {
+    return (
+      <TouchableHighlight style={styles.row}>
+        <View>
+          <View style={styles.subRowContainer}>
+            <Image style={styles.headingIcon} source={icon} />
+            <View style={styles.headingText}>
+              <Text style={styles.headingTitle}>{student.name}</Text>
+              <Text>
+                {student.school_name}
+                {'\n'}
+                {`Grade ${student.grade}`}
+                {'\n'}
+              </Text>
+            </View>
+          </View>
 
-function renderRow(student) {
-  console.log("in render for student list");
-  console.log(student);
+          <View style={styles.subRowContainer}>
+            <View style={styles.leftCol}>
+              <Text>{student.total_mins}</Text>
+              <Text>Minutes Read</Text>
+            </View>
+            <View style={styles.rightCol}>
+              <Text>12</Text>
+              <Text>Weeks left</Text>
+            </View>
+          </View>
 
-  return (
-    <TouchableHighlight style={styles.row}>
+          <AddTimeButton
+            navigator={this.props.navigator}
+            studentID={student.id}
+          />
+
+        </View>
+      </TouchableHighlight>
+    );
+  }
+
+  render() {
+    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    return (
       <View>
-        <View style={styles.subRowContainer}>
-          <Image style={styles.headingIcon} source={icon} />
-          <View style={styles.headingText}>
-            <Text style={styles.headingTitle}>{student.name}</Text>
-            <Text>
-              {student.school_name}
-              {"\n"}
-              {`Grade ${student.grade}`}
-              {"\n"}
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.subRowContainer}>
-          <View style={styles.leftCol}>
-            <Text>{student.total_mins}</Text>
-            <Text>Minutes Read</Text>
-          </View>
-          <View style={styles.rightCol}>
-            <Text>12</Text>
-            <Text>Weeks left</Text>
-          </View>
-        </View>
-
-        <Button style={styles.button} textStyle={styles.buttonText} onPress={onAddTimePress}>
-          Add Time
-        </Button>
+        <ListView
+          dataSource={ds.cloneWithRows(this.props.students)}
+          renderRow={this.renderRow.bind(this)}
+        />
       </View>
-    </TouchableHighlight>
-  );
-}
-
-function StudentList(props) {
-  console.log("in render for student list");
-  console.log(props.students);
-  var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-
-  return (
-    <View>
-      <ListView
-        dataSource={ds.cloneWithRows(props.students)}
-        renderRow={renderRow}
-      />
-    </View>
-  );
+    );
+  }
 }
 
 StudentList.propTypes = {
   students: React.PropTypes.object.isRequired,
+  navigator: React.PropTypes.object.isRequired,
 };
 
-// module.exports = StudentList;
+module.exports = StudentList;
 
-function mapDispatchToProps(dispatch) {
-  return {
-    addTime: () => {
-      console.log("in here!");
-      // dispatch(actions.addTime());
-    },
-  };
-}
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     addTime: () => {
+//       console.log('in here!');
+//       // dispatch(actions.addTime());
+//     },
+//   };
+// }
 
-module.exports = connect(null, mapDispatchToProps)(StudentList);
+// module.exports = connect(null, mapDispatchToProps)(StudentList);

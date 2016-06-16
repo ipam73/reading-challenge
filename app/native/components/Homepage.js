@@ -1,34 +1,33 @@
-import React from "react";
-import {connect} from "react-redux";
-import actions from "../../actions";
-import StudentList from "./summary/StudentList";
-import AddStudent from "./add-student/AddStudent";
-import Header from "./common/Header";
+import React from 'react';
+import {connect} from 'react-redux';
+import actions from '../../actions';
+import StudentList from './summary/StudentList';
+import AddStudent from './add-student/AddStudent';
+import Header from './common/Header';
 import {
   StyleSheet,
   View,
-} from "react-native";
+} from 'react-native';
 
 var styles = StyleSheet.create({
   main: {
     flex: 1,
-    backgroundColor: "#E0E0E0",
+    backgroundColor: '#E0E0E0',
   },
 });
 
 class Homepage extends React.Component {
   constructor(props) {
     super(props);
-    console.log("getting student list");
     props.getStudentList();
   }
 
   render() {
+    console.log('passing navigator from homepage', this.props.navigator);
     return (
       <View style={styles.main}>
-        <Header />
-        <StudentList students={this.props.students} />
-        <AddStudent />
+        <StudentList students={this.props.students} navigator={this.props.navigator} />
+        <AddStudent navigator={this.props.navigator} />
       </View>
     );
   }
@@ -37,14 +36,14 @@ class Homepage extends React.Component {
 Homepage.propTypes = {
   getStudentList: React.PropTypes.func.isRequired,
   students: React.PropTypes.object.isRequired,
+  navigator: React.PropTypes.object.isRequired,
 };
 
-function mapStateToProps(state) {
-  console.log("HOMEPAGE students are: ");
-  console.log(state.studentList);
-  console.log(state);
+function mapStateToProps(state, props) {
+  // console.log('navigator is: ', props.navigator);
   return {
-    students: state.studentList,
+    students: state.reducers.studentList,
+    navigator: props.navigator,
   };
 }
 

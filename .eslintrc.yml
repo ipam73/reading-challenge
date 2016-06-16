@@ -30,7 +30,6 @@ rules:
     - 2
     - "smart"
 
-  quotes: [2, "double", "avoid-escape"]
   object-curly-spacing:
     - 2
     - "never"
