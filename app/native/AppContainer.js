@@ -6,11 +6,12 @@ import React, {
 } from 'react-native';
 
 // pages
+import About from './components/About';
+import AddTimeScreen from './components/time/AddTimeScreen';
 import Homepage from './components/Homepage';
 import Landingpage from './components/Landingpage';
-import About from './components/About';
 import Support from './components/Support';
-import AddTimeScreen from './components/time/AddTimeScreen';
+import Welcome from './components/Welcome';
 
 // menu
 const SideMenu = require('react-native-side-menu');
@@ -132,20 +133,23 @@ class AppContainer extends React.Component {
   renderScene(route, navigator) {
     var component;
     switch (route.name) {
-      case 'Landingpage':
-        component = Landingpage;
-        break;
-      case 'Homepage':
-        component = Homepage;
+      case 'About':
+        component = About;
         break;
       case 'AddTimeScreen':
         component = AddTimeScreen;
         break;
-      case 'About':
-        component = About;
+      case 'Homepage':
+        component = Homepage;
+        break;
+      case 'Landingpage':
+        component = Landingpage;
         break;
       case 'Support':
         component = Support;
+        break;
+      case 'Welcome':
+        component = Welcome;
         break;
       default:
         component = Landingpage;
