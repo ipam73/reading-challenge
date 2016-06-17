@@ -21,7 +21,7 @@ class AddStudent extends React.Component {
         <div className="panel application-panel container-fluid">
           <div className="SUMMARYPANEL--panel-default">
             <div className="SUMMARYPANEL--panel-body">
-              <h3 className="SUMMARYPANEL--panel-title">Add another student</h3>
+              <h3 className="SUMMARYPANEL--panel-title">Add a Student</h3>
 
               <button onClick={this.onClickFn} className="btn btn-default">
                 <img

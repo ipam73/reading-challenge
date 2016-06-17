@@ -10,17 +10,20 @@ function Header() {
         <ul className="nav navbar-nav pull-left">
           <li className="dropdown">
             <button className="HEADER--button btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              &#9776; &nbsp; Reading Challenge
+              &#9776; &nbsp; Charm City Readers
             </button>
             <ul className="dropdown-menu">
+              <li>
+                <h5>Pamela Martinez</h5>
+              </li>
               <li>
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/about">About</Link>
+                <Link to="/about">About the Challenge</Link>
               </li>
               <li>
-                <Link to="/about">Support</Link>
+                <Link to="/support">Support</Link>
               </li>
               <li>
                 <Link to="/about">Logout</Link>
