@@ -4,7 +4,7 @@ import {Link} from "react-router";
 function AddTimeButton(props) {
   return (
     <div>
-      <Link to={`/addtime/${props.studentID}`} className="btn btn-default">Add Time</Link>
+      <Link to={`/addtime/${props.studentID}`} className="btn btn-default">Log Time</Link>
     </div>
   );
 }
