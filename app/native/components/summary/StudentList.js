@@ -33,11 +33,11 @@ var styles = StyleSheet.create({
   },
   headingText: {
     paddingLeft: 20,
-    // fontWeight: 'bold',
+    fontWeight: 'bold',
     flex: 1,
   },
   headingTitle: {
-    // fontWeight: 'bold',
+    fontWeight: 'bold',
   },
   leftCol: {
     flex: 1,

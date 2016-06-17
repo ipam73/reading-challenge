@@ -8,10 +8,14 @@ const {
   Component,
 } = React;
 
+import Overlay from 'react-native-overlay';
+
 const window = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   menu: {
+    // position: 'absolute',
+    paddingTop: 60,
     flex: 1,
     width: window.width,
     height: window.height,

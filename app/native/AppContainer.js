@@ -18,8 +18,13 @@ import AddTimeScreen from './components/time/AddTimeScreen';
 //menu
 const SideMenu = require('react-native-side-menu');
 const Menu = require('./components/common/Menu');
+const Header = require('./components/common/Header');
 
 var styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    // paddingTop: 50,
+  },
   navButtonText: {
     fontSize: 18,
     marginLeft: 13,
@@ -27,6 +32,8 @@ var styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   nav: {
+    position: 'absolute',
+    flexDirection: 'row',
     backgroundColor: '#8E44AD',
     color: '#FFFFFF',
   },
@@ -65,7 +72,7 @@ class AppContainer extends React.Component {
 
   state = {
     isOpen: false,
-    selectedItem: 'About',
+    selectedItem: 'Homepage',
   };
 
   toggle() {
@@ -79,6 +86,11 @@ class AppContainer extends React.Component {
   }
 
   onMenuItemSelected = (item, title, navigator) => {
+    var navBarDisplay = true;
+    if (item === 'Landingpage') {
+      navBarDisplay = false;
+    }
+
     if (this.state.selectedItem === item) {
       this.setState({
         isOpen: false,
@@ -93,6 +105,7 @@ class AppContainer extends React.Component {
       navigator.push({
         name: item,
         title,
+        display: navBarDisplay,
       });
     }
   }
@@ -181,11 +194,11 @@ class AppContainer extends React.Component {
   render() {
     return (
       <Navigator
-        style={{flex: 1, paddingTop: 50}}
-        initialRoute={{component: Landingpage}}
+        style={styles.mainContainer}
+        initialRoute={{component: Landingpage, display: false}}
         renderScene={this.renderScene.bind(this)}
         navigationBar={
-          <Navigator.NavigationBar
+          <Header
             style={styles.nav}
             routeMapper={this.navigationBarRouteMapper(this.toggle.bind(this))}
           />

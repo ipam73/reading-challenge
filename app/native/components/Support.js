@@ -7,12 +7,13 @@ import {
   Image,
 } from 'react-native';
 
-const icon = require('../../images/log-in-with-clever-large.png');
+const icon = require('../../images/baltimore_city_logo.jpg');
 
 var styles = StyleSheet.create({
   main: {
     flex: 1,
     backgroundColor: '#E0E0E0',
+    paddingTop: 50,
   },
   row: {
     backgroundColor: '#FBFBFB',
@@ -29,18 +30,18 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
   },
   headingText: {
-    // fontWeight: 'bold',
+    fontWeight: 'bold',
     flex: 1,
   },
   headingTitle: {
-    // fontWeight: 'bold',
+    fontWeight: 'bold',
   },
   icon: {
     marginTop: 10,
     marginBottom: 10,
     backgroundColor: '#2f67ab',
     width: 200,
-    height: 30,
+    height: 60,
     flex: 1,
   },
 });
@@ -56,7 +57,7 @@ function Support() {
             <Text>
               If you have any questions or concerns about the reading challenge,
               please see your child’s school for more information. If you have technical
-               issues with the use of this app, please email CitySchoolsIT@bcps.k12.md.us
+               issues with the use of this app, please email CitySchoolsIT@bcps.k12.md.us.
             </Text>
           </View>
         </View>

@@ -4,15 +4,13 @@ import {
   View,
   TouchableHighlight,
   Text,
-  Image,
 } from 'react-native';
-
-const icon = require('../../images/log-in-with-clever-large.png');
 
 var styles = StyleSheet.create({
   main: {
     flex: 1,
     backgroundColor: '#E0E0E0',
+    paddingTop: 50,
   },
   row: {
     backgroundColor: '#FBFBFB',
@@ -29,11 +27,11 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
   },
   headingText: {
-    // fontWeight: 'bold',
     flex: 1,
   },
   headingTitle: {
-    // fontWeight: 'bold',
+    fontWeight: 'bold',
+    paddingBottom: 10,
   },
   icon: {
     marginTop: 10,
@@ -52,7 +50,6 @@ function About() {
         <View style={styles.headingContainer}>
           <View style={styles.headingText}>
             <Text style={styles.headingTitle}>How does the challenge work?</Text>
-            <Image style={styles.icon} source={icon} />
             <Text>
               This challenge will allow schools to compete to see who has the best 
               readers in Baltimore. Parents should use this app to log minutes every 

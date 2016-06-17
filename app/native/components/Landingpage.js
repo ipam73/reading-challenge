@@ -4,9 +4,11 @@ import {
   View,
   Text,
   TouchableHighlight,
+  Image,
 } from 'react-native';
 
 import Homepage from './Homepage';
+const backgroundImage = require('../../images/CharmCityReaders_mobile.jpeg');
 
 var styles = StyleSheet.create({
   container: {
@@ -18,13 +20,21 @@ var styles = StyleSheet.create({
     marginBottom: 10,
   },
   button: {
-    height: 60,
+    flex: 1,
+
     justifyContent: 'center',
     backgroundColor: '#efefef',
-    alignItems: 'center',
+    marginBottom: 60,
   },
   buttonText: {
     fontSize: 20,
+  },
+  backgroundImage: {
+    flex: 1,
+    alignSelf: 'stretch',
+    width: null,
+    flexDirection: 'row',
+    alignItems:'flex-end',
   },
 });
 
@@ -43,10 +53,11 @@ class Landingpage extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.heading}>Reading Challenge</Text>
-        <TouchableHighlight style={ styles.button } onPress={ () => this._navigate('YOYOYOYOYO') }>
-          <Text style={styles.buttonText}>Sign In</Text>
-        </TouchableHighlight>
+        <Image style={styles.backgroundImage} source={backgroundImage}>
+          <TouchableHighlight style={styles.button} onPress={ () => this._navigate('YOYOYOYOYO') }>
+            <Text style={styles.buttonText}>Sign In</Text>
+          </TouchableHighlight>
+        </Image>
       </View>
     );
   }
