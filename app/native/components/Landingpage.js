@@ -14,7 +14,6 @@ const googleLogin = require('../../images/sign-in-with-google.png');
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#946199',
   },
   button: {
     marginBottom: 15,
@@ -40,9 +39,11 @@ var styles = StyleSheet.create({
 
 class Landingpage extends React.Component {
   _navigate(name) {
+    // do some logic here, if new user show welcome, otherwise don't
     this.props.navigator.push({
-      name: 'Homepage',
-      title: 'Charm City Readers',
+      name: 'Welcome',
+      title: '',
+      display: false,
       passProps: {
         name,
       },

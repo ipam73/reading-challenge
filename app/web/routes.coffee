@@ -106,7 +106,7 @@ module.exports = (
           console.log "user data is", user_data
           # return cb_a err if err
           # cb_a null, user_data
-          cb_a null, {name: "school name goes here"}
+          cb_a null, {name: "Reading Challenge Elementary"}
 
     , (err, results) ->
       console.log "got here at the end"
