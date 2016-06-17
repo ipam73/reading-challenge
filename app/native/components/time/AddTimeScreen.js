@@ -18,6 +18,7 @@ var styles = StyleSheet.create({
   main: {
     flex: 1,
     backgroundColor: '#E0E0E0',
+    paddingTop: 50,
   },
   row: {
     backgroundColor: '#FBFBFB',
