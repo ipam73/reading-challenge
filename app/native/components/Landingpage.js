@@ -21,7 +21,6 @@ var styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-
     justifyContent: 'center',
     backgroundColor: '#efefef',
     marginBottom: 60,

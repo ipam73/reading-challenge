@@ -3,9 +3,6 @@ import React, {
   StyleSheet,
   TouchableHighlight,
   Text,
-  Image,
-  TouchableOpacity,
-  Component,
 } from 'react-native';
 
 // pages
@@ -15,7 +12,7 @@ import About from './components/About';
 import Support from './components/Support';
 import AddTimeScreen from './components/time/AddTimeScreen';
 
-//menu
+// menu
 const SideMenu = require('react-native-side-menu');
 const Menu = require('./components/common/Menu');
 const Header = require('./components/common/Header');
@@ -23,23 +20,30 @@ const Header = require('./components/common/Header');
 var styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    // paddingTop: 50,
-  },
-  navButtonText: {
-    fontSize: 18,
-    marginLeft: 13,
-    marginTop: 4,
-    color: '#FFFFFF',
   },
   nav: {
     position: 'absolute',
-    flexDirection: 'row',
     backgroundColor: '#8E44AD',
     color: '#FFFFFF',
+    height: 56,
+    flexDirection: 'row',
   },
-  title: {
-    fontSize: 16,
-    marginTop: 4,
+  navButtonIcon: {
+    fontSize: 18,
+    marginLeft: 13,
+    marginTop: 15,
+    color: '#FFFFFF',
+  },
+  navButtonIconArrow: {
+    fontSize: 40,
+    marginLeft: 13,
+    marginTop: -5,
+    color: '#FFFFFF',
+  },
+  navTitle: {
+    marginTop: 15,
+    fontSize: 20,
+    fontWeight: '400',
     color: '#FFFFFF',
   },
   container: {
@@ -49,24 +53,6 @@ var styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
 });
-
-class Button extends Component {
-  handlePress(e) {
-    if (this.props.onPress) {
-      this.props.onPress(e);
-    }
-  }
-
-  render() {
-    return (
-      <TouchableOpacity
-        onPress={this.handlePress.bind(this)}
-        style={this.props.style}>
-        <Text>{this.props.children}</Text>
-      </TouchableOpacity>
-    );
-  }
-}
 
 class AppContainer extends React.Component {
 
@@ -119,33 +105,26 @@ class AppContainer extends React.Component {
               underlayColor='transparent'
               onPress={() => { if (index > 0) { navigator.pop()} }}
             >
-              <Text style={styles.navButtonText}>&#8592;</Text>
+              <Text style={styles.navButtonIconArrow}>&#8592;</Text>
             </TouchableHighlight>
           );
         }
         return (
           <TouchableHighlight
             onPress={() => onToggle() }>
-            <Text style={styles.navButtonText}>&#9776;</Text>
+            <Text style={styles.navButtonIcon}>&#9776;</Text>
           </TouchableHighlight>
         );
       },
 
       RightButton(route, navigator, index, navState) {
         if (route.onPress) {
-          return (
-            <TouchableHighlight
-              onPress={() => route.onPress()}>
-              <Text style={styles.navButtonText}>
-                {route.rightText || 'Right Button'}
-              </Text>
-            </TouchableHighlight>
-          );
+          return (<TouchableHighlight></TouchableHighlight>);
         }
       },
 
       Title(route, navigator, index, navState) {
-        return <Text style={styles.title}>{route.title}</Text>;
+        return <Text style={styles.navTitle}>{route.title}</Text>;
       },
     });
   }
@@ -195,7 +174,7 @@ class AppContainer extends React.Component {
     return (
       <Navigator
         style={styles.mainContainer}
-        initialRoute={{component: Landingpage, display: false}}
+        initialRoute={{name: 'Landingpage', title: '', display: false}}
         renderScene={this.renderScene.bind(this)}
         navigationBar={
           <Header

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import actions from '../../actions';
 import StudentList from './summary/StudentList';
 import AddStudent from './add-student/AddStudent';
-import Header from './common/Header';
+
 import {
   StyleSheet,
   View,

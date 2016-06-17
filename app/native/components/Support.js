@@ -26,7 +26,6 @@ var styles = StyleSheet.create({
     marginTop: 20,
   },
   headingContainer: {
-    paddingBottom: 30,
     flexDirection: 'row',
   },
   headingText: {
@@ -35,6 +34,11 @@ var styles = StyleSheet.create({
   },
   headingTitle: {
     fontWeight: 'bold',
+    color: 'black',
+    fontSize: 18,
+  },
+  normalText: {
+    fontSize: 14,
   },
   icon: {
     marginTop: 10,
@@ -43,6 +47,7 @@ var styles = StyleSheet.create({
     width: 200,
     height: 60,
     flex: 1,
+    alignSelf: 'center',
   },
 });
 
@@ -54,7 +59,7 @@ function Support() {
           <View style={styles.headingText}>
             <Text style={styles.headingTitle}>Contact Information</Text>
             <Image style={styles.icon} source={icon} />
-            <Text>
+            <Text style={styles.normalText}>
               If you have any questions or concerns about the reading challenge,
               please see your child’s school for more information. If you have technical
                issues with the use of this app, please email CitySchoolsIT@bcps.k12.md.us.
