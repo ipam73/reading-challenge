@@ -55,6 +55,7 @@ function loginWithGoogle() {
       var user = result.user;
       dispatch(loginSuccess(token, user));
       console.log("dispatching to push /about")
+      dispatch(getStudentList(user.uid));
       dispatch(push("/"));
     }).catch(function(err) {
       console.log("error logging in with google", err);
@@ -187,16 +188,14 @@ function setStudentList(students) {
 
 // getStudentList dummy func
 // GET ALL THE DATA FOR STUDENTS
-function getStudentList() {
-  console.log("ACTIONS: getStudentList AGAIN ASKFJ PAM");
+function getStudentList(parent_id) {
+  console.log("ACTIONS: getStudentList");
   return (dispatch, getState) => {
-    // TODO: use parentID instead of 1
-    var ref = new Firebase(firebaseURI + "parents/1");
-
     ///////////////////////////////////////////////////////////////////////
     // temporarily commenting out until firebase fixes bug, see top of file
-    // var ref = db.ref("/parents/1");
-
+    // var ref = db.ref("/parents/" + parent_id);
+    console.log("ACTIONS: getStudentList. parent:", parent_id);
+    var ref = new Firebase(firebaseURI + "parents/" + parent_id);
     return ref.child("students").once("value", (snapshot) => {
       dispatch(setStudentList(snapshot.val()));
     });

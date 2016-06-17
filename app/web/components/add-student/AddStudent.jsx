@@ -8,11 +8,12 @@ require("!style!css!less!./AddStudent.less");
 class AddStudent extends React.Component {
   constructor(props) {
     super(props);
+    console.log("USER:", this.props.user);
     this.onClickFn = this.onClickFn.bind(this);
   }
 
   onClickFn() {
-    window.location = "/addstudent";
+    window.location = "/addstudent?user=" + this.props.user.uid;
   }
 
   render() {
@@ -42,6 +43,17 @@ class AddStudent extends React.Component {
   }
 }
 
+AddStudent.propTypes = {
+    user: React.PropTypes.object.isRequired,
+}
+
+// ....
+function mapStateToProps(state) {
+  return {
+    user: state.reducers.user,
+  };
+}
+
 // currently not used for anything, no actions triggered on this page
 function mapDispatchToProps(dispatch) {
   return {
@@ -51,4 +63,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-module.exports = connect(null, mapDispatchToProps)(AddStudent);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(AddStudent);

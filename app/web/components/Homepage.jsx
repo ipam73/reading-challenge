@@ -7,7 +7,6 @@ import actions from "../../actions";
 class Homepage extends React.Component {
   constructor(props) {
     super(props);
-    props.getStudentList();
   }
 
   render() {
@@ -15,7 +14,7 @@ class Homepage extends React.Component {
       <div>
         <span>{this.props.user.displayName}</span>
         <StudentList students={this.props.students} />
-        <AddStudent />
+        <AddStudent user={this.props.user} />
       </div>
     );
   }
@@ -24,7 +23,7 @@ class Homepage extends React.Component {
 Homepage.propTypes = {
   getStudentList: React.PropTypes.func.isRequired,
   students: React.PropTypes.object.isRequired,
-  user: React.PropTypes.object.isRequired,
+  user: React.PropTypes.object,
 };
 
 // sets current state to summary page as this.prop

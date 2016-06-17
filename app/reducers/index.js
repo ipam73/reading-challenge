@@ -73,6 +73,7 @@ function rootReducer(state, action) {
       console.log("reducer_user", action.user);
       newstate.user = {
           displayName: action.user.displayName,
+          uid: action.user.uid,
       };
       return newstate;
 

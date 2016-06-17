@@ -13,7 +13,22 @@ config = require "#{__dirname}/../../web/config"
 Firebase = require('firebase')
 firebaseURI = "https://reading-challenge.firebaseio.com/"
 
-save_student = (student_id, first_name, school_id, school_name, district_id, grade) ->
+### student schema
+  {
+    id: '1233',
+    name: 'Pam',
+    school: 'Elementary School',
+    total_mins: 445,
+    goal: 60,
+    grade: '4'
+    progress: [
+      {date: 1, mins: 45},
+      {date: 2, mins: 10},
+      {date: 3, mins: 65}
+    ]
+  }
+###
+save_student = (student_id, first_name, school_id, school_name, district_id, grade, parent_id) ->
   console.log "saving right now!"
   student_to_save =
     id: student_id
@@ -25,10 +40,9 @@ save_student = (student_id, first_name, school_id, school_name, district_id, gra
     time_log: {}
 
   ## Downgrading to firebase 2.4, since newsest version does not work w/react
-  # parentsRef = db.ref("/parents/1")
-  parentsRef = new Firebase(firebaseURI + "parents/" + "1")
-
-
+  # parentsRef = db.ref("/parents/#{parent_id}")
+  # studentsRef = parentsRef.child("students")
+  parentsRef = new Firebase(firebaseURI + "parents/" + parent_id)
   studentsRef = parentsRef.child("students/#{student_id}")
 
   # TODO: check for errors here. 
