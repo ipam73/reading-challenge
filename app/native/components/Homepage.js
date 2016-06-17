@@ -7,6 +7,7 @@ import AddStudent from './add-student/AddStudent';
 import {
   StyleSheet,
   View,
+  ScrollView,
 } from 'react-native';
 
 var styles = StyleSheet.create({
@@ -14,6 +15,7 @@ var styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#E0E0E0',
     paddingTop: 50,
+    height: 300,
   },
 });
 
@@ -25,10 +27,16 @@ class Homepage extends React.Component {
 
   render() {
     return (
-      <View style={styles.main}>
+      <ScrollView
+        onResponderMove={()=>{console.log('outer responding');}}
+        onScroll={() => { console.log('onScroll!'); }}
+        contentInset={{top: -50}}
+        style={styles.main}
+      >
         <StudentList students={this.props.students} navigator={this.props.navigator} />
         <AddStudent navigator={this.props.navigator} />
-      </View>
+        <View style={{height: 100}} />
+      </ScrollView>
     );
   }
 }
