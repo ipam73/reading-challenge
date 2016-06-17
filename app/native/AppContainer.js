@@ -77,23 +77,23 @@ class AppContainer extends React.Component {
       navBarDisplay = false;
     }
 
-    if (this.state.selectedItem === item) {
-      this.setState({
-        isOpen: false,
-        selectedItem: item,
-      });
-    }
-    else {
-      this.setState({
-        isOpen: false,
-        selectedItem: item,
-      });
-      navigator.push({
-        name: item,
-        title,
-        display: navBarDisplay,
-      });
-    }
+    // if (this.state.selectedItem === item) {
+    //   this.setState({
+    //     isOpen: false,
+    //     selectedItem: item,
+    //   });
+    // }
+    // else {
+    this.setState({
+      isOpen: false,
+      selectedItem: item,
+    });
+    navigator.push({
+      name: item,
+      title,
+      display: navBarDisplay,
+    });
+    // }
   }
 
   navigationBarRouteMapper(onToggle) {
