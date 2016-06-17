@@ -3,19 +3,15 @@ const {
   Dimensions,
   StyleSheet,
   ScrollView,
-  View,
   Text,
   Component,
 } = React;
-
-import Overlay from 'react-native-overlay';
 
 const window = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   menu: {
-    // position: 'absolute',
-    paddingTop: 60,
+    paddingTop: 80,
     flex: 1,
     width: window.width,
     height: window.height,
@@ -24,13 +20,15 @@ const styles = StyleSheet.create({
   },
   name: {
     color: '#946199',
-    paddingBottom: 5,
+    fontSize: 18,
+    fontWeight: '500',
+    paddingBottom: 15,
   },
   item: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: '300',
-    paddingTop: 5,
-    marginLeft: 10,
+    paddingTop: 15,
+    marginLeft: 15,
   },
 });
 
@@ -43,28 +41,32 @@ module.exports = class Menu extends Component {
   render() {
     return (
       <ScrollView scrollsToTop={false} style={styles.menu}>
-        <Text style={styles.name}>Your name</Text>
+        <Text style={styles.name}>Pamela Martinez</Text>
         <Text
           onPress={() => this.props.onItemSelected('Homepage', 'Charm City Readers', this.props.navigator)}
-          style={styles.item}>
+          style={styles.item}
+        >
           Home
         </Text>
 
         <Text
           onPress={() => this.props.onItemSelected('About', 'About the Challenge', this.props.navigator)}
-          style={styles.item}>
-          About
+          style={styles.item}
+        >
+          About the Challenge
         </Text>
 
         <Text
           onPress={() => this.props.onItemSelected('Support', 'Support', this.props.navigator)}
-          style={styles.item}>
+          style={styles.item}
+        >
           Support
         </Text>
 
         <Text
           onPress={() => this.props.onItemSelected('Landingpage', '', this.props.navigator)}
-          style={styles.item}>
+          style={styles.item}
+        >
           Logout
         </Text>
       </ScrollView>

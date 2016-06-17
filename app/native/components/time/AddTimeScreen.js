@@ -10,6 +10,7 @@ import {
   TextInput,
 } from 'react-native';
 import {connect} from 'react-redux';
+import actions from '../../../actions';
 import Button from 'apsl-react-native-button';
 
 const icon = require('../../../images/BuddyPlaceholder.png');
@@ -56,40 +57,32 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
   },
   dateText: {
+    color: 'black',
+    fontSize: 20,
+    paddingBottom: 15,
   },
   dateIcon: {
     color: '#8E44AD',
   },
-
   button: {
-    backgroundColor: '#E0E0E0',
-    alignItems: 'flex-end',
-    width: 70,
+    marginTop: 15,
+    borderColor: 'gray',
+    backgroundColor: 'white',
+    borderRadius: 0,
+    borderWidth: 2,
+    width: 200,
     height: 30,
+    alignSelf: 'center',
   },
   buttonText: {
-    fontSize: 10,
+    fontSize: 14,
+  },
+  subHeading: {
+    // fontWeight: 'bold',
+    fontSize: 16,
+    paddingBottom: 10,
   },
 });
-
-// async function selectDate() {
-//   try {
-//     const {action, year, month, day} = await DatePickerAndroid.open({
-//       // Use `new Date()` for current date.
-//       // May 25 2020. Month 0 is January.
-//       date: new Date(2020, 4, 25),
-//     });
-//     if (action !== DatePickerAndroid.dismissedAction) {
-//       // Selected year, month (0-11), day
-//     }
-//   } catch ({code, message}) {
-//     console.warn('Cannot open date picker', message);
-//   }
-// }
-
-// function onAddTimePress() {
-//   console.log('in add time press');
-// }
 
 class AddTimeScreen extends React.Component {
   constructor(props) {
@@ -106,7 +99,6 @@ class AddTimeScreen extends React.Component {
   }
 
   onChangeMinsRead(minsRead) {
-    console.log("changing input", minsRead);
     this.setState({minsRead});
   }
 
@@ -127,6 +119,7 @@ class AddTimeScreen extends React.Component {
   }
 
   onAddTimePress() {
+    this.props.setStudentTime(this.state.maxDate, this.state.minsRead, this.props.studentID);
     this.props.navigator.pop();
   }
 
@@ -138,7 +131,7 @@ class AddTimeScreen extends React.Component {
             <View style={styles.subRowContainer}>
               <Image style={styles.headingIcon} source={icon} />
               <View style={styles.headingText}>
-                <Text>Date:</Text>
+                <Text style={styles.subHeading}>Date:</Text>
                 <TouchableWithoutFeedback
                   onPress={this.showPicker.bind(this, 'max', {
                     date: this.state.maxDate,
@@ -150,9 +143,9 @@ class AddTimeScreen extends React.Component {
                     <Text style={styles.dateIcon}>&#x25E2;</Text>
                   </View>
                 </TouchableWithoutFeedback>
-                <Text>Minutes Read:</Text>
+                <Text style={styles.subHeading}>Minutes Read:</Text>
                 <TextInput
-                  style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                  style={{height: 50, width: 100, borderColor: 'gray', borderWidth: 1, fontSize: 20}}
                   keyboardType="numeric"
                   onChangeText={this.onChangeMinsRead}
                   value={this.state.minsRead}
@@ -178,4 +171,12 @@ function mapStateToProps(state, props) {
   };
 }
 
-module.exports = connect(mapStateToProps, null)(AddTimeScreen);
+function mapDispatchToProps(dispatch) {
+  return {
+    setStudentTime: (readDate, readTime, studentID) => {
+      dispatch(actions.setStudentTime(readDate, readTime, studentID));
+    },
+  };
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(AddTimeScreen);

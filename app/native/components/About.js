@@ -23,7 +23,6 @@ var styles = StyleSheet.create({
     marginTop: 20,
   },
   headingContainer: {
-    paddingBottom: 30,
     flexDirection: 'row',
   },
   headingText: {
@@ -31,7 +30,12 @@ var styles = StyleSheet.create({
   },
   headingTitle: {
     fontWeight: 'bold',
+    fontSize: 18,
+    color: 'black',
     paddingBottom: 10,
+  },
+  normalText: {
+    fontSize: 14,
   },
   icon: {
     marginTop: 10,
@@ -50,7 +54,7 @@ function About() {
         <View style={styles.headingContainer}>
           <View style={styles.headingText}>
             <Text style={styles.headingTitle}>How does the challenge work?</Text>
-            <Text>
+            <Text style={styles.normalText}>
               This challenge will allow schools to compete to see who has the best 
               readers in Baltimore. Parents should use this app to log minutes every 
               time their children read. The minutes count toward an individual goal 

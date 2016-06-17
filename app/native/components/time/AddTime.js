@@ -8,15 +8,17 @@ import Button from 'apsl-react-native-button';
 
 var styles = StyleSheet.create({
   button: {
-    backgroundColor: '#E0E0E0',
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    width: 70,
+    marginTop: 15,
+    borderColor: 'gray',
+    backgroundColor: 'white',
+    borderRadius: 0,
+    borderWidth: 2,
+    width: 200,
     height: 30,
-    flex: 1,
+    alignSelf: 'center',
   },
   buttonText: {
-    fontSize: 10,
+    fontSize: 14,
   },
 });
 
@@ -24,7 +26,7 @@ class AddTime extends React.Component {
   onAddTimePress() {
     this.props.navigator.push({
       name: 'AddTimeScreen',
-      title: `Log time: ${this.props.student.name}`,
+      title: `Log Time: ${this.props.student.name}`,
       passProps: {
         studentID: this.props.studentID,
       },
@@ -34,7 +36,7 @@ class AddTime extends React.Component {
   render() {
     return (
       <Button style={styles.button} textStyle={styles.buttonText} onPress={this.onAddTimePress.bind(this)}>
-        Add Time
+        Log Time
       </Button>
     );
   }

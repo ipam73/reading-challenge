@@ -34,10 +34,17 @@ var styles = StyleSheet.create({
   headingText: {
     paddingLeft: 20,
     fontWeight: 'bold',
+    color: 'black',
     flex: 1,
+  },
+  headings: {
+    fontSize: 18,
+    color: 'black',
   },
   headingTitle: {
     fontWeight: 'bold',
+    fontSize: 18,
+    color: 'black',
   },
   leftCol: {
     flex: 1,
@@ -67,12 +74,12 @@ class StudentList extends React.Component {
 
           <View style={styles.subRowContainer}>
             <View style={styles.leftCol}>
-              <Text>{student.total_mins}</Text>
+              <Text style={styles.headings}>{student.total_mins}</Text>
               <Text>Minutes Read</Text>
             </View>
             <View style={styles.rightCol}>
-              <Text>12</Text>
-              <Text>Weeks left</Text>
+              <Text style={styles.headings}>12</Text>
+              <Text>Weeks Left</Text>
             </View>
           </View>
 

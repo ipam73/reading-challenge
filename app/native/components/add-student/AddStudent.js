@@ -1,19 +1,19 @@
-import React from "react";
+import React from 'react';
 import {
   StyleSheet,
   View,
   TouchableHighlight,
   Text,
-} from "react-native";
-import {connect} from "react-redux";
-import IconButton from "react-native-icon-button";
-import actions from "../../../actions";
+} from 'react-native';
+import {connect} from 'react-redux';
+import IconButton from 'react-native-icon-button';
+// import actions from '../../../actions';
 
-const icon = require("../../../images/log-in-with-clever-large.png");
+const icon = require('../../../images/log-in-with-clever-large.png');
 
 var styles = StyleSheet.create({
   row: {
-    backgroundColor: "#FBFBFB",
+    backgroundColor: '#FBFBFB',
     paddingLeft: 15,
     paddingRight: 15,
     paddingTop: 15,
@@ -23,37 +23,36 @@ var styles = StyleSheet.create({
     marginTop: 20,
   },
   headingContainer: {
-    paddingBottom: 30,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   headingText: {
-    // fontWeight: "bold",
+    // fontWeight: 'bold',
     flex: 1,
   },
   headingTitle: {
-    // fontWeight: "bold",
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: 'black',
   },
   button: {
-    marginTop: 10,
-    marginBottom: 10,
-    backgroundColor: "#2f67ab",
+    alignSelf: 'center',
+    marginTop: 15,
+    marginBottom: 15,
+    backgroundColor: '#2f67ab',
     width: 200,
     height: 30,
     flex: 1,
   },
-  buttonText: {
-    fontSize: 10,
-  },
 });
 
 function AddStudent(props) {
-  console.log("in render for student list");
+  console.log('in render for student list');
 
   return (
     <TouchableHighlight style={styles.row}>
       <View style={styles.headingContainer}>
         <View style={styles.headingText}>
-          <Text style={styles.headingTitle}>Add a student</Text>
+          <Text style={styles.headingTitle}>Add a Student</Text>
           <IconButton
             style={styles.button}
             icon={icon}
@@ -73,7 +72,7 @@ function AddStudent(props) {
 function mapDispatchToProps(dispatch) {
   return {
     addStudent: () => {
-      console.log("adding student!");
+      console.log('adding student!');
       // dispatch(actions.addStudent());
     },
   };
