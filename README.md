@@ -21,7 +21,7 @@ module.exports =
 
 - 2:  To run the web app
 ```
-make run-web
+make run
 ```
 
 - 3: To run android app
