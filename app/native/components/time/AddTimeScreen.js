@@ -89,7 +89,7 @@ class AddTimeScreen extends React.Component {
     super(props);
     var today = new Date();
     this.state = {
-      minsRead: 0,
+      minsRead: '0',
       maxText: today.toLocaleDateString(),
       maxDate: today,
     };

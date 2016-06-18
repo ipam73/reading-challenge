@@ -30,10 +30,10 @@ var styles = StyleSheet.create({
   headingIcon: {
     width: 70,
     height: 70,
+    marginRight: 10,
   },
-  headingText: {
+  headingTextContainer: {
     paddingLeft: 20,
-    fontWeight: 'bold',
     color: 'black',
     flex: 1,
   },
@@ -61,7 +61,7 @@ class StudentList extends React.Component {
         <View>
           <View style={styles.subRowContainer}>
             <Image style={styles.headingIcon} source={icon} />
-            <View style={styles.headingText}>
+            <View style={styles.headingTextContaner}>
               <Text style={styles.headingTitle}>{student.name}</Text>
               <Text>
                 {student.school_name}
@@ -87,7 +87,6 @@ class StudentList extends React.Component {
             navigator={this.props.navigator}
             studentID={student.id}
           />
-
         </View>
       </TouchableHighlight>
     );
@@ -100,6 +99,7 @@ class StudentList extends React.Component {
         <ListView
           dataSource={ds.cloneWithRows(this.props.students)}
           renderRow={this.renderRow.bind(this)}
+          enableEmptySections
         />
       </View>
     );

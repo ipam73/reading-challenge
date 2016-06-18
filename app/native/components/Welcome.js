@@ -16,7 +16,6 @@ var styles = StyleSheet.create({
     backgroundColor: '#946199',
   },
   row: {
-    // backgroundColor: '#FBFBFB',
     paddingLeft: 15,
     paddingRight: 15,
     paddingTop: 15,
@@ -26,10 +25,6 @@ var styles = StyleSheet.create({
     marginTop: 80,
   },
   headingContainer: {
-    flexDirection: 'row',
-  },
-  headingText: {
-    fontWeight: 'bold',
     flex: 1,
   },
   headingTitle: {
@@ -80,18 +75,16 @@ class Welcome extends React.Component {
       <View style={styles.main}>
         <TouchableHighlight style={styles.row}>
           <View style={styles.headingContainer}>
-            <View style={styles.headingText}>
-              <Image style={styles.icon} source={icon} />
-              <Text style={styles.headingTitle}>Welcome!</Text>
-              <Text style={styles.normalText}>
-                Over the next few months, your child's school will be participating in
-                a district-wide reading challenge.  With this app your child can track
-                their progress and earn rewards!
-              </Text>
-              <Button style={styles.button} textStyle={styles.buttonText} onPress={() => this._navigate('name')}>
-                Get Started!
-              </Button>
-            </View>
+            <Image style={styles.icon} source={icon} />
+            <Text style={styles.headingTitle}>Welcome!</Text>
+            <Text style={styles.normalText}>
+              Over the next few months, your child's school will be participating in
+              a district-wide reading challenge.  With this app your child can track
+              their progress and earn rewards!
+            </Text>
+            <Button style={styles.button} textStyle={styles.buttonText} onPress={() => this._navigate('name')}>
+              Get Started!
+            </Button>
           </View>
         </TouchableHighlight>
       </View>
