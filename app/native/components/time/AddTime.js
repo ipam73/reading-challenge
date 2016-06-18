@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  DatePickerAndroid,
   StyleSheet,
 } from 'react-native';
 import {connect} from 'react-redux';

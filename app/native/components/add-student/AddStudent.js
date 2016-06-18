@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import IconButton from 'react-native-icon-button';
-// import actions from '../../../actions';
+import actions from '../../../actions';
 
 const icon = require('../../../images/log-in-with-clever-large.png');
 
@@ -73,7 +73,7 @@ function mapDispatchToProps(dispatch) {
   return {
     addStudent: () => {
       console.log('adding student!');
-      // dispatch(actions.addStudent());
+      dispatch(actions.addStudentMobile());
     },
   };
 }

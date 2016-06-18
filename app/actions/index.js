@@ -61,6 +61,35 @@ function _postAddStudent(query) {
   });
 }
 
+function addStudentMobile() {
+  return function (dispatch) {
+    fetch('http://localhost:3000/addstudent')
+    .then((response) =>{
+      response.text();
+      return dispatch(addStudentSuccess());
+    })
+    .then((responseText) => {
+      console.log(responseText);
+      response.text();
+      return dispatch(addStudentSuccess());
+    })
+    .catch((error) => {
+      console.warn(error);
+      return dispatch(addStudentFailure(errorMessage));
+    });
+
+  //   ajaxCall.always(_.bind(function() {
+  //     // in the future should have a loading screen
+  //   }, this)).done(_.bind(function(data) {
+  //     return dispatch(addStudentSuccess());
+  //   }, this)).fail(_.bind(function() {
+  //     var errorMessage = "An error has occurred while saving your settings. Please refresh the page. If the error continues, contact support@clever.com.";
+  //     return dispatch(addStudentFailure(errorMessage));
+  //   }, this));
+  };
+
+}
+
 function addStudent() {
   // uses redux-thunk middleware
 
@@ -168,6 +197,7 @@ module.exports = {
   getStudentList,
   setStudentTime,
   addStudent,
+  addStudentMobile,
   addStudentFailure,
   addStudentSuccess,
   setMinsReadState,
