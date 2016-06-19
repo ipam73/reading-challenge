@@ -2,6 +2,7 @@
 var Constants = require('../constants');
 var $ = require("jquery");
 var _ = require("underscore");
+var moment = require("moment");
 
 
 /////////////////////////////////////////////////////////
@@ -173,9 +174,18 @@ function timeFormIsValid(newTime) {
   };
 }
 
-// newTime = {readDate: <date>, readMinutes: <minutes>}
-function setStudentTime(readDate, readTime, studentID) {
+// newTime = {readDate: <string format YYMMDD>, readMinutes: <minutes>}
+function setStudentTime(readDate, readTime, studentID, parentID) {
   // makes some call to the db to save the new time stats
+
+  var parentsRef = new Firebase(firebaseURI + "parents/" + parentID);
+  var studentsTimeLogRef = parentsRef.child("students/" + studentID + "/time_log");
+
+  // sets on time log with date in format:  YYMMDD
+  var newTimeLog = {};
+  newTimeLog[readDate] = readTime;
+  studentsTimeLogRef.update(newTimeLog);
+
   return {
     type: Constants.SET_STUDENT_TIME,
     studentID,

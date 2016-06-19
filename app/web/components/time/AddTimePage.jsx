@@ -38,7 +38,7 @@ class AddTimePage extends React.Component {
 
     // trigger add time action
     var readDate = this.props.readDate.toDate();
-    this.props.setStudentTime(readDate, this.props.readMinutes, this.props.studentID);
+    this.props.setStudentTime(this.props.readDate.format('YYMMDD'), this.props.readMinutes, this.props.studentID, this.props.parentID);
     toastr.success("Time saved.");
     hashHistory.push("/");
   }
@@ -84,6 +84,7 @@ function mapStateToProps(state, ownProps) {
   const studentID = ownProps.params.id; // from path '/student/:id'
 
   return {
+    parentID: state.reducers.parentID,
     studentID,
     student: state.reducers.studentList[studentID],
     readDate: moment(),
@@ -96,8 +97,8 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setStudentTime: (readDate, readTime, studentID) => {
-      dispatch(actions.setStudentTime(readDate, readTime, studentID));
+    setStudentTime: (readDate, readTime, studentID, parentID) => {
+      dispatch(actions.setStudentTime(readDate, readTime, studentID, parentID));
     },
     setMinsReadState: (event, studentID) => {
       dispatch(actions.setMinsReadState(event, studentID));
