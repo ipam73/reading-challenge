@@ -98,8 +98,17 @@ class AddTimeScreen extends React.Component {
     this.onAddTimePress = this.onAddTimePress.bind(this);
   }
 
-  onChangeMinsRead(minsRead) {
-    this.setState({minsRead});
+  onChangeMinsRead(text) {
+    let newText = '';
+    const numbers = '0123456789';
+
+    for (var i = 0; i < text.length; i++) {
+      if (numbers.indexOf(text[i]) > -1) {
+        newText = newText + text[i];
+      }
+    }
+
+    this.setState({minsRead: newText});
   }
 
   async showPicker(stateKey, options) {
