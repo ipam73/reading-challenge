@@ -132,7 +132,10 @@ class AddTimeScreen extends React.Component {
 
   onAddTimePress() {
     this.props.setStudentTime(this.state.maxDate.format('YYMMDD'), this.state.minsRead, this.props.studentID, this.props.parentID);
-    this.props.navigator.pop();
+    this.props.navigator.push({
+      name: 'Homepage',
+      title: 'Charm City Readers',
+    });
   }
 
   render() {

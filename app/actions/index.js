@@ -183,7 +183,9 @@ function setStudentTime(readDate, readTime, studentID, parentID) {
 
   // sets on time log with date in format:  YYMMDD
   var newTimeLog = {};
-  newTimeLog[readDate] = readTime;
+
+  var num = parseInt(readTime) || 0;
+  newTimeLog[readDate] = num;
   studentsTimeLogRef.update(newTimeLog);
 
   return {
