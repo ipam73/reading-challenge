@@ -7,12 +7,12 @@ import actions from "../../actions";
 class Homepage extends React.Component {
   constructor(props) {
     super(props);
+    props.restoreAuth();
   }
 
   render() {
     return (
       <div>
-        <span>{this.props.user.displayName}</span>
         <StudentList students={this.props.students} />
         <AddStudent user={this.props.user} />
       </div>
@@ -21,7 +21,6 @@ class Homepage extends React.Component {
 }
 
 Homepage.propTypes = {
-  getStudentList: React.PropTypes.func.isRequired,
   students: React.PropTypes.object.isRequired,
   user: React.PropTypes.object,
 };
@@ -37,8 +36,8 @@ function mapStateToProps(state) {
 // currently not used for anything, no actions triggered on this page
 function mapDispatchToProps(dispatch) {
   return {
-    getStudentList: () => {
-      dispatch(actions.getStudentList());
+    restoreAuth: () => {
+      dispatch(actions.restoreAuth());
     },
   };
 }

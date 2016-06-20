@@ -20,7 +20,7 @@ var reducer = combineReducers({reducers, routerReducer});
 
 // store, takes reducer, thunk middleware
 var store = (window.devToolsExtension ? window.devToolsExtension()(createStore) : createStore)(reducer, applyMiddleware(thunk, routerMiddleware(hashHistory)));
-
+store.dispatch(actions.restoreAuth());
 ReactDOM.render((
   <Provider store={store}>
     <div>
@@ -32,4 +32,3 @@ ReactDOM.render((
 
 ), document.getElementById("parent-home"));
 
-store.dispatch(actions.restoreAuth());

@@ -1,39 +1,55 @@
 import React from "react";
+import {connect} from "react-redux";
 import {Link} from "react-router";
 require("!style!css!less!./Header.less");
 
-function Header() {
-  return (
-    <div>
-      <nav className="HEADER--container navbar">
+class Header extends React.Component {
 
-        <ul className="nav navbar-nav pull-left">
-          <li className="dropdown">
-            <button className="HEADER--button btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              &#9776; &nbsp; Charm City Readers
-            </button>
-            <ul className="dropdown-menu">
-              <li>
-                <h5>Pamela Martinez</h5>
-              </li>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/about">About the Challenge</Link>
-              </li>
-              <li>
-                <Link to="/support">Support</Link>
-              </li>
-              <li>
-                <Link to="/logout">Logout</Link>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  );
+  render() {
+    return (
+      <div>
+        <nav className="HEADER--container navbar">
+
+          <ul className="nav navbar-nav pull-left">
+            <li className="dropdown">
+              <button className="HEADER--button btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                &#9776; &nbsp; Charm City Readers
+              </button>
+              <ul className="dropdown-menu">
+                {this.props.user ?
+                <li><h5>{this.props.user.displayName}</h5></li> :
+                null
+                }
+                <li>
+                  <Link to="/">Home</Link>
+                </li>
+                <li>
+                  <Link to="/about">About the Challenge</Link>
+                </li>
+                <li>
+                  <Link to="/support">Support</Link>
+                </li>
+                <li>
+                  <Link to="/logout">Logout</Link>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    );
+  }
 }
 
-module.exports = Header;
+Header.propTypes = {
+  user: React.PropTypes.object,
+}
+
+// sets current state for Header as this.prop
+function mapStateToProps(state) {
+  return {
+    user: state.reducers.user,
+  };
+}
+
+module.exports = connect(mapStateToProps, null)(Header);

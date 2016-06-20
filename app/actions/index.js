@@ -25,6 +25,7 @@ var { push } = require("react-router-redux")
 // Temporary workaround until Firebase fixes bug
 var Firebase = require('firebase');
 var firebaseURI = "https://reading-challenge.firebaseio.com/";
+var firebaseRef = new Firebase(firebaseURI);
 
 function setFirebaseRef(ref) {
   return {
@@ -33,7 +34,6 @@ function setFirebaseRef(ref) {
   };
 }
 /////////////////////////////////////////////////////////////
-auth = firebase.auth();
 
 // helper function for ajax calls
 function getCookie(name) {
@@ -44,15 +44,22 @@ function getCookie(name) {
   }
 }
 
+function authFailure(err) {
+  console.log("authFailure:", err);
+  return {
+    type: Constants.LOGIN_FAILURE,
+  };
+}
+
 // action to login to Google via a popup. Dispatch error or user
 function loginWithGoogle() {
 
   return function(dispatch) {
-    var provider = new firebase.auth.GoogleAuthProvider();
-    auth = firebase.auth()
-    auth.signInWithPopup(provider).then(function(result) {
-      var token = result.credential.accessToken; // empty in current scope
-      var user = result.user;
+    (new Firebase(firebaseURI)).authWithOAuthPopup('google').then(function(result) {
+      console.log("oauth from google login complete", result);
+      var token = result.token; // empty in current scope
+      var user = result.google;
+      user.uid = result.uid;
       dispatch(loginSuccess(token, user));
       console.log("dispatching to push /about")
       dispatch(getStudentList(user.uid));
@@ -67,7 +74,7 @@ function loginWithGoogle() {
 function logout() {
 
   return function(dispatch) {
-    firebase.auth().signOut().then(() => {
+    firebaseRef.unauth().then(() => {
       dispatch(logoutSuccess());
       dispatch(push("/login"));
     }, (err) => {
@@ -94,15 +101,23 @@ function logoutSuccess() {
 
 // check if user is logged in. return user
 function isLoggedIn() {
-  console.log("IS_LOGGED_IN:", auth.currentUser);
-  return auth.currentUser;
+  var firebaseUser= firebaseRef.getAuth();
+  var user = null;
+  if (firebaseUser) {
+    user = firebaseUser.google;
+    user.uid = firebaseUser.uid;
+  }
+  console.log("IS_LOGGED_IN:", user);
+  return user;
 };
 
 function restoreAuth() {
     console.log("RESTORE_AUTH");
     return function(dispatch) {
-        if (isLoggedIn()) {
-          dispatch(loginSuccess(null, isLoggedIn()));
+        var user = isLoggedIn();
+        if (user) {
+          dispatch(loginSuccess(null, user));
+          dispatch(getStudentList(user.uid));
         }
     };
 }
@@ -189,7 +204,10 @@ function addStudentFailure() {
 }
 
 function setStudentList(students) {
-  console.log("ACTIONS setStudentList");
+  console.log("ACTIONS setStudentList", students);
+  if (!students) {
+    students = {};
+  }
   return {
     type: Constants.GET_STUDENT_LIST,
     studentList: students //load this in the list in
