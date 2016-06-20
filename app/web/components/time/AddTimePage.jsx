@@ -10,6 +10,10 @@ import moment from "moment";
 class AddTimePage extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      readDate: moment(),
+      maxDate: moment(),
+    };
     this.setTimeState = this.setTimeState.bind(this);
     this.setMinsReadState = this.setMinsReadState.bind(this);
     this.saveTime = this.saveTime.bind(this);
@@ -31,14 +35,10 @@ class AddTimePage extends React.Component {
   saveTime(event) {
     event.preventDefault();
 
-    // need to fix validation to happen in actions
-    // if (!this.props.timeFormIsValid) {
-    //   return;
-    // }
-
     // trigger add time action
-    var readDate = this.props.readDate.toDate();
-    this.props.setStudentTime(readDate, this.props.readMinutes, this.props.studentID);
+    var readDate = this.state.readDate.format('YYMMDD');
+    this.props.setStudentTime(readDate, this.props.readMinutes, this.props.studentID, this.props.parentID);
+    this.setState({readDate: moment()});
     toastr.success("Time saved.");
     hashHistory.push("/");
   }
@@ -52,8 +52,8 @@ class AddTimePage extends React.Component {
       <div>
         <h3>{`Log Time: ${this.props.student.name}`}</h3>
         <AddTimeForm
-          readDate={this.props.readDate}
-          maxDate={this.props.maxDate}
+          readDate={this.state.readDate}
+          maxDate={this.state.maxDate}
           onDateChange={this.setTimeState}
           readMinutes={this.props.readMinutes}
           onMinsChange={this.setMinsReadState}
@@ -73,9 +73,6 @@ AddTimePage.propTypes = {
     name: React.PropTypes.string.isRequired,
   }).isRequired,
   studentID: React.PropTypes.string,
-  readDate: React.PropTypes.object,
-  maxDate: React.PropTypes.object,
-  // timeFormIsValid: React.PropTypes.boolean,
   readMinutes: React.PropTypes.number,
   errors: React.PropTypes.object,
 };
@@ -84,10 +81,9 @@ function mapStateToProps(state, ownProps) {
   const studentID = ownProps.params.id; // from path '/student/:id'
 
   return {
+    parentID: state.reducers.parentID,
     studentID,
     student: state.reducers.studentList[studentID],
-    readDate: moment(),
-    maxDate: moment(),
     timeFormIsValid: state.reducers.timeForm[studentID].formIsValid,
     readMinutes: state.reducers.timeForm[studentID].timeRead,
     errors: state.reducers.timeForm[studentID].errors,
@@ -96,8 +92,8 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setStudentTime: (readDate, readTime, studentID) => {
-      dispatch(actions.setStudentTime(readDate, readTime, studentID));
+    setStudentTime: (readDate, readTime, studentID, parentID) => {
+      dispatch(actions.setStudentTime(readDate, readTime, studentID, parentID));
     },
     setMinsReadState: (event, studentID) => {
       dispatch(actions.setMinsReadState(event, studentID));

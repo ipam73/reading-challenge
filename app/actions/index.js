@@ -2,6 +2,7 @@
 var Constants = require('../constants');
 var $ = require("jquery");
 var _ = require("underscore");
+var moment = require("moment");
 
 
 /////////////////////////////////////////////////////////
@@ -59,6 +60,35 @@ function _postAddStudent(query) {
     datatype: 'jsonp',
     // data: query
   });
+}
+
+function addStudentMobile() {
+  return function (dispatch) {
+    fetch('http://localhost:3000/addstudent')
+    .then((response) =>{
+      response.text();
+      return dispatch(addStudentSuccess());
+    })
+    .then((responseText) => {
+      console.log(responseText);
+      response.text();
+      return dispatch(addStudentSuccess());
+    })
+    .catch((error) => {
+      console.warn(error);
+      return dispatch(addStudentFailure(errorMessage));
+    });
+
+  //   ajaxCall.always(_.bind(function() {
+  //     // in the future should have a loading screen
+  //   }, this)).done(_.bind(function(data) {
+  //     return dispatch(addStudentSuccess());
+  //   }, this)).fail(_.bind(function() {
+  //     var errorMessage = "An error has occurred while saving your settings. Please refresh the page. If the error continues, contact support@clever.com.";
+  //     return dispatch(addStudentFailure(errorMessage));
+  //   }, this));
+  };
+
 }
 
 function addStudent() {
@@ -144,9 +174,20 @@ function timeFormIsValid(newTime) {
   };
 }
 
-// newTime = {readDate: <date>, readMinutes: <minutes>}
-function setStudentTime(readDate, readTime, studentID) {
+// newTime = {readDate: <string format YYMMDD>, readMinutes: <minutes>}
+function setStudentTime(readDate, readTime, studentID, parentID) {
   // makes some call to the db to save the new time stats
+
+  var parentsRef = new Firebase(firebaseURI + "parents/" + parentID);
+  var studentsTimeLogRef = parentsRef.child("students/" + studentID + "/time_log");
+
+  // sets on time log with date in format:  YYMMDD
+  var newTimeLog = {};
+
+  var num = parseInt(readTime) || 0;
+  newTimeLog[readDate] = num;
+  studentsTimeLogRef.update(newTimeLog);
+
   return {
     type: Constants.SET_STUDENT_TIME,
     studentID,
@@ -168,6 +209,7 @@ module.exports = {
   getStudentList,
   setStudentTime,
   addStudent,
+  addStudentMobile,
   addStudentFailure,
   addStudentSuccess,
   setMinsReadState,

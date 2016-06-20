@@ -1,4 +1,5 @@
-import React, {
+import React from 'react';
+import {
   Navigator,
   StyleSheet,
   TouchableHighlight,
@@ -25,7 +26,6 @@ var styles = StyleSheet.create({
   nav: {
     position: 'absolute',
     backgroundColor: '#8E44AD',
-    color: '#FFFFFF',
     height: 56,
     flexDirection: 'row',
   },

@@ -1,11 +1,11 @@
-const React = require('react-native');
-const {
+import React from 'react';
+import {
   Dimensions,
   StyleSheet,
   ScrollView,
   Text,
   Component,
-} = React;
+} from 'react-native';
 
 const window = Dimensions.get('window');
 

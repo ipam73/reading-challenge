@@ -28,8 +28,6 @@ class Homepage extends React.Component {
   render() {
     return (
       <ScrollView
-        onResponderMove={()=>{console.log('outer responding');}}
-        onScroll={() => { console.log('onScroll!'); }}
         contentInset={{top: -50}}
         style={styles.main}
       >

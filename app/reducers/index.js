@@ -4,7 +4,19 @@ var _ = require("underscore");
 var initialState = {
   studentList: {},
   timeForm: {},
+  parentID: '1', // TODO - USE REAL PARENT ID
 };
+
+function getTotalTimeForStudent(student) {
+  var time_log = student.time_log;
+  var total_time = 0;
+
+  if (time_log !== null && typeof time_log === 'object') {
+    total_time = _.reduce(time_log, function(memo, num){ return memo + parseInt(num); }, 0);
+  }
+
+  return total_time;
+}
 
 function rootReducer(state, action) {
   if (!state) state = initialState;
@@ -13,11 +25,15 @@ function rootReducer(state, action) {
   switch (action.type) {
     case Constants.GET_STUDENT_LIST:
       newstate.studentList = action.studentList; // whatever is returned from the list
-      console.log("REDUCER: in get student list");
-      console.log(newstate.studentList);
       // not sure if we want to do this here or not
       var studentIDs = Object.keys(newstate.studentList);
       for (var student_id of studentIDs) {
+
+        var totalTime = getTotalTimeForStudent(newstate.studentList[student_id]);
+
+        console.log("setting newstate with new total_mins");
+        newstate.studentList[student_id].total_mins = totalTime;
+
         newstate.timeForm[student_id] = {
           errors: {},
           formIsValid: true,

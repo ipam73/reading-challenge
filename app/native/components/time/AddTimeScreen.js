@@ -12,6 +12,7 @@ import {
 import {connect} from 'react-redux';
 import actions from '../../../actions';
 import Button from 'apsl-react-native-button';
+import moment from 'moment';
 
 const icon = require('../../../images/BuddyPlaceholder.png');
 
@@ -87,10 +88,10 @@ var styles = StyleSheet.create({
 class AddTimeScreen extends React.Component {
   constructor(props) {
     super(props);
-    var today = new Date();
+    var today = moment();
     this.state = {
-      minsRead: 0,
-      maxText: today.toLocaleDateString(),
+      minsRead: '0',
+      maxText: moment().format("MMM Do"),
       maxDate: today,
     };
     this.onChangeMinsRead = this.onChangeMinsRead.bind(this);
@@ -98,8 +99,17 @@ class AddTimeScreen extends React.Component {
     this.onAddTimePress = this.onAddTimePress.bind(this);
   }
 
-  onChangeMinsRead(minsRead) {
-    this.setState({minsRead});
+  onChangeMinsRead(text) {
+    let newText = '';
+    const numbers = '0123456789';
+
+    for (var i = 0; i < text.length; i++) {
+      if (numbers.indexOf(text[i]) > -1) {
+        newText = newText + text[i];
+      }
+    }
+
+    this.setState({minsRead: newText});
   }
 
   async showPicker(stateKey, options) {
@@ -108,8 +118,10 @@ class AddTimeScreen extends React.Component {
       const {action, year, month, day} = await DatePickerAndroid.open(options);
       if (action === DatePickerAndroid.dismissedAction) {
       } else {
-        var date = new Date(year, month, day);
-        newState[stateKey + 'Text'] = date.toLocaleDateString();
+        //var date = new Date(year, month, day);
+        var date = moment({year, month, day});
+        newState[stateKey + 'Text'] = date.format("MMM Do");
+        // newState[stateKey + 'Text'] = date.toLocaleDateString();
         newState[stateKey + 'Date'] = date;
       }
       this.setState(newState);
@@ -119,8 +131,11 @@ class AddTimeScreen extends React.Component {
   }
 
   onAddTimePress() {
-    this.props.setStudentTime(this.state.maxDate, this.state.minsRead, this.props.studentID);
-    this.props.navigator.pop();
+    this.props.setStudentTime(this.state.maxDate.format('YYMMDD'), this.state.minsRead, this.props.studentID, this.props.parentID);
+    this.props.navigator.push({
+      name: 'Homepage',
+      title: 'Charm City Readers',
+    });
   }
 
   render() {
@@ -134,7 +149,7 @@ class AddTimeScreen extends React.Component {
                 <Text style={styles.subHeading}>Date:</Text>
                 <TouchableWithoutFeedback
                   onPress={this.showPicker.bind(this, 'max', {
-                    date: this.state.maxDate,
+                    date: this.state.maxDate.toDate(),
                     maxDate: new Date(),
                   })}
                 >
@@ -165,6 +180,7 @@ class AddTimeScreen extends React.Component {
 function mapStateToProps(state, props) {
   const studentID = props.studentID;
   return {
+    parentID: state.reducers.parentID,
     navigator: props.navigator,
     studentID,
     student: state.reducers.studentList[studentID],
@@ -173,8 +189,8 @@ function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setStudentTime: (readDate, readTime, studentID) => {
-      dispatch(actions.setStudentTime(readDate, readTime, studentID));
+    setStudentTime: (readDate, readTime, studentID, parentID) => {
+      dispatch(actions.setStudentTime(readDate, readTime, studentID, parentID));
     },
   };
 }

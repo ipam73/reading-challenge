@@ -29,7 +29,6 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
   },
   headingText: {
-    fontWeight: 'bold',
     flex: 1,
   },
   headingTitle: {
