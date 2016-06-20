@@ -1,11 +1,14 @@
 var Constants = require("../constants");
 var _ = require("underscore");
+var firebase = require('firebase')
+auth = firebase.auth();
 
+console.log("REDUCEERS USER:", auth.currentUser);
 var initialState = {
   studentList: {},
   timeForm: {},
   parentID: '1', // TODO - USE REAL PARENT ID
-  user: null,
+  user: auth.currentUser,
 };
 
 function getTotalTimeForStudent(student) {

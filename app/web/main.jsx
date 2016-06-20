@@ -15,6 +15,7 @@ var thunk = require("redux-thunk").default;
 
 // reducers
 import reducers from "../reducers";
+import actions from "../actions";
 var reducer = combineReducers({reducers, routerReducer});
 
 // store, takes reducer, thunk middleware
@@ -30,3 +31,5 @@ ReactDOM.render((
   </Provider>
 
 ), document.getElementById("parent-home"));
+
+store.dispatch(actions.restoreAuth());

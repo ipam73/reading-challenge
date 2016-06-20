@@ -94,8 +94,18 @@ function logoutSuccess() {
 
 // check if user is logged in. return user
 function isLoggedIn() {
+  console.log("IS_LOGGED_IN:", auth.currentUser);
   return auth.currentUser;
 };
+
+function restoreAuth() {
+    console.log("RESTORE_AUTH");
+    return function(dispatch) {
+        if (isLoggedIn()) {
+          dispatch(loginSuccess(null, isLoggedIn()));
+        }
+    };
+}
 
 // helper function for ajax calls
 function getCsrfHeader() {
@@ -267,5 +277,6 @@ module.exports = {
   timeFormIsValid,
   loginWithGoogle,
   isLoggedIn,
+  restoreAuth,
   logout,
 };
