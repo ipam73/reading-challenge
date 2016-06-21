@@ -131,7 +131,7 @@ class AddTimeScreen extends React.Component {
   }
 
   onAddTimePress() {
-    this.props.setStudentTime(this.state.maxDate.format('YYMMDD'), this.state.minsRead, this.props.studentID, this.props.parentID);
+    this.props.setStudentTime(this.state.maxDate.format('YYMMDD'), this.state.minsRead, this.props.studentID, this.props.user.uid);
     this.props.navigator.push({
       name: 'Homepage',
       title: 'Charm City Readers',
@@ -180,7 +180,7 @@ class AddTimeScreen extends React.Component {
 function mapStateToProps(state, props) {
   const studentID = props.studentID;
   return {
-    parentID: state.reducers.parentID,
+    user: state.reducers.user,
     navigator: props.navigator,
     studentID,
     student: state.reducers.studentList[studentID],

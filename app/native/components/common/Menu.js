@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from "react-redux";
 import {
   Dimensions,
   StyleSheet,
@@ -32,16 +33,20 @@ const styles = StyleSheet.create({
   },
 });
 
-module.exports = class Menu extends Component {
+class Menu extends Component {
   static propTypes = {
     onItemSelected: React.PropTypes.func.isRequired,
     navigator: React.PropTypes.object.isRequired,
+    user: React.PropTypes.object,
   };
 
   render() {
     return (
       <ScrollView scrollsToTop={false} style={styles.menu}>
-        <Text style={styles.name}>Pamela Martinez</Text>
+        {this.props.user ?
+            <Text style={styles.name}>{this.props.user.displayName}</Text> :
+                null
+        }
         <Text
           onPress={() => this.props.onItemSelected('Homepage', 'Charm City Readers', this.props.navigator)}
           style={styles.item}
@@ -73,3 +78,12 @@ module.exports = class Menu extends Component {
     );
   }
 };
+
+// sets current state for Header as this.prop
+function mapStateToProps(state) {
+  return {
+    user: state.reducers.user,
+  };
+}
+
+module.exports = connect(mapStateToProps, null)(Menu);
