@@ -1,10 +1,12 @@
 var Constants = require("../constants");
 var _ = require("underscore");
+var Firebase = require('firebase')
 
 var initialState = {
   studentList: {},
   timeForm: {},
   parentID: '1', // TODO - USE REAL PARENT ID
+  user: null, // auth.currentUser,
 };
 
 function getTotalTimeForStudent(student) {
@@ -66,6 +68,23 @@ function rootReducer(state, action) {
 
     case Constants.SET_STUDENT_TIME_STATE:
       newstate.timeForm[action.studentID].timeRead = action.timeRead;
+      return newstate;
+
+    case Constants.LOGIN_SUCCESS:
+      console.log("reducer_user", action.user);
+      newstate.user = {
+          displayName: action.user.displayName,
+          uid: action.user.uid,
+      };
+      return newstate;
+
+    case Constants.LOGIN_FAILURE:
+      // TODO: some error handling
+      newstate.user = null;
+      return newstate;
+
+    case Constants.LOGOUT_SUCCESS:
+      newstate.user = null
       return newstate;
 
     default:

@@ -53,7 +53,9 @@ module.exports = (
       #   console.log "done here!"
       #   return
 
+    console.log req.query.user
     redirect_uri = "#{redirect_base_uri}/authorize_student"
+    state = crypto.createCipher('aes-256-ctr', session_secret).update(req.sessionID + "|" + req.query.user, 'utf8', 'hex')
     params =
       response_type: 'code'
       redirect_uri: redirect_uri
@@ -61,14 +63,15 @@ module.exports = (
       district_id: "56ae8e9c5994560100000ae4"
       channel: 'reading_challenge_app'
       skip: 1
-      state: crypto.createHmac('sha256', session_secret).update(req.sessionID).digest('hex')
+      state: state
     res.redirect "#{auth_url}/authorize?#{qs.stringify params}"
 
   authorize_student: (req, res, next) ->
     console.log "in authorize_student"
 
-    expected_state = crypto.createHmac('sha256', session_secret).update(req.sessionID).digest('hex')
-    return res.redirect "/addstudent" if expected_state isnt req.query.state
+    state = crypto.createDecipher('aes-256-ctr', session_secret).update(req.query.state, 'hex', 'utf8').split('|')
+    return res.redirect "/addstudent" if state[0] isnt req.sessionID
+    parent_id = state[1]
 
     console.log "in authorize_student next"
 
@@ -131,7 +134,7 @@ module.exports = (
       req.session.student_logged_in = true
       req.session.access_token = results.token
 
-      err = students_lib.save_student student.id, student.first_name, student.school_id, student.school_name, student.district_id, student.grade
+      err = students_lib.save_student student.id, student.first_name, student.school_id, student.school_name, student.district_id, student.grade, parent_id
       # do something if error
 
       res.redirect "/"

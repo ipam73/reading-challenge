@@ -3,6 +3,7 @@ var Constants = require('../constants');
 var $ = require("jquery");
 var _ = require("underscore");
 var moment = require("moment");
+var { push } = require("react-router-redux")
 
 
 /////////////////////////////////////////////////////////
@@ -24,6 +25,7 @@ var moment = require("moment");
 // Temporary workaround until Firebase fixes bug
 var Firebase = require('firebase');
 var firebaseURI = "https://reading-challenge.firebaseio.com/";
+var firebaseRef = new Firebase(firebaseURI);
 
 function setFirebaseRef(ref) {
   return {
@@ -33,8 +35,6 @@ function setFirebaseRef(ref) {
 }
 /////////////////////////////////////////////////////////////
 
-
-
 // helper function for ajax calls
 function getCookie(name) {
   var parts = document.cookie.split(name + "=");
@@ -42,6 +42,84 @@ function getCookie(name) {
     var v = parts.pop().split(";").shift();
     return decodeURIComponent(v);
   }
+}
+
+function authFailure(err) {
+  console.log("authFailure:", err);
+  return {
+    type: Constants.LOGIN_FAILURE,
+  };
+}
+
+// action to login to Google via a popup. Dispatch error or user
+function loginWithGoogle() {
+
+  return function(dispatch) {
+    (new Firebase(firebaseURI)).authWithOAuthPopup('google').then(function(result) {
+      console.log("oauth from google login complete", result);
+      var token = result.token; // empty in current scope
+      var user = result.google;
+      user.uid = result.uid;
+      dispatch(loginSuccess(token, user));
+      console.log("dispatching to push /about")
+      dispatch(getStudentList(user.uid));
+      dispatch(push("/"));
+    }).catch(function(err) {
+      console.log("error logging in with google", err);
+      dispatch(authFailure(err));
+    });
+  };
+}
+
+function logout() {
+
+  return function(dispatch) {
+    firebaseRef.unauth().then(() => {
+      dispatch(logoutSuccess());
+      dispatch(push("/login"));
+    }, (err) => {
+      dispatch(authFailure(err));
+    });
+  };
+}
+
+function loginSuccess(token, user) {
+  // TODO: ensure that firebase ref for this user exists
+  console.log("go to / on loginSuccess");
+  return {
+    type: Constants.LOGIN_SUCCESS,
+    user: user,
+  };
+}
+
+function logoutSuccess() {
+  // TODO: ensure that firebase ref for this user exists
+  return {
+    type: Constants.LOGOUT_SUCCESS,
+  };
+}
+
+// check if user is logged in. return user
+function isLoggedIn() {
+  var firebaseUser= firebaseRef.getAuth();
+  var user = null;
+  if (firebaseUser) {
+    user = firebaseUser.google;
+    user.uid = firebaseUser.uid;
+  }
+  console.log("IS_LOGGED_IN:", user);
+  return user;
+};
+
+function restoreAuth() {
+    console.log("RESTORE_AUTH");
+    return function(dispatch) {
+        var user = isLoggedIn();
+        if (user) {
+          dispatch(loginSuccess(null, user));
+          dispatch(getStudentList(user.uid));
+        }
+    };
 }
 
 // helper function for ajax calls
@@ -126,7 +204,10 @@ function addStudentFailure() {
 }
 
 function setStudentList(students) {
-  console.log("ACTIONS setStudentList");
+  console.log("ACTIONS setStudentList", students);
+  if (!students) {
+    students = {};
+  }
   return {
     type: Constants.GET_STUDENT_LIST,
     studentList: students //load this in the list in
@@ -135,16 +216,14 @@ function setStudentList(students) {
 
 // getStudentList dummy func
 // GET ALL THE DATA FOR STUDENTS
-function getStudentList() {
-  console.log("ACTIONS: getStudentList AGAIN ASKFJ PAM");
+function getStudentList(parent_id) {
+  console.log("ACTIONS: getStudentList");
   return (dispatch, getState) => {
-    // TODO: use parentID instead of 1
-    var ref = new Firebase(firebaseURI + "parents/1");
-
     ///////////////////////////////////////////////////////////////////////
     // temporarily commenting out until firebase fixes bug, see top of file
-    // var ref = db.ref("/parents/1");
-
+    // var ref = db.ref("/parents/" + parent_id);
+    console.log("ACTIONS: getStudentList. parent:", parent_id);
+    var ref = new Firebase(firebaseURI + "parents/" + parent_id);
     return ref.child("students").once("value", (snapshot) => {
       dispatch(setStudentList(snapshot.val()));
     });
@@ -214,4 +293,8 @@ module.exports = {
   addStudentSuccess,
   setMinsReadState,
   timeFormIsValid,
+  loginWithGoogle,
+  isLoggedIn,
+  restoreAuth,
+  logout,
 };

@@ -7,36 +7,37 @@ import actions from "../../actions";
 class Homepage extends React.Component {
   constructor(props) {
     super(props);
-    props.getStudentList();
+    props.restoreAuth();
   }
 
   render() {
     return (
       <div>
         <StudentList students={this.props.students} />
-        <AddStudent />
+        <AddStudent user={this.props.user} />
       </div>
     );
   }
 }
 
 Homepage.propTypes = {
-  getStudentList: React.PropTypes.func.isRequired,
   students: React.PropTypes.object.isRequired,
+  user: React.PropTypes.object,
 };
 
 // sets current state to summary page as this.prop
 function mapStateToProps(state) {
   return {
     students: state.reducers.studentList,
+    user: state.reducers.user,
   };
 }
 
 // currently not used for anything, no actions triggered on this page
 function mapDispatchToProps(dispatch) {
   return {
-    getStudentList: () => {
-      dispatch(actions.getStudentList());
+    restoreAuth: () => {
+      dispatch(actions.restoreAuth());
     },
   };
 }
