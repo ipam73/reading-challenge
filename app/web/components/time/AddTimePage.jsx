@@ -37,7 +37,7 @@ class AddTimePage extends React.Component {
 
     // trigger add time action
     var readDate = this.state.readDate.format('YYMMDD');
-    this.props.setStudentTime(readDate, this.props.readMinutes, this.props.studentID, this.props.parentID);
+    this.props.setStudentTime(readDate, this.props.readMinutes, this.props.studentID, this.props.user.uid);
     this.setState({readDate: moment()});
     toastr.success("Time saved.");
     hashHistory.push("/");
@@ -67,6 +67,7 @@ class AddTimePage extends React.Component {
 }
 
 AddTimePage.propTypes = {
+  user: React.PropTypes.object.isRequired,
   setStudentTime: React.PropTypes.func.isRequired,
   setMinsReadState: React.PropTypes.func.isRequired,
   student: React.PropTypes.shape({
@@ -83,6 +84,7 @@ function mapStateToProps(state, ownProps) {
   return {
     parentID: state.reducers.parentID,
     studentID,
+    user: state.reducers.user,
     student: state.reducers.studentList[studentID],
     timeFormIsValid: state.reducers.timeForm[studentID].formIsValid,
     readMinutes: state.reducers.timeForm[studentID].timeRead,
