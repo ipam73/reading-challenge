@@ -70,6 +70,37 @@ function loginWithGoogle() {
   };
 }
 
+function loginWithPassword(email, password) {
+
+  return function(dispatch) {
+    (new Firebase(firebaseURI)).authWithPassword({email: email, password:password}).then(function(result) {
+      console.log("login with email/password complete", result);
+      var user = {
+        displayName: email,
+        uid: result.uid,
+      };
+      dispatch(loginSuccess(null, user));
+      dispatch(getStudentList(user.uid));
+      dispatch(push("/"));
+    }).catch(function(err) {
+      console.log("error logging in with email/password", err);
+      dispatch(authFailure(err));
+    });
+  }
+}
+
+function createUser(email, password) {
+  return function(dispatch) {
+    (new Firebase(firebaseURI)).createUser({email: email, password:password}).then(function(result) {
+      console.log("create user complete", result);
+      dispatch(loginWithPassword(email, password));
+    }).catch(function(err) {
+      console.log("error creating user", err);
+      dispatch(authFailure(err));
+    });
+  };
+}
+
 function logout() {
 
   return function(dispatch) {
@@ -100,13 +131,21 @@ function logoutSuccess() {
 
 // check if user is logged in. return user
 function isLoggedIn() {
-  var firebaseUser= firebaseRef.getAuth();
+  var firebaseUser = firebaseRef.getAuth();
+  console.log("IS_LOGGED_IN. firebaseUser:", firebaseUser);
   var user = null;
   if (firebaseUser) {
-    user = firebaseUser.google;
+    
+    user = firebaseUser[firebaseUser.provider];
+    // hack for displayName to exist
+    if (firebaseUser[firebaseUser.provider].displayName) {
+      user.displayName = firebaseUser[firebaseUser.provider].displayName;
+    } else {
+      user.displayName = firebaseUser[firebaseUser.provider].email;
+    }
     user.uid = firebaseUser.uid;
   }
-  console.log("IS_LOGGED_IN:", user);
+
   return user;
 };
 
@@ -263,6 +302,8 @@ module.exports = {
   setMinsReadState,
   timeFormIsValid,
   loginWithGoogle,
+  loginWithPassword,
+  createUser,
   isLoggedIn,
   restoreAuth,
   logout,

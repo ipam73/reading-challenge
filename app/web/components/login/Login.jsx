@@ -1,6 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import actions from "../../../actions";
+import Signup from "./Signup"
 require("!style!css!less!../add-student/AddStudent.less");
 
 // login button
@@ -22,6 +23,7 @@ class Login extends React.Component {
         <div className="panel application-panel container-fluid">
           <div className="SUMMARYPANEL--panel-default">
             <div className="SUMMARYPANEL--panel-body">
+              <Signup object={this.props.newuser} />
               <h3 className="SUMMARYPANEL--panel-title">Sign in with Google</h3>
 
               <button onClick={this.onClickFn} className="btn btn-default">

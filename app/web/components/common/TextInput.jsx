@@ -10,7 +10,7 @@ function Input(props) {
       <label htmlFor={props.name}>{props.label}</label>
       <div className="text">
         <input
-          type="number"
+          type="text"
           name={props.name}
           className="form-control"
           placeholder={props.placeholder}
