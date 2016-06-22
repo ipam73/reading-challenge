@@ -66,6 +66,9 @@ module.exports = (
       state: state
     res.redirect "#{auth_url}/authorize?#{qs.stringify params}"
 
+  privacy: (req, res, next) ->
+    res.render "privacy", {url: "https://reading-challenge.herokuapp.com"}
+
   authorize_student: (req, res, next) ->
     console.log "in authorize_student"
 
