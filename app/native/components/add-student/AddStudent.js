@@ -4,6 +4,7 @@ import {
   View,
   TouchableHighlight,
   Text,
+  Linking,
 } from 'react-native';
 import {connect} from 'react-redux';
 import IconButton from 'react-native-icon-button';
@@ -73,7 +74,14 @@ function mapDispatchToProps(dispatch) {
   return {
     addStudent: () => {
       console.log('adding student!');
-      dispatch(actions.addStudentMobile());
+      const url = 'https://reading-challenge.herokuapp.com/addstudent';
+      Linking.canOpenURL(url).then(supported => {
+        if (!supported) {
+          console.log('Can\'t handle url: ' + url);
+        } else {
+          return Linking.openURL(url);
+        }
+      }).catch(err => console.error('An error occurred', err));
     },
   };
 }
