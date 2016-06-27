@@ -31,5 +31,10 @@ make run
     adb logcat *:S ReactNative:V ReactNativeJS:V // SHOWS ANDROID LOGS
 ```
 
+To generate apk:
+```
+ cd android && ./gradlew assembleRelease
+```
+
 To test:
 use this district id: `56ae8e9c5994560100000ae4`

@@ -38,6 +38,14 @@ var styles = StyleSheet.create({
 
 
 class Landingpage extends React.Component {
+  login() {
+    // do some logic here, if new user show welcome, otherwise don't
+    this.props.navigator.push({
+      name: 'Login',
+      title: 'Sign In with Email',
+    });
+  }
+
   _navigate(name) {
     // do some logic here, if new user show welcome, otherwise don't
     this.props.navigator.push({
@@ -50,6 +58,14 @@ class Landingpage extends React.Component {
     });
   }
 
+  // google button
+            // <IconButton
+            //     style={styles.button}
+            //   icon={googleLogin}
+            //   iconSize={58}
+            //   onPress={ () => this._navigate('YOYOYOYOYO') }
+            // />
+
   render() {
     return (
       <View style={styles.container}>
@@ -57,21 +73,9 @@ class Landingpage extends React.Component {
           <View style={styles.buttons}>
             <IconButton
               style={styles.button}
-              icon={googleLogin}
-              iconSize={58}
-              onPress={ () => this._navigate('YOYOYOYOYO') }
-            />
-            <IconButton
-              style={styles.button}
-              icon={facebookLogin}
-              iconSize={58}
-              onPress={ () => this._navigate('YOYOYOYOYO') }
-            />
-            <IconButton
-              style={styles.button}
               icon={emailLogin}
               iconSize={58}
-              onPress={ () => this._navigate('YOYOYOYOYO') }
+              onPress={ () => this.login() }
             />
           </View>
         </Image>
