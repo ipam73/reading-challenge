@@ -11,6 +11,7 @@ import About from './components/About';
 import AddTimeScreen from './components/time/AddTimeScreen';
 import Homepage from './components/Homepage';
 import Landingpage from './components/Landingpage';
+import Login from './components/login/Login';
 import Support from './components/Support';
 import Welcome from './components/Welcome';
 
@@ -100,7 +101,7 @@ class AppContainer extends React.Component {
   navigationBarRouteMapper(onToggle) {
     return ({
       LeftButton(route, navigator, index, navState) {
-        if (route.name === 'AddTimeScreen') {
+        if (route.name === 'AddTimeScreen' || route.name === 'Login') {
           return (
             <TouchableHighlight
               underlayColor='transparent'
@@ -144,6 +145,9 @@ class AppContainer extends React.Component {
         break;
       case 'Landingpage':
         component = Landingpage;
+        break;
+      case 'Login':
+        component = Login;
         break;
       case 'Support':
         component = Support;

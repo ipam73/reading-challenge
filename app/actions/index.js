@@ -89,6 +89,36 @@ function loginWithPassword(email, password) {
   }
 }
 
+function loginWithPasswordNative(email, password) {
+
+  return function(dispatch) {
+    (new Firebase(firebaseURI)).authWithPassword({email: email, password:password}).then(function(result) {
+      console.log("login with email/password complete", result);
+      var user = {
+        displayName: email,
+        uid: result.uid,
+      };
+      dispatch(loginSuccess(null, user));
+      dispatch(getStudentList(user.uid));
+    }).catch(function(err) {
+      console.log("error logging in with email/password", err);
+      dispatch(authFailure(err));
+    });
+  }
+}
+
+function createUserNative(email, password) {
+  return function(dispatch) {
+    (new Firebase(firebaseURI)).createUser({email: email, password:password}).then(function(result) {
+      console.log("create user complete", result);
+      dispatch(loginWithPasswordNative(email, password));
+    }).catch(function(err) {
+      console.log("error creating user", err);
+      dispatch(authFailure(err));
+    });
+  };
+}
+
 function createUser(email, password) {
   return function(dispatch) {
     (new Firebase(firebaseURI)).createUser({email: email, password:password}).then(function(result) {
@@ -303,7 +333,9 @@ module.exports = {
   timeFormIsValid,
   loginWithGoogle,
   loginWithPassword,
+  loginWithPasswordNative,
   createUser,
+  createUserNative,
   isLoggedIn,
   restoreAuth,
   logout,
