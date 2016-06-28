@@ -3,14 +3,15 @@ import {connect} from "react-redux";
 import actions from "../../../actions";
 import TextInput from "../common/TextInput";
 require("!style!css!less!../add-student/AddStudent.less");
+require("!style!css!less!./Signup.less");
 
 // Signup Page
 class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        email: "email",
-        password: "password",
+      email: '',
+      password: '',
     };
     this.setEmailState = this.setEmailState.bind(this);
     this.setPasswordState = this.setPasswordState.bind(this);
@@ -19,7 +20,6 @@ class Signup extends React.Component {
   }
 
   setEmailState(event) {
-    console.log("setEmailState:", event.target.value);
     return this.setState({
       email: event.target.value, 
     });
@@ -33,28 +33,55 @@ class Signup extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log("creating user with email:", this.state.email);
+    // console.log("creating user with email:", this.state.email);
 
     this.props.createUser(this.state.email, this.state.password);
   }
 
   handleLogin(event) {
     event.preventDefault();
-    console.log("login user with email:", this.state.email);
+    // console.log("login user with email:", this.state.email);
 
     this.props.loginWithPassword(this.state.email, this.state.password);
   }
 
   render() {
-    console.log("render signup");
+    // console.log("render signup");
+
     return (
       <div>
-        <div className="panel application-panel container-fluid container">
+        <div className="Signup--panel application-panel container-fluid container">
             <div className="content">
-              <TextInput name="email" value={this.state.email} onChange={this.setEmailState}/>
-              <TextInput name="password" value={this.state.password} onChange={this.setPasswordState}/>
-              <input type="submit" value="Signup" onClick={this.handleSubmit}/>
-              <input type="submit" value="Login" onClick={this.handleLogin}/>
+              <TextInput
+                name="email"
+                value={this.state.email}
+                placeholder="Email"
+                onChange={this.setEmailState}
+                className="Signup--text-input"
+              />
+              <TextInput
+                name="password"
+                placeholder="Password"
+                value={this.state.password}
+                onChange={this.setPasswordState}
+                className="Signup--text-input"
+                isPassword
+              />
+
+              <p className="Signup--errorMessage">{this.props.errorMessage}</p>
+
+              <input
+                type="submit"
+                className="Signup--button btn btn-default"
+                value="Sign In"
+                onClick={this.handleLogin}
+              />
+              <input
+                type="submit"
+                className="Signup--button Signup--button-purple btn btn-default"
+                value="Sign Up"
+                onClick={this.handleSubmit}
+              />
             </div>
         </div>
       </div>
@@ -62,7 +89,12 @@ class Signup extends React.Component {
   }
 }
 
-// currently not used for anything, no actions triggered on this page
+function mapStateToProps(state) {
+  return {
+    errorMessage: state.reducers.errorMessage,
+  };
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     createUser: (email, password) => {
@@ -74,4 +106,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-module.exports = connect(null, mapDispatchToProps)(Signup);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Signup);

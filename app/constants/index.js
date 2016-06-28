@@ -12,4 +12,5 @@ module.exports = keyMirror({
   LOGIN_SUCCESS: null,
   LOGIN_FAILURE: null,
   LOGOUT_SUCCESS: null,
+  CREATE_USER_FAILURE: null,
 });

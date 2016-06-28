@@ -5,8 +5,8 @@ var Firebase = require('firebase')
 var initialState = {
   studentList: {},
   timeForm: {},
-  parentID: '1', // TODO - USE REAL PARENT ID
   user: null, // auth.currentUser,
+  errorMessage: '',
 };
 
 function getTotalTimeForStudent(student) {
@@ -23,6 +23,7 @@ function getTotalTimeForStudent(student) {
 function rootReducer(state, action) {
   if (!state) state = initialState;
   var newstate = _.clone(state);
+  newstate.errorMessage = '';
 
   switch (action.type) {
     case Constants.GET_STUDENT_LIST:
@@ -30,12 +31,8 @@ function rootReducer(state, action) {
       // not sure if we want to do this here or not
       var studentIDs = Object.keys(newstate.studentList);
       for (var student_id of studentIDs) {
-
         var totalTime = getTotalTimeForStudent(newstate.studentList[student_id]);
-
-        console.log("setting newstate with new total_mins");
         newstate.studentList[student_id].total_mins = totalTime;
-
         newstate.timeForm[student_id] = {
           errors: {},
           formIsValid: true,
@@ -71,20 +68,29 @@ function rootReducer(state, action) {
       return newstate;
 
     case Constants.LOGIN_SUCCESS:
-      console.log("reducer_user", action.user);
       newstate.user = {
-          displayName: action.user.displayName,
-          uid: action.user.uid,
+        displayName: action.user.displayName,
+        uid: action.user.uid,
       };
       return newstate;
 
     case Constants.LOGIN_FAILURE:
-      // TODO: some error handling
+      newstate.errorMessage = "Sign in failed, please try again with another username and/or password.";
       newstate.user = null;
       return newstate;
 
     case Constants.LOGOUT_SUCCESS:
-      newstate.user = null
+      newstate.user = null;
+      return newstate;
+
+    case Constants.CREATE_USER_FAILURE:
+      newstate.user = null;
+      newstate.errorMessage = "There was a problem creating your account, please try again with another username and/or password.";
+      if (action.error.code === 'INVALID_EMAIL') {
+        newstate.errorMessage = "There was a problem creating your account, email is invalid.";
+      } else if (action.error.code === 'EMAIL_TAKEN') {
+        newstate.errorMessage = "There was a problem creating your account, email is already taken.";
+      }
       return newstate;
 
     default:

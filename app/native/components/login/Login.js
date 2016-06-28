@@ -10,12 +10,9 @@ import {connect} from 'react-redux';
 import actions from '../../../actions';
 import Button from 'apsl-react-native-button';
 
-// const icon = require('../../../images/BuddyPlaceholder.png');
-
 var styles = StyleSheet.create({
   main: {
     flex: 1,
-    backgroundColor: '#E0E0E0',
     paddingTop: 50,
   },
   row: {
@@ -32,52 +29,51 @@ var styles = StyleSheet.create({
     paddingBottom: 10,
     flexDirection: 'row',
   },
-  headingIcon: {
-    width: 70,
-    height: 70,
-  },
   headingText: {
     paddingLeft: 20,
-    // fontWeight: 'bold',
     flex: 1,
   },
-  headingTitle: {
-    // fontWeight: 'bold',
-  },
-  leftCol: {
+  buttons: {
     flex: 1,
-  },
-  rightCol: {
-    alignItems: 'flex-end',
-  },
-  date: {
     flexDirection: 'row',
-  },
-  dateText: {
-    color: 'black',
-    fontSize: 20,
-    paddingBottom: 15,
-  },
-  dateIcon: {
-    color: '#8E44AD',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
   },
   button: {
     marginTop: 15,
-    borderColor: 'gray',
+    borderColor: '#8E44AD',
     backgroundColor: 'white',
-    borderRadius: 0,
+    borderRadius: 3,
     borderWidth: 2,
-    width: 200,
+    width: 100,
     height: 30,
-    alignSelf: 'center',
+    marginRight: 10,
   },
   buttonText: {
     fontSize: 14,
+    color: '#8E44AD',
+  },
+  buttonSignUp: {
+    marginTop: 15,
+    borderColor: '#8E44AD',
+    backgroundColor: '#8E44AD',
+    borderRadius: 3,
+    borderWidth: 2,
+    width: 100,
+    height: 30,
+  },
+  buttonTextSignUp: {
+    fontSize: 14,
+    color: '#FBFBFB',
   },
   subHeading: {
     fontSize: 18,
     fontWeight: '500',
+    color: 'black',
     paddingBottom: 10,
+  },
+  errorMessage: {
+    color: '#e92929',
   },
 });
 
@@ -95,27 +91,11 @@ class Login extends React.Component {
   }
 
   onSignUpPress() {
-    console.log("login user with email:", this.state.email);
-
-    this.props.createUser(this.state.email, this.state.password);
-
-    // this.props.setStudentTime(this.state.maxDate.format('YYMMDD'), this.state.minsRead, this.props.studentID, this.props.parentID);
-    this.props.navigator.push({
-      name: 'Homepage',
-      title: 'Charm City Readers',
-    });
+    this.props.createUser(this.state.email, this.state.password, this.props.navigator);
   }
 
   onLoginPress() {
-    console.log("login user with email:", this.state.email);
-
-    this.props.loginWithPassword(this.state.email, this.state.password);
-
-    // this.props.setStudentTime(this.state.maxDate.format('YYMMDD'), this.state.minsRead, this.props.studentID, this.props.parentID);
-    this.props.navigator.push({
-      name: 'Homepage',
-      title: 'Charm City Readers',
-    });
+    this.props.loginWithPassword(this.state.email, this.state.password, this.props.navigator);
   }
 
   onChangeUsername(text) {
@@ -150,14 +130,15 @@ class Login extends React.Component {
                 />
               </View>
             </View>
-
-            <Button style={styles.button} textStyle={styles.buttonText} onPress={this.onLoginPress}>
-              Sign In
-            </Button>
-            <Text >Don't have an account?</Text>
-            <Button style={styles.button} textStyle={styles.buttonText} onPress={this.onSignUpPress}>
-              Sign Up
-            </Button>
+            <View style={styles.buttons}>
+              <Button style={styles.button} textStyle={styles.buttonText} onPress={this.onLoginPress}>
+                Sign In
+              </Button>
+              <Button style={styles.buttonSignUp} textStyle={styles.buttonTextSignUp} onPress={this.onSignUpPress}>
+                Sign Up
+              </Button>
+            </View>
+            <Text style={styles.errorMessage}>{this.props.errorMessage}</Text>
           </View>
         </TouchableHighlight>
       </View>
@@ -165,15 +146,21 @@ class Login extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    errorMessage: state.reducers.errorMessage,
+  };
+}
+
 function mapDispatchToProps(dispatch) {
   return {
-    loginWithPassword: (email, password) => {
-      dispatch(actions.loginWithPasswordNative(email, password));
+    loginWithPassword: (email, password, navigator) => {
+      dispatch(actions.loginWithPasswordNative(email, password, navigator));
     },
-    createUser: (email, password) => {
-      dispatch(actions.createUserNative(email, password));
+    createUser: (email, password, navigator) => {
+      dispatch(actions.createUserNative(email, password, navigator));
     },
   };
 }
 
-module.exports = connect(null, mapDispatchToProps)(Login);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Login);

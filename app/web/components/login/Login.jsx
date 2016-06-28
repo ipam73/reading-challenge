@@ -17,25 +17,25 @@ class Login extends React.Component {
   }
 
   render() {
-    console.log("render login");
     return (
       <div>
         <div className="panel application-panel container-fluid">
+          <img className="Login--img" src="/images/logo.png" alt="Icon"></img>
+          <h1 className="Login--title SUMMARYPANEL--panel-title">Charm City Readers</h1>
           <div className="SUMMARYPANEL--panel-default">
-            <div className="SUMMARYPANEL--panel-body">
+            <div className="Login--panel-body">
+              <h3 className="Login--panel-title">Parent Login</h3>
+
               <Signup object={this.props.newuser} />
-              <h3 className="SUMMARYPANEL--panel-title">Sign in with Google</h3>
 
-              <button onClick={this.onClickFn} className="btn btn-default">
-                <img
-                  src="https://developers.google.com/identity/images/btn_google_signin_light_normal_web.png"
-                  alt="Sign in with Google"
-                />
-              </button>
-              <p>
-              Click to login as a parent
-              </p>
-
+              <div className="Login--img-button-container">
+                <button onClick={this.onClickFn} className="Login--img-button btn btn-default">
+                  <img
+                    src="https://developers.google.com/identity/images/btn_google_signin_light_normal_web.png"
+                    alt="Sign in with Google"
+                  />
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -51,7 +51,6 @@ Login.propTypes = {
 
 // ....
 function mapStateToProps(state) {
-  console.log("mapStateToProps login");
   return {
     user: state.reducers.user,
   };

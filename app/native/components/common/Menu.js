@@ -6,6 +6,8 @@ import {
   Text,
   Component,
 } from 'react-native';
+import {connect} from 'react-redux';
+import actions from '../../../actions';
 
 const window = Dimensions.get('window');
 
@@ -32,7 +34,7 @@ const styles = StyleSheet.create({
   },
 });
 
-module.exports = class Menu extends Component {
+class Menu extends Component {
   static propTypes = {
     onItemSelected: React.PropTypes.func.isRequired,
     navigator: React.PropTypes.object.isRequired,
@@ -64,7 +66,10 @@ module.exports = class Menu extends Component {
         </Text>
 
         <Text
-          onPress={() => this.props.onItemSelected('Landingpage', '', this.props.navigator)}
+          onPress={() => {
+            this.props.logout(this.props.navigator);
+            this.props.onLogoutSelected();
+          }}
           style={styles.item}
         >
           Logout
@@ -73,3 +78,14 @@ module.exports = class Menu extends Component {
     );
   }
 };
+
+function mapDispatchToProps(dispatch) {
+  return {
+    logout: (navigator) => {
+      dispatch(actions.logoutMobile(navigator));
+    },
+  };
+}
+
+module.exports = connect(null, mapDispatchToProps)(Menu);
+

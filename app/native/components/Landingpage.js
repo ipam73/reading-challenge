@@ -17,7 +17,7 @@ var styles = StyleSheet.create({
   },
   button: {
     marginBottom: 15,
-    width: 300,
+    width: 290,
     flex: 1,
   },
   buttonText: {
@@ -58,9 +58,14 @@ class Landingpage extends React.Component {
     });
   }
 
-  // google button
             // <IconButton
-            //     style={styles.button}
+            //   style={styles.button}
+            //   icon={facebookLogin}
+            //   iconSize={58}
+            //   onPress={ () => this._navigate('YOYOYOYOYO') }
+            // />
+            // <IconButton
+            //   style={styles.button}
             //   icon={googleLogin}
             //   iconSize={58}
             //   onPress={ () => this._navigate('YOYOYOYOYO') }
@@ -71,6 +76,7 @@ class Landingpage extends React.Component {
       <View style={styles.container}>
         <Image style={styles.backgroundImage} source={backgroundImage}>
           <View style={styles.buttons}>
+
             <IconButton
               style={styles.button}
               icon={emailLogin}

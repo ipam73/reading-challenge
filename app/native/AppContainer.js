@@ -78,14 +78,6 @@ class AppContainer extends React.Component {
     if (item === 'Landingpage') {
       navBarDisplay = false;
     }
-
-    // if (this.state.selectedItem === item) {
-    //   this.setState({
-    //     isOpen: false,
-    //     selectedItem: item,
-    //   });
-    // }
-    // else {
     this.setState({
       isOpen: false,
       selectedItem: item,
@@ -95,7 +87,17 @@ class AppContainer extends React.Component {
       title,
       display: navBarDisplay,
     });
-    // }
+  }
+
+  onLogoutSelected = (item, title) => {
+    var navBarDisplay = true;
+    if (item === 'Landingpage') {
+      navBarDisplay = false;
+    }
+    this.setState({
+      isOpen: false,
+      selectedItem: item,
+    });
   }
 
   navigationBarRouteMapper(onToggle) {
@@ -165,6 +167,7 @@ class AppContainer extends React.Component {
     const menu = (<Menu
       navigator={navigator}
       onItemSelected={this.onMenuItemSelected}
+      onLogoutSelected={this.onLogoutSelected}
     />);
 
     return (
