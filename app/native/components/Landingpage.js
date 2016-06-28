@@ -17,7 +17,7 @@ var styles = StyleSheet.create({
   },
   button: {
     marginBottom: 15,
-    width: 300,
+    width: 290,
     flex: 1,
   },
   buttonText: {

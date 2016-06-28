@@ -39,6 +39,11 @@ var styles = StyleSheet.create({
   normalText: {
     fontSize: 14,
   },
+  button: {
+    marginBottom: 15,
+    width: 300,
+    flex: 1,
+  },
   icon: {
     marginTop: 10,
     marginBottom: 10,

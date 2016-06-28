@@ -15,7 +15,6 @@ import Button from 'apsl-react-native-button';
 var styles = StyleSheet.create({
   main: {
     flex: 1,
-    backgroundColor: '#E0E0E0',
     paddingTop: 50,
   },
   row: {
@@ -32,51 +31,47 @@ var styles = StyleSheet.create({
     paddingBottom: 10,
     flexDirection: 'row',
   },
-  headingIcon: {
-    width: 70,
-    height: 70,
-  },
   headingText: {
     paddingLeft: 20,
-    // fontWeight: 'bold',
     flex: 1,
   },
-  headingTitle: {
-    // fontWeight: 'bold',
-  },
-  leftCol: {
+  buttons: {
     flex: 1,
-  },
-  rightCol: {
-    alignItems: 'flex-end',
-  },
-  date: {
     flexDirection: 'row',
-  },
-  dateText: {
-    color: 'black',
-    fontSize: 20,
-    paddingBottom: 15,
-  },
-  dateIcon: {
-    color: '#8E44AD',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
   },
   button: {
     marginTop: 15,
-    borderColor: 'gray',
+    borderColor: '#8E44AD',
     backgroundColor: 'white',
-    borderRadius: 0,
+    borderRadius: 3,
     borderWidth: 2,
-    width: 200,
+    width: 100,
     height: 30,
-    alignSelf: 'center',
+    marginRight: 10,
   },
   buttonText: {
     fontSize: 14,
+    color: '#8E44AD',
+  },
+  buttonSignUp: {
+    marginTop: 15,
+    borderColor: '#8E44AD',
+    backgroundColor: '#8E44AD',
+    borderRadius: 3,
+    borderWidth: 2,
+    width: 100,
+    height: 30,
+  },
+  buttonTextSignUp: {
+    fontSize: 14,
+    color: '#FBFBFB',
   },
   subHeading: {
     fontSize: 18,
     fontWeight: '500',
+    color: 'black',
     paddingBottom: 10,
   },
 });
@@ -150,14 +145,14 @@ class Login extends React.Component {
                 />
               </View>
             </View>
-
-            <Button style={styles.button} textStyle={styles.buttonText} onPress={this.onLoginPress}>
-              Sign In
-            </Button>
-            <Text >Don't have an account?</Text>
-            <Button style={styles.button} textStyle={styles.buttonText} onPress={this.onSignUpPress}>
-              Sign Up
-            </Button>
+            <View style={styles.buttons}>
+              <Button style={styles.button} textStyle={styles.buttonText} onPress={this.onLoginPress}>
+                Sign In
+              </Button>
+              <Button style={styles.buttonSignUp} textStyle={styles.buttonTextSignUp} onPress={this.onSignUpPress}>
+                Sign Up
+              </Button>
+            </View>
           </View>
         </TouchableHighlight>
       </View>
