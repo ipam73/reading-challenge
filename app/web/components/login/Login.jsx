@@ -17,7 +17,6 @@ class Login extends React.Component {
   }
 
   render() {
-    console.log("render login");
     return (
       <div>
         <div className="panel application-panel container-fluid">
@@ -52,7 +51,6 @@ Login.propTypes = {
 
 // ....
 function mapStateToProps(state) {
-  console.log("mapStateToProps login");
   return {
     user: state.reducers.user,
   };

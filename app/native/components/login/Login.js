@@ -10,8 +10,6 @@ import {connect} from 'react-redux';
 import actions from '../../../actions';
 import Button from 'apsl-react-native-button';
 
-// const icon = require('../../../images/BuddyPlaceholder.png');
-
 var styles = StyleSheet.create({
   main: {
     flex: 1,
@@ -74,6 +72,9 @@ var styles = StyleSheet.create({
     color: 'black',
     paddingBottom: 10,
   },
+  errorMessage: {
+    color: '#e92929',
+  },
 });
 
 class Login extends React.Component {
@@ -90,27 +91,11 @@ class Login extends React.Component {
   }
 
   onSignUpPress() {
-    console.log("login user with email:", this.state.email);
-
-    this.props.createUser(this.state.email, this.state.password);
-
-    // this.props.setStudentTime(this.state.maxDate.format('YYMMDD'), this.state.minsRead, this.props.studentID, this.props.parentID);
-    this.props.navigator.push({
-      name: 'Homepage',
-      title: 'Charm City Readers',
-    });
+    this.props.createUser(this.state.email, this.state.password, this.props.navigator);
   }
 
   onLoginPress() {
-    console.log("login user with email:", this.state.email);
-
-    this.props.loginWithPassword(this.state.email, this.state.password);
-
-    // this.props.setStudentTime(this.state.maxDate.format('YYMMDD'), this.state.minsRead, this.props.studentID, this.props.parentID);
-    this.props.navigator.push({
-      name: 'Homepage',
-      title: 'Charm City Readers',
-    });
+    this.props.loginWithPassword(this.state.email, this.state.password, this.props.navigator);
   }
 
   onChangeUsername(text) {
@@ -153,6 +138,7 @@ class Login extends React.Component {
                 Sign Up
               </Button>
             </View>
+            <Text style={styles.errorMessage}>{this.props.errorMessage}</Text>
           </View>
         </TouchableHighlight>
       </View>
@@ -160,15 +146,21 @@ class Login extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    errorMessage: state.reducers.errorMessage,
+  };
+}
+
 function mapDispatchToProps(dispatch) {
   return {
-    loginWithPassword: (email, password) => {
-      dispatch(actions.loginWithPasswordNative(email, password));
+    loginWithPassword: (email, password, navigator) => {
+      dispatch(actions.loginWithPasswordNative(email, password, navigator));
     },
-    createUser: (email, password) => {
-      dispatch(actions.createUserNative(email, password));
+    createUser: (email, password, navigator) => {
+      dispatch(actions.createUserNative(email, password, navigator));
     },
   };
 }
 
-module.exports = connect(null, mapDispatchToProps)(Login);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Login);

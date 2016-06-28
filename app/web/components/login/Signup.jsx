@@ -20,7 +20,6 @@ class Signup extends React.Component {
   }
 
   setEmailState(event) {
-    console.log("setEmailState:", event.target.value);
     return this.setState({
       email: event.target.value, 
     });
@@ -34,20 +33,21 @@ class Signup extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log("creating user with email:", this.state.email);
+    // console.log("creating user with email:", this.state.email);
 
     this.props.createUser(this.state.email, this.state.password);
   }
 
   handleLogin(event) {
     event.preventDefault();
-    console.log("login user with email:", this.state.email);
+    // console.log("login user with email:", this.state.email);
 
     this.props.loginWithPassword(this.state.email, this.state.password);
   }
 
   render() {
-    console.log("render signup");
+    // console.log("render signup");
+
     return (
       <div>
         <div className="Signup--panel application-panel container-fluid container">
@@ -67,6 +67,9 @@ class Signup extends React.Component {
                 className="Signup--text-input"
                 isPassword
               />
+
+              <p className="Signup--errorMessage">{this.props.errorMessage}</p>
+
               <input
                 type="submit"
                 className="Signup--button btn btn-default"
@@ -86,7 +89,12 @@ class Signup extends React.Component {
   }
 }
 
-// currently not used for anything, no actions triggered on this page
+function mapStateToProps(state) {
+  return {
+    errorMessage: state.reducers.errorMessage,
+  };
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     createUser: (email, password) => {
@@ -98,4 +106,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-module.exports = connect(null, mapDispatchToProps)(Signup);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Signup);

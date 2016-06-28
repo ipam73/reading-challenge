@@ -44,9 +44,10 @@ function getCookie(name) {
 }
 
 function authFailure(err) {
-  console.log("authFailure:", err);
+  // console.log("authFailure:", err);
   return {
     type: Constants.LOGIN_FAILURE,
+    error: err,
   };
 }
 
@@ -55,16 +56,16 @@ function loginWithGoogle() {
 
   return function(dispatch) {
     (new Firebase(firebaseURI)).authWithOAuthPopup('google').then(function(result) {
-      console.log("oauth from google login complete", result);
+      // console.log("oauth from google login complete", result);
       var token = result.token; // empty in current scope
       var user = result.google;
       user.uid = result.uid;
       dispatch(loginSuccess(token, user));
-      console.log("dispatching to push /about")
+      // console.log("dispatching to push /about")
       dispatch(getStudentList(user.uid));
       dispatch(push("/"));
     }).catch(function(err) {
-      console.log("error logging in with google", err);
+      // console.log("error logging in with google", err);
       dispatch(authFailure(err));
     });
   };
@@ -74,7 +75,7 @@ function loginWithPassword(email, password) {
 
   return function(dispatch) {
     (new Firebase(firebaseURI)).authWithPassword({email: email, password:password}).then(function(result) {
-      console.log("login with email/password complete", result);
+      // console.log("login with email/password complete", result);
       var user = {
         displayName: email,
         uid: result.uid,
@@ -83,38 +84,48 @@ function loginWithPassword(email, password) {
       dispatch(getStudentList(user.uid));
       dispatch(push("/"));
     }).catch(function(err) {
-      console.log("error logging in with email/password", err);
+      // console.log("error logging in with email/password", err);
       dispatch(authFailure(err));
     });
   }
 }
 
-function loginWithPasswordNative(email, password) {
+function loginWithPasswordNative(email, password, navigator) {
+  // console.log('navigator is: ', navigator);
 
   return function(dispatch) {
     (new Firebase(firebaseURI)).authWithPassword({email: email, password:password}).then(function(result) {
-      console.log("login with email/password complete", result);
+      // console.log("login with email/password complete", result);
       var user = {
         displayName: email,
         uid: result.uid,
       };
       dispatch(loginSuccess(null, user));
       dispatch(getStudentList(user.uid));
+      dispatch(navigator.push({ name: 'Homepage', title: 'Charm City Readers'}));
     }).catch(function(err) {
-      console.log("error logging in with email/password", err);
+      // console.log("error logging in with email/password", err);
       dispatch(authFailure(err));
     });
   }
 }
 
-function createUserNative(email, password) {
+function createUserFailure(err) {
+  // console.log("authFailure:", err);
+  return {
+    type: Constants.CREATE_USER_FAILURE,
+    error: err,
+  };
+}
+
+function createUserNative(email, password, navigator) {
   return function(dispatch) {
     (new Firebase(firebaseURI)).createUser({email: email, password:password}).then(function(result) {
-      console.log("create user complete", result);
-      dispatch(loginWithPasswordNative(email, password));
+      // console.log("create user complete", result);
+      dispatch(loginWithPasswordNative(email, password, navigator));
     }).catch(function(err) {
-      console.log("error creating user", err);
-      dispatch(authFailure(err));
+      // console.log("error creating user", err);
+      dispatch(createUserFailure(err));
     });
   };
 }
@@ -122,10 +133,23 @@ function createUserNative(email, password) {
 function createUser(email, password) {
   return function(dispatch) {
     (new Firebase(firebaseURI)).createUser({email: email, password:password}).then(function(result) {
-      console.log("create user complete", result);
+      // console.log("create user complete", result);
       dispatch(loginWithPassword(email, password));
     }).catch(function(err) {
-      console.log("error creating user", err);
+      // console.log("error creating user", err);
+      dispatch(createUserFailure(err));
+    });
+  };
+}
+
+
+function logoutMobile(navigator) {
+
+  return function(dispatch) {
+    firebaseRef.unauth().then(() => {
+      dispatch(logoutSuccess());
+      dispatch(navigator.push({ name: 'Landingpage', display: false}));
+    }, (err) => {
       dispatch(authFailure(err));
     });
   };
@@ -145,7 +169,7 @@ function logout() {
 
 function loginSuccess(token, user) {
   // TODO: ensure that firebase ref for this user exists
-  console.log("go to / on loginSuccess");
+  // console.log("go to / on loginSuccess");
   return {
     type: Constants.LOGIN_SUCCESS,
     user: user,
@@ -162,10 +186,10 @@ function logoutSuccess() {
 // check if user is logged in. return user
 function isLoggedIn() {
   var firebaseUser = firebaseRef.getAuth();
-  console.log("IS_LOGGED_IN. firebaseUser:", firebaseUser);
+  // console.log("IS_LOGGED_IN. firebaseUser:", firebaseUser);
   var user = null;
   if (firebaseUser) {
-    
+
     user = firebaseUser[firebaseUser.provider];
     // hack for displayName to exist
     if (firebaseUser[firebaseUser.provider].displayName) {
@@ -180,7 +204,7 @@ function isLoggedIn() {
 };
 
 function restoreAuth() {
-    console.log("RESTORE_AUTH");
+    // console.log("RESTORE_AUTH");
     return function(dispatch) {
         var user = isLoggedIn();
         if (user) {
@@ -227,7 +251,7 @@ function addStudent() {
 }
 
 function addStudentSuccess() {
-  console.log("addStudentSuccess: ");
+  // console.log("addStudentSuccess: ");
   return {
     type: Constants.ADD_STUDENT_SUCCESS,
     studentList: {} //load this in the list in
@@ -235,7 +259,7 @@ function addStudentSuccess() {
 }
 
 function addStudentFailure() {
-  console.log("addStudentFailure: ");
+  // console.log("addStudentFailure: ");
   return {
     type: Constants.ADD_STUDENT_FAILURE,
     studentList: {} //load this in the list in
@@ -243,7 +267,7 @@ function addStudentFailure() {
 }
 
 function setStudentList(students) {
-  console.log("ACTIONS setStudentList", students);
+  // console.log("ACTIONS setStudentList", students);
   if (!students) {
     students = {};
   }
@@ -256,12 +280,12 @@ function setStudentList(students) {
 // getStudentList dummy func
 // GET ALL THE DATA FOR STUDENTS
 function getStudentList(parent_id) {
-  console.log("ACTIONS: getStudentList");
+  // console.log("ACTIONS: getStudentList");
   return (dispatch, getState) => {
     ///////////////////////////////////////////////////////////////////////
     // temporarily commenting out until firebase fixes bug, see top of file
     // var ref = db.ref("/parents/" + parent_id);
-    console.log("ACTIONS: getStudentList. parent:", parent_id);
+    // console.log("ACTIONS: getStudentList. parent:", parent_id);
     var ref = new Firebase(firebaseURI + "parents/" + parent_id);
     return ref.child("students").once("value", (snapshot) => {
       dispatch(setStudentList(snapshot.val()));
@@ -339,4 +363,5 @@ module.exports = {
   isLoggedIn,
   restoreAuth,
   logout,
+  logoutMobile,
 };
