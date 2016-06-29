@@ -17,10 +17,8 @@ var styles = StyleSheet.create({
   },
   button: {
     width: 300,
+    height: 60,
     flex: 1,
-  },
-  buttonText: {
-    fontSize: 20,
   },
   buttons: {
     marginBottom: 60,
@@ -65,7 +63,7 @@ class Landingpage extends React.Component {
           <TouchableHighlight onPress={() => this.login()}>
             <Image
               style={styles.button}
-              source={googleLogin}
+              source={emailLogin}
             />
           </TouchableHighlight>
           </View>
