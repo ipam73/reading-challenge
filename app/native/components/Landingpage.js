@@ -5,8 +5,6 @@ import {
   Image,
   TouchableHighlight,
 } from 'react-native';
-// import IconButton from 'react-native-icon-button';
-import {Icon} from 'react-native-icons';
 
 const backgroundImage = require('../../images/CharmCityReaders_mobile.jpeg');
 const facebookLogin = require('../../images/sign-in-facebook.png');
@@ -25,7 +23,7 @@ var styles = StyleSheet.create({
     fontSize: 20,
   },
   buttons: {
-    marginBottom: 20,
+    marginBottom: 60,
   },
   backgroundImage: {
     flex: 1,
@@ -58,25 +56,6 @@ class Landingpage extends React.Component {
       },
     });
   }
-
-            // <IconButton
-            //   style={styles.button}
-            //   icon={facebookLogin}
-            //   iconSize={58}
-            //   onPress={ () => this._navigate('YOYOYOYOYO') }
-            // />
-            // <IconButton
-            //   style={styles.button}
-            //   icon={googleLogin}
-            //   iconSize={58}
-            //   onPress={ () => this._navigate('YOYOYOYOYO') }
-            // />
-            // <IconButton
-            //   style={styles.button}
-            //   icon={emailLogin}
-            //   iconSize={58}
-            //   onPress={ () => this.login() }
-            // />
 
   render() {
     return (
