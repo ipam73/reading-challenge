@@ -24,6 +24,11 @@ module.exports = (
 
     res.render "parent-homepage", locals
 
+  logout: (req, res, next) ->
+    console.log "in logout"
+    res.redirect "/"
+
+
   add_student: (req, res, next) ->
     console.log "in add_student"
 
@@ -139,5 +144,5 @@ module.exports = (
 
       err = students_lib.save_student student.id, student.first_name, student.school_id, student.school_name, student.district_id, student.grade, parent_id
       # do something if error
-
+      # res.redirect "/logout"
       res.redirect "/"

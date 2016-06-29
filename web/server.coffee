@@ -46,6 +46,7 @@ module.exports = () ->
 
   # app.post '/addstudent', main_parent_routes.add_student
   app.get '/authorize_student', main_parent_routes.authorize_student
+  app.get '/logout', main_parent_routes.logout
 
   app.get '/privacy', main_parent_routes.privacy
   # All routes before this can be accessed without being logged in
