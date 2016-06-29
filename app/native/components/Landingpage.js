@@ -3,21 +3,22 @@ import {
   StyleSheet,
   View,
   Image,
+  TouchableHighlight,
 } from 'react-native';
-import IconButton from 'react-native-icon-button';
+// import IconButton from 'react-native-icon-button';
+import {Icon} from 'react-native-icons';
 
 const backgroundImage = require('../../images/CharmCityReaders_mobile.jpeg');
 const facebookLogin = require('../../images/sign-in-facebook.png');
 const emailLogin = require('../../images/sign-in-with-email.png');
-const googleLogin = require('../../images/sign-in-with-google.png');
+const googleLogin = require('../../images/sign-in-with-google-small.png');
 
 var styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   button: {
-    marginBottom: 15,
-    width: 290,
+    width: 300,
     flex: 1,
   },
   buttonText: {
@@ -70,19 +71,24 @@ class Landingpage extends React.Component {
             //   iconSize={58}
             //   onPress={ () => this._navigate('YOYOYOYOYO') }
             // />
+            // <IconButton
+            //   style={styles.button}
+            //   icon={emailLogin}
+            //   iconSize={58}
+            //   onPress={ () => this.login() }
+            // />
 
   render() {
     return (
       <View style={styles.container}>
         <Image style={styles.backgroundImage} source={backgroundImage}>
           <View style={styles.buttons}>
-
-            <IconButton
+          <TouchableHighlight onPress={() => this.login()}>
+            <Image
               style={styles.button}
-              icon={emailLogin}
-              iconSize={58}
-              onPress={ () => this.login() }
+              source={googleLogin}
             />
+          </TouchableHighlight>
           </View>
         </Image>
       </View>
