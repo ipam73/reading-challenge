@@ -14,6 +14,7 @@ import Landingpage from './components/Landingpage';
 import Login from './components/login/Login';
 import Support from './components/Support';
 import Welcome from './components/Welcome';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 // menu
 const SideMenu = require('react-native-side-menu');
@@ -31,16 +32,8 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
   },
   navButtonIcon: {
-    fontSize: 18,
     marginLeft: 13,
     marginTop: 15,
-    color: '#FFFFFF',
-  },
-  navButtonIconArrow: {
-    fontSize: 40,
-    marginLeft: 13,
-    marginTop: -5,
-    color: '#FFFFFF',
   },
   navTitle: {
     marginTop: 15,
@@ -109,14 +102,15 @@ class AppContainer extends React.Component {
               underlayColor='transparent'
               onPress={() => { if (index > 0) { navigator.pop()} }}
             >
-              <Text style={styles.navButtonIconArrow}>&#8592;</Text>
+              <Icon style={styles.navButtonIcon} name="md-arrow-back" size={30} color="#FFFFFF" />
             </TouchableHighlight>
           );
         }
         return (
           <TouchableHighlight
-            onPress={() => onToggle() }>
-            <Text style={styles.navButtonIcon}>&#x2630;</Text>
+            underlayColor='transparent'
+            onPress={() => onToggle()} >
+            <Icon style={styles.navButtonIcon} name="md-menu" size={30} color="#FFFFFF" />
           </TouchableHighlight>
         );
       },
