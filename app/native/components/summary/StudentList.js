@@ -1,5 +1,5 @@
 import React from 'react';
-// import {connect} from 'react-redux';
+import {connect} from 'react-redux';
 import {
   StyleSheet,
   ListView,
@@ -78,7 +78,7 @@ class StudentList extends React.Component {
               <Text>Minutes Read</Text>
             </View>
             <View style={styles.rightCol}>
-              <Text style={styles.headings}>12</Text>
+              <Text style={styles.headings}>{this.props.weeksLeft.toString()}</Text>
               <Text>Weeks Left</Text>
             </View>
           </View>
@@ -109,17 +109,14 @@ class StudentList extends React.Component {
 StudentList.propTypes = {
   students: React.PropTypes.object.isRequired,
   navigator: React.PropTypes.object.isRequired,
+  weeksLeft: React.PropTypes.number.isRequired,
 };
 
-module.exports = StudentList;
 
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     addTime: () => {
-//       console.log('in here!');
-//       // dispatch(actions.addTime());
-//     },
-//   };
-// }
+function mapStateToProps(state) {
+  return {
+    weeksLeft: state.reducers.weeksLeft,
+  };
+}
 
-// module.exports = connect(null, mapDispatchToProps)(StudentList);
+module.exports = connect(mapStateToProps, null)(StudentList);
