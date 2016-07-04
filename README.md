@@ -32,9 +32,13 @@ make run
 ```
 
 To generate apk:
+- update version in: `/android/app/src/main/AndroidManifest.xml` and `android/app/build.gradle`
+
 ```
- cd android && ./gradlew assembleRelease
+  cd android && ./gradlew assembleRelease
 ```
+
+- updload new apk to app store
 
 To test:
 use this district id: `56ae8e9c5994560100000ae4`
