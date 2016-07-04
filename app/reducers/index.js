@@ -1,12 +1,15 @@
 var Constants = require("../constants");
 var _ = require("underscore");
-var Firebase = require('firebase')
+var moment = require("moment");
+
+var END_DATE = moment('2016-08-5');
 
 var initialState = {
   studentList: {},
   timeForm: {},
   user: null, // auth.currentUser,
   errorMessage: '',
+  weeksLeft: 0,
 };
 
 function getTotalTimeForStudent(student) {
@@ -20,6 +23,13 @@ function getTotalTimeForStudent(student) {
   return total_time;
 }
 
+function calculateWeeksLeft() {
+  var today = moment(new Date());
+  var duration = moment.duration(END_DATE.diff(today));
+  var weeksLeft = duration.asWeeks();
+  return Math.floor(weeksLeft);
+}
+
 function rootReducer(state, action) {
   if (!state) state = initialState;
   var newstate = _.clone(state);
@@ -27,6 +37,7 @@ function rootReducer(state, action) {
 
   switch (action.type) {
     case Constants.GET_STUDENT_LIST:
+      newstate.weeksLeft = calculateWeeksLeft();
       newstate.studentList = action.studentList; // whatever is returned from the list
       // not sure if we want to do this here or not
       var studentIDs = Object.keys(newstate.studentList);
