@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import actions from "../../../actions";
-import Signup from "./Signup"
+import Signup from "./Signup";
 require("!style!css!less!../add-student/AddStudent.less");
 
 // login button

@@ -13,7 +13,12 @@ class AddStudent extends React.Component {
   }
 
   onClickFn() {
+    // this.props.addStudent(this.props.user.uid);
     window.location = "/addstudent?user=" + this.props.user.uid;
+    // var wnd = window.open(`/addstudent?user=${this.props.user.uid}`);
+    // setTimeout(function() {
+    //   wnd.close();
+    // }, 5000);
   }
 
   render() {
@@ -44,8 +49,8 @@ class AddStudent extends React.Component {
 }
 
 AddStudent.propTypes = {
-    user: React.PropTypes.object.isRequired,
-}
+  user: React.PropTypes.object.isRequired,
+};
 
 // ....
 function mapStateToProps(state) {
@@ -57,8 +62,8 @@ function mapStateToProps(state) {
 // currently not used for anything, no actions triggered on this page
 function mapDispatchToProps(dispatch) {
   return {
-    addStudent: () => {
-      dispatch(actions.addStudent());
+    addStudent: (userID) => {
+      dispatch(actions.addStudent(userID));
     },
   };
 }

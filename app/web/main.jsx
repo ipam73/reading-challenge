@@ -1,21 +1,21 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 // router components
-import {Router, hashHistory} from "react-router";
-import routes from "./routes";
+import {Router, hashHistory} from 'react-router';
+import routes from './routes';
 
 // redux and store
-import {createStore, combineReducers, applyMiddleware} from "redux";
-import {Provider} from "react-redux";
-import {routerMiddleware, routerReducer} from "react-router-redux";
+import {createStore, combineReducers, applyMiddleware} from 'redux';
+import {Provider} from 'react-redux';
+import {routerMiddleware, routerReducer} from 'react-router-redux';
 
 // redux thunk
-var thunk = require("redux-thunk").default;
+var thunk = require('redux-thunk').default;
 
 // reducers
-import reducers from "../reducers";
-import actions from "../actions";
+import reducers from '../reducers';
+import actions from '../actions';
 var reducer = combineReducers({reducers, routerReducer});
 
 // store, takes reducer, thunk middleware
@@ -30,5 +30,5 @@ ReactDOM.render((
     </div>
   </Provider>
 
-), document.getElementById("parent-home"));
+), document.getElementById('parent-home'));
 

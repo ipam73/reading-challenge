@@ -116,7 +116,7 @@ class AppContainer extends React.Component {
         return (
           <TouchableHighlight
             onPress={() => onToggle() }>
-            <Text style={styles.navButtonIcon}>&#9776;</Text>
+            <Text style={styles.navButtonIcon}>&#x2630;</Text>
           </TouchableHighlight>
         );
       },

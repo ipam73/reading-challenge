@@ -24,34 +24,17 @@ module.exports = (
 
     res.render "parent-homepage", locals
 
+  logout: (req, res, next) ->
+    console.log "in logout"
+    return res.redirect "#{auth_url}/logout"
+
+  login_success: (req, res, next) ->
+    console.log "in login success"
+    res.render "finish_add_student"
+    # return res.redirect "/logout"
+
   add_student: (req, res, next) ->
-    console.log "in add_student"
-
-    ###
-    #  this is where logout logic lives
-    ####
-    # console.log "is there a student logged in? ", req.session.student_logged_in
-    # if req.session.student_logged_in is true
-      # this is a really hacky way, could not get auth_url/logout to properly
-      # redirect back to app -- currently this forces user to manually go back to app
-
-      # console.log "trying to log someone out"
-      # req.session.student_logged_in = false
-      # return res.redirect "#{auth_url}/logout"
-      # auth_options =
-      #   uri: "#{auth_url}/logout"
-      #   method: 'POST'
-      #   json:
-      #     redirect_uri: "#{redirect_base_uri}/authorize_student"
-      #     access_token: req.session.access_token
-      # helpers_lib.quest_retry auth_options, (err, resp, body) ->
-      #   console.log "in help lib after post to logout"
-      #   console.log "there is an error", err
-      #   console.log "body is", body
-      #   console.log "response body is", resp.statusCode
-      #   req.session.student_logged_in = false
-      #   console.log "done here!"
-      #   return
+    console.log "in add_student here?!"
 
     console.log req.query.user
     redirect_uri = "#{redirect_base_uri}/authorize_student"
@@ -64,7 +47,11 @@ module.exports = (
       channel: 'reading_challenge_app'
       skip: 1
       state: state
-    res.redirect "#{auth_url}/authorize?#{qs.stringify params}"
+    console.log "about to redirect"
+    # res.sendStatus(200)
+
+    return res.redirect "#{auth_url}/authorize?#{qs.stringify params}"
+    # return res.sendStatus(200)
 
   privacy: (req, res, next) ->
     res.render "privacy", {url: "https://reading-challenge.herokuapp.com"}
@@ -139,5 +126,6 @@ module.exports = (
 
       err = students_lib.save_student student.id, student.first_name, student.school_id, student.school_name, student.district_id, student.grade, parent_id
       # do something if error
-
-      res.redirect "/"
+      # res.send(200)
+      res.redirect "/login_success"
+      # res.redirect "/logout"

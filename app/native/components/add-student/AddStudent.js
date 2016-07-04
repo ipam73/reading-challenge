@@ -5,9 +5,9 @@ import {
   TouchableHighlight,
   Text,
   Linking,
+  Image,
 } from 'react-native';
 import {connect} from 'react-redux';
-import IconButton from 'react-native-icon-button';
 import actions from '../../../actions';
 
 const icon = require('../../../images/log-in-with-clever-large.png');
@@ -54,12 +54,12 @@ function AddStudent(props) {
       <View style={styles.headingContainer}>
         <View style={styles.headingText}>
           <Text style={styles.headingTitle}>Add a Student</Text>
-          <IconButton
-            style={styles.button}
-            icon={icon}
-            iconSize={20}
-            onPress={props.addStudent}
-          />
+          <TouchableHighlight onPress={props.addStudent}>
+            <Image
+              style={styles.button}
+              source={icon}
+            />
+          </TouchableHighlight>
           <Text>
             Click the button to add a student using their Clever login credentials.
             If you need help finding the right credentials please contact the school.

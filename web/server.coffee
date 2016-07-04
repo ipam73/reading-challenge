@@ -43,14 +43,14 @@ module.exports = () ->
   # parent route, should only see if a parent
   app.get '/', main_parent_routes.homepage
   app.get '/addstudent', main_parent_routes.add_student
+  app.post '/addstudent', main_parent_routes.add_student
 
   # app.post '/addstudent', main_parent_routes.add_student
   app.get '/authorize_student', main_parent_routes.authorize_student
+  app.get '/logout', main_parent_routes.logout
+  app.get '/login_success', main_parent_routes.login_success
 
   app.get '/privacy', main_parent_routes.privacy
-  # All routes before this can be accessed without being logged in
-  # app.use ensure_logged_in
-  # app.get '/', main_parent_routes.goHome
 
   http.createServer(app).listen config.PORT, ->
     console.log "reading-challenge listening on port #{config.PORT}"

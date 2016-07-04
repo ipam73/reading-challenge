@@ -11,4 +11,4 @@ function AndroidApp() {
   );
 }
 
-AppRegistry.registerComponent('ReactNativeSource', () => AndroidApp);
+AppRegistry.registerComponent('Charm City Readers', () => AndroidApp);

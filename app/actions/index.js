@@ -220,24 +220,80 @@ function getCsrfHeader() {
 }
 
 // ajax call for new student login
-function _postAddStudent(query) {
+function _postAddStudent(userID) {
   return $.ajax({
-    url: "/addstudent",
+    url: `/addstudent?user=${userID}`,
+    dataType: 'jsonp',
+    contentType: 'text/html',
+    method: "GET",
+    headers: { 'Access-Control-Allow-Origin': '*', 'contentType' : 'text/html', 'X-Request': 'JSON'},
+    crossDomain: true,
+    // 'X-Request': 'JSON',
+
+    // xhrFields: {
+    //   // The 'xhrFields' property sets additional fields on the XMLHttpRequest.
+    //   // This can be used to set the 'withCredentials' property.
+    //   // Set the value to 'true' if you'd like to pass cookies to the server.
+    //   // If this is enabled, your server must respond with the header
+    //   // 'Access-Control-Allow-Credentials: true'.
+    //   withCredentials: false,
+    // },
+    // datatype: 'jsonp',
+    // 'Accept': 'application/json',
+
+  });
+}
+
+
+// ajax call for new student logut
+function _logoutStudent(query) {
+  return $.ajax({
+    url: "/logout",
     method: "POST",
     // headers: getCsrfHeader(),
     headers: { 'Access-Control-Allow-Origin': '*' },
     crossDomain: true,
     datatype: 'jsonp',
-    // data: query
+    data: query
   });
 }
 
-function addStudent() {
+function addStudent(userID) {
   // uses redux-thunk middleware
+  console.log('adsfalskdjf add student');
+  console.log("userid is: ", userID);
+  return function(dispatch) {
+    var ajaxCall = _postAddStudent(userID);
+    console.log('ajax call is: ', ajaxCall);
+    ajaxCall.always(_.bind(function() {
+      console.log('in always add student');
+      // in the future should have a loading screen
+    }, this)).done(_.bind(function(data) {
+      console.log('in done');
+      return dispatch(addStudentSuccess());
+    }, this)).fail(_.bind(function() {
+      console.log('in fail');
+      var errorMessage = "An error has occurred while saving your settings. Please refresh the page. If the error continues, contact support@clever.com.";
+      return dispatch(addStudentFailure(errorMessage));
+    }, this));
+  };
+}
+
+function addStudentSuccess() {
+  console.log("addStudentSuccess: ");
+
+
+  return {
+    type: Constants.ADD_STUDENT_SUCCESS,
+    studentList: {} //load this in the list in
+  };
+}
+
+function addStudentIntermediate() {
 
   return function (dispatch) {
 
-    var ajaxCall = _postAddStudent({student: "my student"});
+    var ajaxCall = _logoutStudent({student: "my student"});
 
     ajaxCall.always(_.bind(function() {
       // in the future should have a loading screen
@@ -248,14 +304,7 @@ function addStudent() {
       return dispatch(addStudentFailure(errorMessage));
     }, this));
   };
-}
 
-function addStudentSuccess() {
-  // console.log("addStudentSuccess: ");
-  return {
-    type: Constants.ADD_STUDENT_SUCCESS,
-    studentList: {} //load this in the list in
-  };
 }
 
 function addStudentFailure() {
