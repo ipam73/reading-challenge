@@ -1,0 +1,36 @@
+doctype html
+html
+  head
+    block head
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      title
+        block title
+          | Reading Challenge
+
+      block styles
+        link(rel='stylesheet', href='vendor/stylesheets/bootstrap/bootstrap.min.css')
+
+  body
+    block body
+      block header
+      block content
+        h1 Finish Adding Student
+        script(language='javascript', type='text/javascript').
+          <!--
+          function goAndClose(page) {
+            var wnd = window.open(page);
+            setTimeout(function() {
+              wnd.close();
+            }, 10);
+          }
+        p To finish adding student, click the following two links:
+        p 1:  
+          a(href='javascript:void();', onclick="goAndClose('/logout');") Complete Add Student
+        p 2:  
+          a(class='button', href='/') Go Home
+
+    block footer
+    script(type='text/javascript').
+      Bootstrap = JSON.parse(decodeURIComponent("!{encodeURIComponent(JSON.stringify(bootstrap || {}))}"));
+    block scripts
