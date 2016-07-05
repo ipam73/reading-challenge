@@ -54,7 +54,7 @@ function AddStudent(props) {
       <View style={styles.headingContainer}>
         <View style={styles.headingText}>
           <Text style={styles.headingTitle}>Add a Student</Text>
-          <TouchableHighlight onPress={props.addStudent}>
+          <TouchableHighlight onPress={() => props.addStudent(props.parentID)}>
             <Image
               style={styles.button}
               source={icon}
@@ -70,11 +70,21 @@ function AddStudent(props) {
   );
 }
 
+function mapStateToProps(state) {
+  var parentID = '';
+  if (state.reducers.user) {
+    parentID = state.reducers.user.uid;
+  }
+  return {
+    parentID,
+  };
+}
+
 function mapDispatchToProps(dispatch) {
   return {
-    addStudent: () => {
+    addStudent: (parentID) => {
       console.log('adding student!');
-      const url = 'https://reading-challenge.herokuapp.com/addstudent';
+      const url = 'https://reading-challenge.herokuapp.com/addstudent?user=' + parentID;
       Linking.canOpenURL(url).then(supported => {
         if (!supported) {
           console.log('Can\'t handle url: ' + url);
@@ -82,8 +92,9 @@ function mapDispatchToProps(dispatch) {
           return Linking.openURL(url);
         }
       }).catch(err => console.error('An error occurred', err));
+      dispatch(actions.getStudentList(parentID));
     },
   };
 }
 
-module.exports = connect(null, mapDispatchToProps)(AddStudent);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(AddStudent);

@@ -22,7 +22,7 @@ var styles = StyleSheet.create({
 class Homepage extends React.Component {
   constructor(props) {
     super(props);
-    props.getStudentList();
+    props.getStudentList(props.parentID);
   }
 
   render() {
@@ -46,16 +46,21 @@ Homepage.propTypes = {
 };
 
 function mapStateToProps(state, props) {
+  var parentID = '';
+  if (state.reducers.user) {
+    parentID = state.reducers.user.uid;
+  }
   return {
     students: state.reducers.studentList,
     navigator: props.navigator,
+    parentID,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getStudentList: () => {
-      dispatch(actions.getStudentList());
+    getStudentList: (parentID) => {
+      dispatch(actions.getStudentList(parentID));
     },
   };
 }
