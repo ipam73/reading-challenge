@@ -102,7 +102,6 @@ class Login extends React.Component {
     this.setState({email: text});
   }
 
-
   onChangePassword(text) {
     this.setState({password: text});
   }

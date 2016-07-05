@@ -91,8 +91,6 @@ function loginWithPassword(email, password) {
 }
 
 function loginWithPasswordNative(email, password, navigator) {
-  // console.log('navigator is: ', navigator);
-
   return function(dispatch) {
     (new Firebase(firebaseURI)).authWithPassword({email: email, password:password}).then(function(result) {
       // console.log("login with email/password complete", result);
@@ -100,9 +98,11 @@ function loginWithPasswordNative(email, password, navigator) {
         displayName: email,
         uid: result.uid,
       };
+      // console.log("new user is: ", user);
       dispatch(loginSuccess(null, user));
+      // console.log("dispatch new student list ", user.uid);
       dispatch(getStudentList(user.uid));
-      dispatch(navigator.push({ name: 'Homepage', title: 'Charm City Readers'}));
+
     }).catch(function(err) {
       // console.log("error logging in with email/password", err);
       dispatch(authFailure(err));
@@ -121,10 +121,8 @@ function createUserFailure(err) {
 function createUserNative(email, password, navigator) {
   return function(dispatch) {
     (new Firebase(firebaseURI)).createUser({email: email, password:password}).then(function(result) {
-      // console.log("create user complete", result);
       dispatch(loginWithPasswordNative(email, password, navigator));
     }).catch(function(err) {
-      // console.log("error creating user", err);
       dispatch(createUserFailure(err));
     });
   };
@@ -133,10 +131,8 @@ function createUserNative(email, password, navigator) {
 function createUser(email, password) {
   return function(dispatch) {
     (new Firebase(firebaseURI)).createUser({email: email, password:password}).then(function(result) {
-      // console.log("create user complete", result);
       dispatch(loginWithPassword(email, password));
     }).catch(function(err) {
-      // console.log("error creating user", err);
       dispatch(createUserFailure(err));
     });
   };
@@ -148,7 +144,6 @@ function logoutMobile(navigator) {
   return function(dispatch) {
     firebaseRef.unauth().then(() => {
       dispatch(logoutSuccess());
-      dispatch(navigator.push({ name: 'Landingpage', display: false}));
     }, (err) => {
       dispatch(authFailure(err));
     });
@@ -260,8 +255,6 @@ function _logoutStudent(query) {
 
 function addStudent(userID) {
   // uses redux-thunk middleware
-  console.log('adsfalskdjf add student');
-  console.log("userid is: ", userID);
   return function(dispatch) {
     var ajaxCall = _postAddStudent(userID);
     console.log('ajax call is: ', ajaxCall);
@@ -280,7 +273,7 @@ function addStudent(userID) {
 }
 
 function addStudentSuccess() {
-  console.log("addStudentSuccess: ");
+  // console.log("addStudentSuccess: ");
 
 
   return {

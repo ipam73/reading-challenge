@@ -94,16 +94,17 @@ module.exports = (
       # this is broken!!!! for some reason hitting this endpoint returns a 404, do I have the wrong scopes?
       # should I hit a different endpoint?
       school_info: ['user_info', 'token'].concat (cb_a, {user_info, token}) ->
-        console.log "school_info"
-        helpers_lib.get_clever_resource(api_url) "/v1.1/#{user_info.type}s/#{user_info.id}/school", token, (err, user_data) ->
-          console.log "user data is", user_data
+        # console.log "school_info"
+        # helpers_lib.get_clever_resource(api_url) "/v1.1/students/56ae931f0264e7b267011b48/district", token, (err, user_data) ->
+        # helpers_lib.get_clever_resource(api_url) "/v1.1/#{user_info.type}s/#{user_info.id}/school", token, (err, user_data) ->
+          # console.log "user data is", user_data
           # return cb_a err if err
           # cb_a null, user_data
-          cb_a null, {name: "Reading Challenge Elementary"}
+        cb_a null, {name: ""}
 
     , (err, results) ->
       console.log "got here at the end"
-      console.log "results are, ", results
+      # console.log "results are, ", results
 
       return next err if err?
       user_type = results.user_info.type

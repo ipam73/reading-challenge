@@ -5,6 +5,8 @@ import {
   TouchableHighlight,
   Text,
 } from 'react-native';
+import {connect} from 'react-redux';
+import actions from '../actions';
 
 // pages
 import About from './components/About';
@@ -57,16 +59,20 @@ class AppContainer extends React.Component {
   };
 
   toggle() {
+    // console.log("in toggle");
     this.setState({
       isOpen: !this.state.isOpen,
     });
   }
 
   updateMenuState(isOpen) {
-    this.setState({ isOpen });
+    // console.log("in updateMenuState");
+    this.setState({isOpen});
   }
 
   onMenuItemSelected = (item, title, navigator) => {
+    // console.log("in onMenuItemSelected selected 2");
+
     var navBarDisplay = true;
     if (item === 'Landingpage') {
       navBarDisplay = false;
@@ -82,24 +88,13 @@ class AppContainer extends React.Component {
     });
   }
 
-  onLogoutSelected = (item, title) => {
-    var navBarDisplay = true;
-    if (item === 'Landingpage') {
-      navBarDisplay = false;
-    }
-    this.setState({
-      isOpen: false,
-      selectedItem: item,
-    });
-  }
-
   navigationBarRouteMapper(onToggle) {
     return ({
       LeftButton(route, navigator, index, navState) {
         if (route.name === 'AddTimeScreen' || route.name === 'Login') {
           return (
             <TouchableHighlight
-              underlayColor='transparent'
+              underlayColor="transparent"
               onPress={() => { if (index > 0) { navigator.pop()} }}
             >
               <Icon style={styles.navButtonIcon} name="md-arrow-back" size={30} color="#FFFFFF" />
@@ -108,8 +103,9 @@ class AppContainer extends React.Component {
         }
         return (
           <TouchableHighlight
-            underlayColor='transparent'
-            onPress={() => onToggle()} >
+            underlayColor="transparent"
+            onPress={() => onToggle()}
+          >
             <Icon style={styles.navButtonIcon} name="md-menu" size={30} color="#FFFFFF" />
           </TouchableHighlight>
         );
@@ -144,6 +140,12 @@ class AppContainer extends React.Component {
         break;
       case 'Login':
         component = Login;
+        if (this.props.isAuthenticated) {
+          // console.log(" in is authenticated!****");
+          component = Homepage;
+          route.name = 'Homepage';
+          route.title = 'Charm City Readers';
+        }
         break;
       case 'Support':
         component = Support;
@@ -161,7 +163,6 @@ class AppContainer extends React.Component {
     const menu = (<Menu
       navigator={navigator}
       onItemSelected={this.onMenuItemSelected}
-      onLogoutSelected={this.onLogoutSelected}
     />);
 
     return (
@@ -192,4 +193,16 @@ class AppContainer extends React.Component {
   }
 }
 
-module.exports = AppContainer;
+function mapStateToProps(state) {
+  // console.log("in map state to props: isAuthenticated: ", state.reducers.isAuthenticated);
+  return {
+    isAuthenticated: state.reducers.isAuthenticated,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+  };
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(AppContainer);

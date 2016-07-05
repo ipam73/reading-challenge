@@ -14,6 +14,7 @@ const googleLogin = require('../../images/sign-in-with-google-small.png');
 var styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'black',
   },
   button: {
     width: 300,
