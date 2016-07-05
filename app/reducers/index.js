@@ -8,6 +8,7 @@ var initialState = {
   studentList: {},
   timeForm: {},
   user: null, // auth.currentUser,
+  isAuthenticated: false,
   errorMessage: '',
   weeksLeft: 0,
 };
@@ -79,19 +80,25 @@ function rootReducer(state, action) {
       return newstate;
 
     case Constants.LOGIN_SUCCESS:
+      // console.log("in login success user is: ", action.user);
       newstate.user = {
         displayName: action.user.displayName,
         uid: action.user.uid,
       };
+      newstate.isAuthenticated = true;
       return newstate;
 
     case Constants.LOGIN_FAILURE:
+      // console.log("in login failure");
       newstate.errorMessage = "Sign in failed, please try again with another username and/or password.";
       newstate.user = null;
+      newstate.isAuthenticated = false;
       return newstate;
 
     case Constants.LOGOUT_SUCCESS:
+      // console.log("in LOGOUT_SUCCESS");
       newstate.user = null;
+      newstate.isAuthenticated = false;
       return newstate;
 
     case Constants.CREATE_USER_FAILURE:

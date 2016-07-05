@@ -6,7 +6,7 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
-const backgroundImage = require('../../images/CharmCityReaders_mobile.jpeg');
+const backgroundImage = require('../../images/CharmCityReaders_mobile.jpg');
 const facebookLogin = require('../../images/sign-in-facebook.png');
 const emailLogin = require('../../images/sign-in-with-email.png');
 const googleLogin = require('../../images/sign-in-with-google-small.png');
@@ -14,6 +14,7 @@ const googleLogin = require('../../images/sign-in-with-google-small.png');
 var styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'black',
   },
   button: {
     width: 300,
