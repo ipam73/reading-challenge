@@ -6,7 +6,7 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
-const backgroundImage = require('../../images/CharmCityReaders_mobile.jpg');
+const backgroundImage = require('../../images/CharmCityReaders_mobile.jpeg');
 const facebookLogin = require('../../images/sign-in-facebook.png');
 const emailLogin = require('../../images/sign-in-with-email.png');
 const googleLogin = require('../../images/sign-in-with-google-small.png');
