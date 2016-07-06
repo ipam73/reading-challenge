@@ -13,13 +13,13 @@ module.exports = {
       {test: /\.coffee$/, loader: "coffee-loader"},
       {
         test: /\.jsx$/,
-        exclude: [],
+        exclude: [/node_modules/],
         loader: "babel",
         query: {presets: ["react", "es2015"]},
       },
       {
         test: /\.js$/,
-        exclude: [],
+        exclude: [/node_modules/],
         loader: "babel",
         query: {presets: ["es2015"]},
       },
