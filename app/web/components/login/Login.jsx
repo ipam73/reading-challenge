@@ -2,7 +2,9 @@ import React from "react";
 import {connect} from "react-redux";
 import actions from "../../../actions";
 import Signup from "./Signup";
-require("!style!css!less!../add-student/AddStudent.less");
+import {Link} from "react-router";
+
+require("!style!css!less!./Login.less");
 
 // login button
 // trigger Google Login
@@ -36,6 +38,7 @@ class Login extends React.Component {
                   />
                 </button>
               </div>
+              <Link to="/support" className="Login--help-text">Need help?</Link>
             </div>
           </div>
         </div>
