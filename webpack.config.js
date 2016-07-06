@@ -17,6 +17,12 @@ module.exports = {
         loader: "babel",
         query: {presets: ["react", "es2015"]},
       },
+      {
+        test: /\.js$/,
+        exclude: [],
+        loader: "babel",
+        query: {presets: ["es2015"]},
+      },
       { // Support require('./abc.less')
         test: /\.less$/,
         exclude: /assets/,
