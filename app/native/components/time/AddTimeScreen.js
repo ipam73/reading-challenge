@@ -178,9 +178,13 @@ class AddTimeScreen extends React.Component {
 }
 
 function mapStateToProps(state, props) {
+  var parentID = '';
+  if (state.reducers.user) {
+    parentID = state.reducers.user.uid;
+  }
   const studentID = props.studentID;
   return {
-    parentID: state.reducers.parentID,
+    parentID,
     navigator: props.navigator,
     studentID,
     student: state.reducers.studentList[studentID],

@@ -82,7 +82,6 @@ function mapStateToProps(state, ownProps) {
   const studentID = ownProps.params.id; // from path '/student/:id'
 
   return {
-    parentID: state.reducers.parentID,
     studentID,
     user: state.reducers.user,
     student: state.reducers.studentList[studentID],
