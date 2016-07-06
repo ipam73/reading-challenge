@@ -24,7 +24,7 @@ module.exports = (
 
     res.render "parent-homepage", locals
 
-  logout: (req, res, next) ->
+  logout_student: (req, res, next) ->
     console.log "in logout"
     return res.redirect "#{auth_url}/logout"
 

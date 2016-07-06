@@ -47,7 +47,7 @@ module.exports = () ->
 
   # app.post '/addstudent', main_parent_routes.add_student
   app.get '/authorize_student', main_parent_routes.authorize_student
-  app.get '/logout', main_parent_routes.logout
+  app.get '/logout_student', main_parent_routes.logout_student
   app.get '/login_success', main_parent_routes.login_success
 
   app.get '/privacy', main_parent_routes.privacy
