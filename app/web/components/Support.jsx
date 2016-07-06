@@ -21,6 +21,14 @@ function Support() {
           </div>
         </div>
       </div>
+      <div className="panel application-panel container-fluid">
+        <div className="SUMMARYPANEL--panel-default">
+          <div className="SUMMARYPANEL--panel-body">
+            <h3 className="SUMMARYPANEL--panel-title">Getting Started</h3>
+            <iframe src="https://drive.google.com/file/d/0B9SRyd85Yz8ZQ09sQktjeTY2czQ/preview" width="640" height="480"></iframe>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
