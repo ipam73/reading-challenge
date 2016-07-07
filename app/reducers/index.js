@@ -94,10 +94,10 @@ function rootReducer(state, action) {
       return newstate;
 
     case Constants.LOGOUT_SUCCESS:
-      // console.log("in LOGOUT_SUCCESS");
-      newstate.user = null;
-      newstate.isAuthenticated = false;
-      return newstate;
+      // reset everything to initial state
+      // newstate.user = null;
+      // newstate.isAuthenticated = false;
+      return _.clone(initialState);
 
     case Constants.CREATE_USER_FAILURE:
       newstate.user = null;

@@ -46,28 +46,47 @@ var styles = StyleSheet.create({
   },
 });
 
-function AddStudent(props) {
-  console.log('in render for student list');
 
-  return (
-    <TouchableHighlight style={styles.row}>
-      <View style={styles.headingContainer}>
-        <View style={styles.headingText}>
-          <Text style={styles.headingTitle}>Add a Student</Text>
-          <TouchableHighlight onPress={() => props.addStudent(props.parentID)}>
-            <Image
-              style={styles.button}
-              source={icon}
-            />
-          </TouchableHighlight>
-          <Text>
-            Click the button to add a student using their Clever login credentials.
-            If you need help finding the right credentials please contact the school.
-          </Text>
+class AddStudent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.triggerAddStudent = this.triggerAddStudent.bind(this);
+  }
+
+  triggerAddStudent() {
+    console.log('adding student!');
+    const url = 'https://reading-challenge.herokuapp.com/addstudent?user=' + this.props.parentID;
+    Linking.canOpenURL(url).then(supported => {
+      if (!supported) {
+        console.log('Can\'t handle url: ' + url);
+      } else {
+        return Linking.openURL(url);
+      }
+    }).catch(err => console.error('An error occurred', err));
+    this.props.getStudentList(this.props.parentID);
+  }
+
+  render() {
+    return (
+      <TouchableHighlight style={styles.row}>
+        <View style={styles.headingContainer}>
+          <View style={styles.headingText}>
+            <Text style={styles.headingTitle}>Add a Student</Text>
+            <TouchableHighlight onPress={this.triggerAddStudent}>
+              <Image
+                style={styles.button}
+                source={icon}
+              />
+            </TouchableHighlight>
+            <Text>
+              Click the button to add a student using their Clever login credentials.
+              If you need help finding the right credentials please contact the school.
+            </Text>
+          </View>
         </View>
-      </View>
-    </TouchableHighlight>
-  );
+      </TouchableHighlight>
+    );
+  }
 }
 
 function mapStateToProps(state) {
@@ -82,16 +101,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addStudent: (parentID) => {
-      console.log('adding student!');
-      const url = 'https://reading-challenge.herokuapp.com/addstudent?user=' + parentID;
-      Linking.canOpenURL(url).then(supported => {
-        if (!supported) {
-          console.log('Can\'t handle url: ' + url);
-        } else {
-          return Linking.openURL(url);
-        }
-      }).catch(err => console.error('An error occurred', err));
+    getStudentList: (parentID) => {
       dispatch(actions.getStudentList(parentID));
     },
   };
