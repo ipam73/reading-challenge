@@ -65,8 +65,6 @@ function rootReducer(state, action) {
       return newstate;
 
     case Constants.SET_STUDENT_TIME:
-      // readDate,
-      // readTime,
       newstate.timeForm[action.studentID].timeRead = action.readTime;
       return newstate;
 
