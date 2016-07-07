@@ -54,7 +54,15 @@ class AddStudent extends React.Component {
   }
 
   triggerAddStudent() {
-    this.props.addStudent(this.props.parentID);
+    console.log('adding student!');
+    const url = 'https://reading-challenge.herokuapp.com/addstudent?user=' + this.props.parentID;
+    Linking.canOpenURL(url).then(supported => {
+      if (!supported) {
+        console.log('Can\'t handle url: ' + url);
+      } else {
+        return Linking.openURL(url);
+      }
+    }).catch(err => console.error('An error occurred', err));
     this.props.getStudentList(this.props.parentID);
   }
 
@@ -93,17 +101,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addStudent: (parentID) => {
-      console.log('adding student!');
-      const url = 'https://reading-challenge.herokuapp.com/addstudent?user=' + parentID;
-      Linking.canOpenURL(url).then(supported => {
-        if (!supported) {
-          console.log('Can\'t handle url: ' + url);
-        } else {
-          return Linking.openURL(url);
-        }
-      }).catch(err => console.error('An error occurred', err));
-    },
     getStudentList: (parentID) => {
       dispatch(actions.getStudentList(parentID));
     },
