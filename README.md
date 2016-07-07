@@ -32,12 +32,16 @@ make run
 ```
 
 To update apk:
-- update version in: `/android/app/src/main/AndroidManifest.xml` and `android/app/build.gradle`
-- `cd android && ./gradlew assembleRelease`
-- upload to dev console in play store
+- Update version in: `/android/app/src/main/AndroidManifest.xml` and `android/app/build.gradle`
+- Generete apk:  `cd android && ./gradlew assembleRelease`
+- Upload to dev console in play store
 
 To test on android device:
 - If old android phone, follow [instructions](http://stackoverflow.com/questions/34500020/referenceerror-cant-find-variable-fbbatchedbridge).  When entering port in dev settings, make sure to enter ip:8081.
+
+or
+- generate apk, install directly with
+
 
 To test:
 use this district id: `56ae8e9c5994560100000ae4`

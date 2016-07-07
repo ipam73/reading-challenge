@@ -103,7 +103,6 @@ function mapDispatchToProps(dispatch) {
           return Linking.openURL(url);
         }
       }).catch(err => console.error('An error occurred', err));
-      dispatch(actions.getStudentList(parentID));
     },
     getStudentList: (parentID) => {
       dispatch(actions.getStudentList(parentID));
