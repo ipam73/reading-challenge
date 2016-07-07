@@ -31,14 +31,13 @@ make run
     adb logcat *:S ReactNative:V ReactNativeJS:V // SHOWS ANDROID LOGS
 ```
 
-To generate apk:
+To update apk:
 - update version in: `/android/app/src/main/AndroidManifest.xml` and `android/app/build.gradle`
+- `cd android && ./gradlew assembleRelease`
+- upload to dev console in play store
 
-```
-  cd android && ./gradlew assembleRelease
-```
-
-- updload new apk to app store
+To test on android device:
+- If old android phone, follow [instructions](http://stackoverflow.com/questions/34500020/referenceerror-cant-find-variable-fbbatchedbridge).  When entering port in dev settings, make sure to enter ip:8081.
 
 To test:
 use this district id: `56ae8e9c5994560100000ae4`
