@@ -13,7 +13,11 @@ class Header extends React.Component {
           <ul className="nav navbar-nav pull-left">
             <li className="dropdown">
               <button className="HEADER--button btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                &#9776; &nbsp; Charm City Readers
+                <img
+                  src="/images/menu-alt-white.png"
+                  alt="Sign in with Google"
+                />
+                Charm City Readers
               </button>
               <ul className="dropdown-menu">
                 {this.props.user ?
