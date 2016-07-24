@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactGA from 'react-ga'
 import ReactDOM from 'react-dom';
 
 // router components
@@ -18,17 +19,23 @@ import reducers from '../reducers';
 import actions from '../actions';
 var reducer = combineReducers({reducers, routerReducer});
 
+// log page loads to google analytics
+ReactGA.initialize('UA-81211784-1', {debug: true});
+function logGoogleAnalytics() {
+  ReactGA.set({page: window.location.pathname});
+  ReactGA.pageview(window.location.pathname);
+}
+
 // store, takes reducer, thunk middleware
 var store = (window.devToolsExtension ? window.devToolsExtension()(createStore) : createStore)(reducer, applyMiddleware(thunk, routerMiddleware(hashHistory)));
 store.dispatch(actions.restoreAuth());
 ReactDOM.render((
   <Provider store={store}>
     <div>
-      <Router history={hashHistory}>
+      <Router history={hashHistory} onUpdate={logGoogleAnalytics}>
         {routes}
       </Router>
     </div>
   </Provider>
 
 ), document.getElementById('parent-home'));
-
