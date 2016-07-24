@@ -1,7 +1,10 @@
 {
   "name": "reading-challenge",
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start"
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "dev-server": "NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --colors --watch & node_modules/node-dev/bin/node-dev web/server.coffee; kill %1",
+    "build": "node_modules/rimraf/bin.js web/public/build && NODE_ENV=production node_modules/webpack/bin/webpack.js -p",
+    "start-server": "node_modules/node-dev/bin/node-dev web/server.coffee"
   },
   "dependencies": {
     "apsl-react-native-button": "^2.5.0",
@@ -63,6 +66,7 @@
   "devDependencies": {
     "babel-preset-react": "^6.5.0",
     "eslint-plugin-import": "^1.5.0",
-    "eslint-plugin-jsx-a11y": "^1.0.2"
+    "eslint-plugin-jsx-a11y": "^1.0.2",
+    "rimraf": "^2.5.3"
   }
 }

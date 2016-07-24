@@ -1,9 +1,15 @@
-.PHONY: run-web run-android lint
+.PHONY: run build clean lint
 
 JSX_FILES := $(shell find . -name "*.jsx" -not -path "./node_modules/*")
 
 run:
-	node_modules/webpack/bin/webpack.js --watch & node_modules/node-dev/bin/node-dev web/server.coffee
+	npm run-script dev-server
+
+build:
+	npm run-script build
+
+clean:
+	node_modules/rimraf/bin.js web/public/build
 
 lint:
 	./node_modules/.bin/eslint $(JSX_FILES)

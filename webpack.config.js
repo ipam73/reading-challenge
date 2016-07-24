@@ -5,7 +5,7 @@ module.exports = {
     "javascripts/main-parent.js": __dirname + "/app/web/main.jsx",
   },
   output: {
-    path: "web/public/build",
+    path: __dirname + "/web/public/build",
     filename: "[name]",
   },
   module: {
