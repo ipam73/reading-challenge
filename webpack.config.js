@@ -12,7 +12,7 @@ module.exports = {
     loaders: [
       {test: /\.coffee$/, loader: "coffee-loader"},
       {
-        test: /\.jsx$/,
+        test: /\.jsx?$/,
         exclude: [/node_modules/],
         loader: "babel",
         query: {presets: ["react", "es2015"]},
@@ -27,6 +27,10 @@ module.exports = {
         test: /\.less$/,
         exclude: /assets/,
         loader: "style-loader!css-loader!less-loader",
+      },
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract("style-loader", "css-loader"),
       },
     ],
   },
