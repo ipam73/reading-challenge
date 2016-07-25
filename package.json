@@ -4,7 +4,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "dev-server": "NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --colors --watch & node_modules/node-dev/bin/node-dev web/server.coffee; kill %1",
     "build": "node_modules/rimraf/bin.js web/public/build && NODE_ENV=production node_modules/webpack/bin/webpack.js -p",
-    "start-server": "node_modules/node-dev/bin/node-dev web/server.coffee"
+    "start-server": "NODE_ENV=production node_modules/node-dev/bin/node-dev web/server.coffee"
   },
   "dependencies": {
     "apsl-react-native-button": "^2.5.0",
