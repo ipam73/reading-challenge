@@ -3,7 +3,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "dev-server": "NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --colors --watch & node_modules/node-dev/bin/node-dev web/server.coffee; kill %1",
-    "build": "node_modules/rimraf/bin.js web/public/build && NODE_ENV=production node_modules/webpack/bin/webpack.js -p",
+    "build": "node_modules/rimraf/bin.js web/public/build && NODE_ENV=production node_modules/webpack/bin/webpack.js -p --config webpack.config.prod.js --progress --profile",
     "start-server": "NODE_ENV=production node_modules/node-dev/bin/node-dev web/server.coffee"
   },
   "dependencies": {
