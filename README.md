@@ -1,6 +1,14 @@
 # reading-challenge
 Reading Challenge App for School Districts
 
+## Production app
+Web app (deployed in heroku): https://reading-challenge.herokuapp.com
+Play store listing (web):  https://play.google.com/store/apps/details?id=com.reactnativesource&hl=en
+Play store listing, search "Charm City Readers".
+Play store listing, web link: https://play.google.com/store/apps/details?id=com.reactnativesource&hl=en
+
+## Developing
+
 You can see this on localhost:5001
 
 To run:
