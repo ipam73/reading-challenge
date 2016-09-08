@@ -119,7 +119,7 @@ addstudent = (client_id, redirect_uri, session_secret, auth_url) ->
     req.session.new_student = student
     console.log "before redirecting to new student"
     console.log "res.locals", res.locals
-    return res.redirect '/newstudent'
+    return res.redirect '/'
 
 module.exports = (client_id, client_secret, redirect_uri, session_secret, auth_url, api_url) ->
   {
