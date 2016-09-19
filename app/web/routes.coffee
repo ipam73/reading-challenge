@@ -129,5 +129,6 @@ module.exports = (
       err = students_lib.save_student student.id, student.first_name, student.school_id, student.school_name, student.district_id, student.grade, parent_id
       # do something if error
       # res.send(200)
-      res.redirect "/login_success"
+      res.redirect "/"
+      # res.redirect "/login_success"
       # res.redirect "/logout"
