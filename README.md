@@ -9,7 +9,7 @@ Reading Challenge App for School Districts
 
 ## Developing
 
-Server is running on localhost:5001
+You can see this on localhost:5000
 
 To run:
 
