@@ -39,6 +39,8 @@ make run
     adb logcat *:S ReactNative:V ReactNativeJS:V // SHOWS ANDROID LOGS
 ```
 
+If having problems, try running: `adb reverse tcp:8081 tcp:8081`
+
 To update apk:
 - Update version in: `/android/app/src/main/AndroidManifest.xml` and `android/app/build.gradle`
 - Generete apk:  `cd android && ./gradlew assembleRelease`
