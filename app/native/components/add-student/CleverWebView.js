@@ -21,11 +21,16 @@ var styles = StyleSheet.create({
 
 class CleverWebView extends React.Component {
   render() {
+    // var url = 'https://clever.com/oauth/authorize?response_type=code&client_id=xxxxx&redirect_uri=xxxx&district_id=xxxx';
+    // const url = "https://google.com";
+    const url = 'https://reading-challenge.herokuapp.com/addstudent?user=' + this.props.parentID;
+
+    console.log("parent id is: ", this.props.parentID);
     return (
       <WebView
         automaticallyAdjustContentInsets={false}
         style={styles.webView}
-        source={{uri: "http://google.com"}}
+        source={{uri: url}}
         javaScriptEnabled={true}
         domStorageEnabled={true}
         decelerationRate="normal"
