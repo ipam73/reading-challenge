@@ -54,16 +54,22 @@ class AddStudent extends React.Component {
   }
 
   triggerAddStudent() {
-    console.log('adding student!');
-    const url = 'https://reading-challenge.herokuapp.com/addstudent?user=' + this.props.parentID;
-    Linking.canOpenURL(url).then(supported => {
-      if (!supported) {
-        console.log('Can\'t handle url: ' + url);
-      } else {
-        return Linking.openURL(url);
-      }
-    }).catch(err => console.error('An error occurred', err));
-    this.props.getStudentList(this.props.parentID);
+
+    this.props.navigator.push({
+      name: 'CleverWebView',
+      title: 'Sign In With Clever',
+    });
+
+    // console.log('adding student!');
+    // const url = 'https://reading-challenge.herokuapp.com/addstudent?user=' + this.props.parentID;
+    // Linking.canOpenURL(url).then(supported => {
+    //   if (!supported) {
+    //     console.log('Can\'t handle url: ' + url);
+    //   } else {
+    //     return Linking.openURL(url);
+    //   }
+    // }).catch(err => console.error('An error occurred', err));
+    // this.props.getStudentList(this.props.parentID);
   }
 
   render() {
