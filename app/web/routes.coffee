@@ -37,8 +37,14 @@ module.exports = (
     console.log "in add_student here?!"
 
     console.log req.query.user
+
     redirect_uri = "#{redirect_base_uri}/authorize_student"
     state = crypto.createCipher('aes-256-ctr', session_secret).update(req.sessionID + "|" + req.query.user, 'utf8', 'hex')
+    if req.query.mobile
+      console.log "query is also mobile"
+      state = crypto.createCipher('aes-256-ctr', session_secret).update(req.sessionID + "|" + req.query.user + "|mobile", 'utf8', 'hex')
+
+
     params =
       response_type: 'code'
       redirect_uri: redirect_uri
@@ -63,6 +69,12 @@ module.exports = (
     state = crypto.createDecipher('aes-256-ctr', session_secret).update(req.query.state, 'hex', 'utf8').split('|')
     return res.redirect "/addstudent" if state[0] isnt req.sessionID
     parent_id = state[1]
+
+    isMobile = false
+    if state.length >= 3
+      if state[2] is 'mobile'
+        isMobile = true
+        console.log "it is mobile!"
 
     console.log "in authorize_student next"
 
@@ -129,6 +141,10 @@ module.exports = (
       err = students_lib.save_student student.id, student.first_name, student.school_id, student.school_name, student.district_id, student.grade, parent_id
       # do something if error
       # res.send(200)
-      res.redirect "/"
+
+      redirect_url = "/"
+      if isMobile
+        redirect_url = 'charm-city-readers://homepage'
+      res.redirect redirect_url
       # res.redirect "/login_success"
       # res.redirect "/logout"
